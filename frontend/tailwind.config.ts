@@ -36,7 +36,6 @@ export default {
                 "secondary-container": "#00eefc",
                 "on-error": "#690005",
                 "secondary-fixed-dim": "#00dbe9",
-                "surface": "#121315",
                 "surface-bright": "#38393b",
                 "on-error-container": "#ffdad6",
                 "on-secondary-fixed-variant": "#004f54",
@@ -54,22 +53,37 @@ export default {
                 "primary-fixed-dim": "#ffb693",
                 "on-secondary": "#00363a",
 
+                // Zinc-based Surface Palette (Remote branch contribution)
+                surface: {
+                    DEFAULT: "#18181b",
+                    deep: "#09090b",
+                    elevated: "#27272a",
+                    50: "#27272a",
+                    100: "#27272a",
+                    200: "#18181b",
+                    300: "#121214"
+                },
+
                 // Backward Compatibility Palette (Restored)
                 "surface-deep": "#1a1110",
                 "surface-elevated": "#4d332f",
                 "accent-muted": "#AB7E75",
                 "text-primary": "#f5f0ee",
                 "text-secondary": "#ab7e75",
-                "accent": {
+
+                accent: {
                     DEFAULT: "#EF8852",
-                    muted: "#AB7E75",
-                    deep: "#82463C",
-                    light: "#f3a57b"
+                    light: "#fdbba7",   // Light Peach
+                    bright: "#ff6b35",  // Bright Vibrant Orange
+                    amber: "#f59e0b",   // Amber/Yellow-Orange
+                    rust: "#d9480f",    // Deep Rust Orange
+                    muted: "#ab7e75",
+                    deep: "#82463c"
                 },
                 warm: {
-                    peach: "#EF8852",
-                    taupe: "#AB7E75",
-                    sienna: "#82463C",
+                    peach: "#ef8852",
+                    taupe: "#ab7e75",
+                    sienna: "#82463c",
                     chocolate: "#382522"
                 }
             },
@@ -78,7 +92,30 @@ export default {
                 "body": ["Manrope"],
                 "label": ["Space Grotesk"]
             },
-            borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+            borderRadius: {
+                "none": "0",
+                "sm": "0.125rem",
+                "DEFAULT": "4px",
+                "md": "0.375rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "2xl": "1rem",
+                "3xl": "1.5rem",
+                "full": "9999px"
+            },
+            boxShadow: {
+                "glow": "0 0 20px rgba(239, 136, 82, 0.4)",
+                "glow-orange": "0 0 20px rgba(255, 107, 0, 0.4)",
+                "glow-cyan": "0 0 20px rgba(0, 238, 252, 0.4)",
+                "glow-red": "0 0 20px rgba(239, 68, 68, 0.4)",
+                "glow-emerald": "0 0 20px rgba(52, 211, 153, 0.4)",
+                "glow-amber": "0 0 20px rgba(245, 158, 11, 0.4)",
+                "premium": "0 20px 50px -12px rgba(0, 0, 0, 0.9)",
+            },
+            backgroundImage: {
+                "forged-gradient": "linear-gradient(135deg, #ff6b00 0%, #ffb693 100%)",
+                "glass-gradient": "linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)",
+            },
             animation: {
                 "glow-pulse": "glow-pulse 2s ease-in-out infinite",
                 "fade-in": "fade-in 0.5s ease-out",
@@ -94,5 +131,26 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        function ({ addUtilities }: any) {
+            const newUtilities = {
+                '.perspective-1000': {
+                    perspective: '1000px',
+                },
+                '.rotate-y-12': {
+                    transform: 'rotateY(12deg)',
+                },
+                '.rotate-y-0': {
+                    transform: 'rotateY(0deg)',
+                },
+                '.text-glow-cyan': {
+                    textShadow: '0 0 15px rgba(0, 238, 252, 0.4)',
+                },
+                '.text-glow-orange': {
+                    textShadow: '0 0 15px rgba(255, 107, 0, 0.4)',
+                }
+            }
+            addUtilities(newUtilities)
+        }
+    ],
 };

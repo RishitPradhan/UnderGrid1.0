@@ -447,8 +447,8 @@ export default function DronePatrol() {
                             }
                         }}
                             className={`px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest flex items-center gap-2 transition-all duration-300 ${playing
-                                ? "bg-accent/20 text-accent border border-accent/40 shadow-[0_0_15px_rgba(239,136,82,0.2)]"
-                                : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 shadow-[0_0_15px_rgba(239,136,82,0.1)]"
+                                ? "bg-accent/20 text-accent border border-accent/40 shadow-[0_0_15px_rgba(239,136,82,0.05)]"
+                                : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 shadow-[0_0_15px_rgba(239,136,82,0.02)]"
                                 }`}>
                             {playing ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
                             {playing ? "PAUSE" : "DEPLOY"}

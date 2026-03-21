@@ -101,10 +101,10 @@ export default function SafetyReport({ simMiners, simAlerts, simZones }: SafetyR
                 rawStatus.includes("NORMAL") || rawStatus.includes("LOW") ? "NORMAL" : "UNKNOWN";
 
     const getStatusStyles = (s: string) => {
-        if (s.includes("CRITICAL")) return { bg: "bg-accent/10", border: "border-accent/30", text: "text-accent", glow: "shadow-[0_0_20px_rgba(239,136,82,0.15)]", label: "CRITICAL" };
-        if (s.includes("HIGH")) return { bg: "bg-accent/10", border: "border-accent/20", text: "text-accent/90", glow: "shadow-[0_0_15px_rgba(239,136,82,0.1)]", label: "HIGH RISK" };
-        if (s.includes("MODERATE")) return { bg: "bg-accent-muted/10", border: "border-accent-muted/30", text: "text-accent-muted", glow: "", label: "MODERATE" };
-        return { bg: "bg-surface-elevated/10", border: "border-accent/10", text: "text-text-secondary", glow: "", label: "NORMAL" };
+        if (s.includes("CRITICAL")) return { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-400", glow: "shadow-[0_0_20px_rgba(248,113,113,0.1)]", label: "CRITICAL" };
+        if (s.includes("HIGH")) return { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-400", glow: "shadow-[0_0_15px_rgba(245,158,11,0.05)]", label: "HIGH RISK" };
+        if (s.includes("MODERATE")) return { bg: "bg-yellow-500/10", border: "border-yellow-500/30", text: "text-yellow-400", glow: "", label: "MODERATE" };
+        return { bg: "bg-emerald-500/10", border: "border-emerald-500/20", text: "text-emerald-400", glow: "", label: "NORMAL" };
     };
 
     const statusStyle = getStatusStyles(status);

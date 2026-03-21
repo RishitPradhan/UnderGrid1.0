@@ -1,5 +1,19 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import {
+    ArrowRight,
+    ShieldCheck,
+    Activity,
+    ShieldAlert,
+    CheckCircle,
+    XCircle,
+    Zap,
+    LayoutDashboard,
+    Bot,
+    Terminal,
+    MapPin,
+    AlertTriangle
+} from "lucide-react";
 
 export default function Landing() {
     return (
@@ -44,7 +58,7 @@ export default function Landing() {
                         <div className="flex flex-wrap gap-4 pt-4">
                             <Link to="/dashboard" className="forged-gradient text-on-primary px-8 py-4 rounded-lg font-headline font-extrabold text-lg flex items-center gap-3 hover:shadow-[0_0_25px_rgba(255,107,0,0.3)] transition-all group">
                                 View Dashboard
-                                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                             </Link>
                             <button className="bg-surface-container-high border border-outline-variant/30 text-secondary px-8 py-4 rounded-lg font-headline font-bold text-lg hover:bg-surface-bright transition-all">
                                 Request Demo
@@ -62,7 +76,7 @@ export default function Landing() {
                                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                                 className="w-24 h-24 border-2 border-dashed border-outline-variant rounded-full flex items-center justify-center"
                             >
-                                <span className="material-symbols-outlined text-outline text-4xl">deployed_code</span>
+                                <LayoutDashboard className="text-outline w-12 h-12" />
                             </motion.div>
                             <p className="font-headline text-on-surface-variant/50 uppercase tracking-[0.3em] text-sm">3D Intelligence Mesh</p>
                         </div>
@@ -96,16 +110,16 @@ export default function Landing() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[
-                        { icon: "sensors", color: "primary", title: "Real-Time Monitoring", desc: "Continuous environmental scanning for temperature, humidity, and gas concentrations.", progress: "w-2/3", bg: "primary-container/20" },
-                        { icon: "model_training", color: "secondary", title: "AI-Powered Safety", desc: "Neural networks predict potential hazards before they manifest.", progress: "w-1/2", bg: "secondary-container/20" },
-                        { icon: "badge", color: "tertiary", title: "Worker Tracking", desc: "Precise RFID and beacon-based localization ensures every worker is accounted for.", progress: "w-3/4", bg: "tertiary-container/20" },
-                        { icon: "emergency_share", color: "error", title: "Emergency Response", desc: "Automated protocols coordinate rescue teams within milliseconds.", progress: "w-1/3", bg: "error-container/20" },
-                        { icon: "sms_failed", color: "primary", title: "Instant Alerts", desc: "Multi-channel integration for push notifications and emergency voice calls.", progress: "w-4/5", bg: "primary-container/20" },
-                        { icon: "cloud_done", color: "secondary", title: "Satellite Sync", desc: "Global reach via LEO satellite constellations ensuring connectivity anywhere.", progress: "w-2/5", bg: "secondary-container/20" }
+                        { icon: <MapPin />, color: "primary", title: "Real-Time Monitoring", desc: "Continuous environmental scanning for temperature, humidity, and gas concentrations.", progress: "w-2/3", bg: "primary-container/20" },
+                        { icon: <Bot />, color: "secondary", title: "AI-Powered Safety", desc: "Neural networks predict potential hazards before they manifest.", progress: "w-1/2", bg: "secondary-container/20" },
+                        { icon: <ShieldCheck />, color: "tertiary", title: "Worker Tracking", desc: "Precise RFID and beacon-based localization ensures every worker is accounted for.", progress: "w-3/4", bg: "tertiary-container/20" },
+                        { icon: <AlertTriangle />, color: "error", title: "Emergency Response", desc: "Automated protocols coordinate rescue teams within milliseconds.", progress: "w-1/3", bg: "error-container/20" },
+                        { icon: <Zap />, color: "primary", title: "Instant Alerts", desc: "Multi-channel integration for push notifications and emergency voice calls.", progress: "w-4/5", bg: "primary-container/20" },
+                        { icon: <Activity />, color: "secondary", title: "Satellite Sync", desc: "Global reach via LEO satellite constellations ensuring connectivity anywhere.", progress: "w-2/5", bg: "secondary-container/20" }
                     ].map((feature, idx) => (
                         <div key={idx} className="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
                             <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 border border-current opacity-80" style={{ color: `var(--${feature.color})`, backgroundColor: `rgba(var(--${feature.color}-rgb), 0.1)` }}>
-                                <span className={`material-symbols-outlined text-${feature.color}`}>{feature.icon}</span>
+                                <span className={`text-${feature.color}`}>{feature.icon}</span>
                             </div>
                             <h4 className="text-2xl font-headline font-bold mb-4">{feature.title}</h4>
                             <p className="text-on-surface-variant leading-relaxed mb-6">{feature.desc}</p>
@@ -169,14 +183,14 @@ export default function Landing() {
                             </p>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-4">
-                                    <span className="material-symbols-outlined text-primary mt-1">check_circle</span>
+                                    <CheckCircle className="text-primary mt-1 w-5 h-5" />
                                     <div>
                                         <span className="font-bold text-on-surface block">Predictive Hazard Detection</span>
                                         <span className="text-on-surface-variant text-sm text-left block">Algorithms calculate cave-in probabilities and toxic gas build-up.</span>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-4">
-                                    <span className="material-symbols-outlined text-primary mt-1">check_circle</span>
+                                    <CheckCircle className="text-primary mt-1 w-5 h-5" />
                                     <div>
                                         <span className="font-bold text-on-surface block text-left">Worker Vitals Tracking</span>
                                         <span className="text-on-surface-variant text-sm text-left block">Biometric integration for real-time health monitoring.</span>
@@ -196,14 +210,14 @@ export default function Landing() {
                 <div className="relative grid md:grid-cols-4 gap-8">
                     <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent z-0"></div>
                     {[
-                        { icon: "settings_input_antenna", title: "Data Collection", desc: "Sensors harvest terabytes of environmental data.", border: "primary" },
-                        { icon: "psychology_alt", title: "AI Analysis", desc: "UnderGrid AI processes patterns to identify risk vectors.", border: "secondary" },
-                        { icon: "report_problem", title: "Risk Detection", desc: "Potential hazards are flagged before they become critical.", border: "tertiary" },
-                        { icon: "campaign", title: "Alert Trigger", desc: "Instant multi-channel notifications and protocols.", border: "error" }
+                        { icon: <Zap />, title: "Data Collection", desc: "Sensors harvest terabytes of environmental data.", border: "primary" },
+                        { icon: <Bot />, title: "AI Analysis", desc: "UnderGrid AI processes patterns to identify risk vectors.", border: "secondary" },
+                        { icon: <AlertTriangle />, title: "Risk Detection", desc: "Potential hazards are flagged before they become critical.", border: "tertiary" },
+                        { icon: <ShieldAlert />, title: "Alert Trigger", desc: "Instant multi-channel notifications and protocols.", border: "error" }
                     ].map((step, idx) => (
                         <div key={idx} className="relative z-10 text-center space-y-4 group">
                             <div className={`w-24 h-24 mx-auto ${idx === 0 ? 'forged-gradient' : 'glass-panel'} rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform border border-transparent`}>
-                                <span className={`material-symbols-outlined text-4xl ${idx === 0 ? 'text-on-primary' : `text-${step.border}`}`}>{step.icon}</span>
+                                <span className={`text-4xl ${idx === 0 ? 'text-on-primary' : `text-${step.border}`}`}>{step.icon}</span>
                             </div>
                             <h4 className="text-xl font-headline font-bold pt-4">{step.title}</h4>
                             <p className="text-sm text-on-surface-variant">{step.desc}</p>
@@ -257,4 +271,3 @@ export default function Landing() {
         </div>
     );
 }
-
