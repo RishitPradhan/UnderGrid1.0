@@ -5,6 +5,10 @@ import {
     Users, Activity, Zap, Clock, Radio
 } from "lucide-react";
 import axios from "axios";
+import { useSimContext } from "@/context/SimContext";
+import BiometricsPanel from "@/components/BiometricsPanel";
+import HazardHeatmap from "@/components/HazardHeatmap";
+import HelmetHUD from "@/components/HelmetHUD";
 
 const SERVER = "http://localhost:3000";
 
@@ -166,13 +170,19 @@ export default function LiveMinerSimulation({
 }: LiveMinerSimulationProps) {
     const [voiceEnabled, setVoiceEnabled] = useState(true);
     const [toasts, setToasts] = useState<SimAlertEntry[]>([]);
+    const [selectedMiner, setSelectedMiner] = useState<SimMiner | null>(null);
+    const [hudMiner, setHudMiner] = useState<SimMiner | null>(null);
 
     const mapRef = useRef<HTMLDivElement>(null);
     const mapObjRef = useRef<any>(null);
     const markersRef = useRef<Map<string, any>>(new Map());
+    const droneMarkersOnSimRef = useRef<Map<string, any>>(new Map());
+    const seismicRipplesRef = useRef<any[]>([]);
+    const evacPolylinesRef = useRef<any[]>([]);
     const zonesRef = useRef<any[]>([]);
     const [mapReady, setMapReady] = useState(false);
     const prevAlertCountRef = useRef(simAlerts.length);
+    const { simDrones, simSeismicEvents, simEvacRoutes } = useSimContext();
 
     /* ─── Voice ─── */
     const speak = useCallback((text: string) => {
@@ -239,7 +249,14 @@ export default function LiveMinerSimulation({
         mapObjRef.current = map;
         setMapReady(true);
 
-        return () => { map.remove(); mapObjRef.current = null; setMapReady(false); };
+        return () => {
+            map.remove();
+            mapObjRef.current = null;
+            markersRef.current.clear();
+            droneMarkersOnSimRef.current.clear();
+            zonesRef.current = [];
+            setMapReady(false);
+        };
     }, []);
 
     /* ─── Update markers when miners change ─── */
@@ -302,10 +319,119 @@ export default function LiveMinerSimulation({
             } else {
                 const marker = L.marker([m.lat, m.lng], { icon, zIndexOffset: 1000 })
                     .addTo(map).bindPopup(popup, { maxWidth: 280 });
+
+                // Click: open biometrics panel
+                marker.on("click", () => {
+                    const currentMiner = miners.find(mi => mi.id === m.id) || m;
+                    setSelectedMiner(currentMiner);
+                });
+
+                // Double-click: open helmet HUD
+                marker.on("dblclick", (e: any) => {
+                    e.originalEvent?.preventDefault?.();
+                    const currentMiner = miners.find(mi => mi.id === m.id) || m;
+                    setHudMiner(currentMiner);
+                });
+
                 markersRef.current.set(m.id, marker);
             }
         });
     }, [miners, mapReady]);
+
+    /* ─── Render drone markers from global context ─── */
+    useEffect(() => {
+        if (!mapReady) return;
+        const L = (window as any).L;
+        const map = mapObjRef.current;
+        if (!L || !map) return;
+
+        simDrones.forEach(drone => {
+            const existing = droneMarkersOnSimRef.current.get(drone.id);
+            const isEmergency = drone.status === "emergency";
+            const glowColor = isEmergency ? "rgba(255,51,51,0.6)" : `${drone.color}80`;
+            const html = `<div style="position:relative;display:flex;flex-direction:column;align-items:center;pointer-events:auto;cursor:pointer">
+  <div style="position:relative;width:32px;height:32px;display:flex;justify-content:center;align-items:center">
+    <div style="position:absolute;width:40px;height:40px;border-radius:50%;background:${glowColor};opacity:0.35;animation:danger-marker-pulse 1.5s ease-in-out infinite;top:-4px;left:-4px"></div>
+    <div style="width:32px;height:32px;background:${drone.color}25;border-radius:50%;border:2px solid ${isEmergency ? '#ff3333' : drone.color};box-shadow:0 0 14px ${glowColor};display:flex;align-items:center;justify-content:center;font-size:14px;position:relative;z-index:1">🛸</div>
+  </div>
+  <div style="margin-top:2px;background:rgba(0,0,0,0.82);border:1px solid ${drone.color}50;border-radius:4px;padding:1px 5px;white-space:nowrap;text-align:center">
+    <div style="font-size:8px;font-weight:700;color:${drone.color}">🛸 ${drone.name}</div>
+    <div style="font-size:7px;color:rgba(255,255,255,0.4)">${isEmergency ? '⚠ EMERGENCY' : drone.status.toUpperCase()}</div>
+  </div>
+</div>`;
+            const icon = L.divIcon({ html, className: "miner-marker-icon", iconSize: [100, 58], iconAnchor: [50, 16] });
+            if (existing) {
+                existing.setLatLng([drone.lat, drone.lng]);
+                existing.setIcon(icon);
+            } else {
+                const marker = L.marker([drone.lat, drone.lng], { icon, zIndexOffset: 1500 })
+                    .addTo(map)
+                    .bindPopup(`<div style="min-width:160px;background:#1a1a1a;color:#fff;padding:8px;border-radius:8px"><b style="color:${drone.color}">🛸 Drone ${drone.name}</b><br/><span style="color:#888;font-size:11px">Status: ${drone.status.toUpperCase()}</span></div>`);
+                droneMarkersOnSimRef.current.set(drone.id, marker);
+            }
+        });
+
+        // Remove drones that no longer exist in context
+        droneMarkersOnSimRef.current.forEach((marker, id) => {
+            if (!simDrones.find(d => d.id === id)) {
+                map.removeLayer(marker);
+                droneMarkersOnSimRef.current.delete(id);
+            }
+        });
+    }, [simDrones, mapReady]);
+
+    /* ─── Seismic ripple markers on map ─── */
+    useEffect(() => {
+        if (!mapReady) return;
+        const L = (window as any).L;
+        const map = mapObjRef.current;
+        if (!L || !map) return;
+
+        // Remove old ripples
+        seismicRipplesRef.current.forEach(layer => map.removeLayer(layer));
+        seismicRipplesRef.current = [];
+
+        // Show only the 3 most recent events
+        simSeismicEvents.slice(0, 3).forEach((ev, idx) => {
+            const opacity = 0.4 - idx * 0.12;
+            const circle = L.circle([ev.epicenter.lat, ev.epicenter.lng], {
+                radius: 80 + ev.magnitude * 50,
+                color: ev.magnitude > 2.5 ? "#ff3333" : "#f59e0b",
+                fillColor: ev.magnitude > 2.5 ? "#ff3333" : "#f59e0b",
+                fillOpacity: Math.max(0.05, opacity * 0.3),
+                weight: 1.5,
+                opacity: Math.max(0.1, opacity),
+                className: "seismic-ripple",
+            }).addTo(map);
+            circle.bindPopup(`<b>Seismic Event</b><br/>Magnitude: ${ev.magnitude}<br/>Type: ${ev.type}<br/>Depth: ${ev.depth}m`);
+            seismicRipplesRef.current.push(circle);
+        });
+    }, [simSeismicEvents, mapReady]);
+
+    /* ─── Evacuation route polylines on map ─── */
+    useEffect(() => {
+        if (!mapReady) return;
+        const L = (window as any).L;
+        const map = mapObjRef.current;
+        if (!L || !map) return;
+
+        // Remove old routes
+        evacPolylinesRef.current.forEach(layer => map.removeLayer(layer));
+        evacPolylinesRef.current = [];
+
+        simEvacRoutes.forEach(route => {
+            if (route.path.length < 2) return;
+            const line = L.polyline(route.path, {
+                color: "#00ff88",
+                weight: 3,
+                opacity: 0.7,
+                dashArray: "8, 12",
+                className: "evac-route-line",
+            }).addTo(map);
+            line.bindPopup(`<b>Evac Route</b><br/>${route.minerName}`);
+            evacPolylinesRef.current.push(line);
+        });
+    }, [simEvacRoutes, mapReady]);
 
     /* ─── Watch for new alerts to show toasts + voice (only when component is mounted) ─── */
     useEffect(() => {
@@ -443,6 +569,12 @@ export default function LiveMinerSimulation({
                 {/* Map */}
                 <div className="xl:col-span-2 glass-card overflow-hidden relative">
                     <div ref={mapRef} className="w-full h-[500px]" style={{ minHeight: 400 }} />
+
+                    {/* Biometrics Panel (click a miner marker) */}
+                    <BiometricsPanel miner={selectedMiner} onClose={() => setSelectedMiner(null)} />
+
+                    {/* Helmet AR HUD (double-click a miner) */}
+                    <HelmetHUD miner={hudMiner} onClose={() => setHudMiner(null)} />
 
                     {/* Toast Alerts */}
                     <div className="absolute top-3 right-3 z-[1000] space-y-2 w-72">

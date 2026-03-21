@@ -21,12 +21,15 @@ import LiveMinerSimulation, {
 } from "@/components/LiveMinerSimulation";
 import AITerminal from "@/components/AITerminal";
 import GlobalAIPopup from "@/components/GlobalAIPopup";
+import SeismicMonitor from "@/components/SeismicMonitor";
+import VentilationControl from "@/components/VentilationControl";
+import EvacuationRoutes from "@/components/EvacuationRoutes";
 import { useSimContext } from "@/context/SimContext";
 
 
 
 
-type Section = "overview" | "zones" | "miners" | "alerts" | "report" | "incidents" | "drone" | "ai-terminal";
+type Section = "overview" | "zones" | "miners" | "alerts" | "report" | "incidents" | "drone" | "ai-terminal" | "seismic" | "ventilation";
 
 const navItems: { id: Section; label: string; icon: any }[] = [
     { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -36,6 +39,8 @@ const navItems: { id: Section; label: string; icon: any }[] = [
     { id: "report", label: "AI Report", icon: FileText },
     { id: "incidents", label: "Incidents", icon: Clock },
     { id: "drone", label: "Drone", icon: Crosshair },
+    { id: "seismic", label: "Seismic", icon: Activity },
+    { id: "ventilation", label: "Ventilation", icon: HardHat },
     { id: "ai-terminal", label: "AI Terminal", icon: Terminal },
 ];
 
@@ -277,9 +282,23 @@ export default function Dashboard() {
                     </div>
                 </header>
 
-                <div className="p-5 max-w-[1400px] mx-auto">
+                <div className="p-5 max-w-[1400px] mx-auto relative">
+                    {/* Keep DronePatrol explicitly mounted in background to preserve simulation loop */}
+                    <div
+                        className="transition-opacity duration-300"
+                        style={{
+                            position: active === "drone" ? "relative" : "absolute",
+                            opacity: active === "drone" ? 1 : 0,
+                            pointerEvents: active === "drone" ? "auto" : "none",
+                            zIndex: active === "drone" ? 10 : -10,
+                            top: 20, left: 20, right: 20
+                        }}
+                    >
+                        <DroneSection />
+                    </div>
+
                     <AnimatePresence mode="wait">
-                        <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
+                        <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className={active === "drone" ? "hidden" : "block"}>
                             {active === "overview" && (
                                 <OverviewSection
                                     simMiners={simMiners} setSimMiners={setSimMiners}
@@ -298,7 +317,8 @@ export default function Dashboard() {
                             {active === "alerts" && <AlertsSection simAlerts={simAlerts} clearSimAlerts={() => setSimAlerts([])} />}
                             {active === "report" && <ReportSection simMiners={simMiners} simAlerts={simAlerts} simZones={simZones} />}
                             {active === "incidents" && <IncidentsSection />}
-                            {active === "drone" && <DroneSection />}
+                            {active === "seismic" && <SeismicMonitor />}
+                            {active === "ventilation" && <VentilationControl />}
                             {active === "ai-terminal" && <AITerminalSection simMiners={simMiners} simAlerts={simAlerts} simZones={simZones} />}
                         </motion.div>
                     </AnimatePresence>
@@ -440,6 +460,9 @@ function OverviewSection({
                     )}
                 </div>
             </div>
+
+            {/* Evacuation Routing */}
+            <EvacuationRoutes />
 
             {/* Live Miner Simulation */}
             <LiveMinerSimulation
