@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Users, HardHat, MapPin, Clock, RefreshCw, AlertTriangle,
     Wifi, WifiOff, Activity, Map, List
 } from "lucide-react";
 import MinersMap from "./MinersMap";
+import { useSimContext } from "@/context/SimContext";
 
 export interface Worker {
     _id: string;
@@ -19,20 +19,6 @@ export interface Worker {
     __v: number;
 }
 
-const SERVER = "http://localhost:3000";
-
-const mockWorkers: Worker[] = [
-    { _id: "m1", name: "Ravi Kumar", workerId: "W001", helmetId: "H001", role: "Miner", currentLocation: { type: "Point", coordinates: [82.5627, 22.3129], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m2", name: "Nirupon Pal", workerId: "W002", helmetId: "H002", role: "Miner", currentLocation: { type: "Point", coordinates: [82.5630, 22.3130], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m3", name: "John Doe", workerId: "W003", helmetId: "H003", role: "Engineer", currentLocation: { type: "Point", coordinates: [82.5620, 22.3128], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m4", name: "Priya Sharma", workerId: "W004", helmetId: "H004", role: "Safety Officer", currentLocation: { type: "Point", coordinates: [82.5628, 22.3130], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m5", name: "Amit Singh", workerId: "W005", helmetId: "H005", role: "Electrician", currentLocation: { type: "Point", coordinates: [82.5625, 22.3129], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m6", name: "Rajesh Patel", workerId: "W006", helmetId: "H006", role: "Operator", currentLocation: { type: "Point", coordinates: [82.5632, 22.3131], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m7", name: "Sunita Devi", workerId: "W007", helmetId: "H007", role: "Welder", currentLocation: { type: "Point", coordinates: [82.5629, 22.3129], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m8", name: "Vikram Singh", workerId: "W008", helmetId: "H008", role: "Technician", currentLocation: { type: "Point", coordinates: [82.5631, 22.3130], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-    { _id: "m9", name: "Anita Kumari", workerId: "W009", helmetId: "H009", role: "Plumber", currentLocation: { type: "Point", coordinates: [82.5627, 22.3129], timeStamp: new Date().toISOString() }, lastUpdated: new Date().toISOString(), __v: 0 },
-];
-
 const roleColors: Record<string, string> = {
     miner: "#00d4ff", engineer: "#3b82f6", "safety officer": "#00ff88",
     electrician: "#eab308", welder: "#f97316", plumber: "#06b6d4",
@@ -40,31 +26,42 @@ const roleColors: Record<string, string> = {
 };
 
 export default function LiveMinersData() {
+    const { simMiners } = useSimContext();
     const [workers, setWorkers] = useState<Worker[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isOnline, setIsOnline] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isOnline, setIsOnline] = useState(true);
     const [lastUpdate, setLastUpdate] = useState("");
     const [view, setView] = useState<"list" | "map">("list");
 
-    const fetchData = async () => {
-        try {
-            setLoading(true);
-            const res = await axios.get(`${SERVER}/worker`, { timeout: 15000 });
-            if (res.data.success && res.data.data) {
-                setWorkers(res.data.data);
-                setIsOnline(true);
-            } else throw new Error("bad response");
-        } catch {
-            setIsOnline(false);
-            if (workers.length === 0) setWorkers(mockWorkers);
-        } finally {
-            setLoading(false);
+    // Sync from simulation context to Worker format
+    useEffect(() => {
+        if (simMiners.length > 0) {
+            const mappedWorkers: Worker[] = simMiners.map(m => ({
+                _id: m.id,
+                name: m.name,
+                workerId: m.workerId,
+                helmetId: `H${m.workerId.replace('W', '')}`,
+                role: m.role,
+                currentLocation: {
+                    type: "Point",
+                    coordinates: [m.lng, m.lat], // GeoJSON is [lng, lat]
+                    timeStamp: new Date().toISOString()
+                },
+                lastUpdated: new Date().toISOString(),
+                riskZone: m.inDanger,
+                __v: 0
+            }));
+            setWorkers(mappedWorkers);
+            setIsOnline(true);
             setLastUpdate(new Date().toLocaleTimeString());
         }
-    };
+    }, [simMiners]);
 
-    useEffect(() => { fetchData(); }, []);
-    useEffect(() => { const id = setInterval(fetchData, 30000); return () => clearInterval(id); }, []);
+    const fetchData = () => {
+        // Just a dummy refresh for UI feedback since it's already real-time streamed
+        setLoading(true);
+        setTimeout(() => setLoading(false), 500);
+    };
 
     const getStatus = (ts: string) => {
         const m = Math.floor((Date.now() - Date.parse(ts)) / 60000);

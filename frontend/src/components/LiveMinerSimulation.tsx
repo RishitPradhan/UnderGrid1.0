@@ -5,6 +5,7 @@ import {
     Users, Activity, Zap, Clock, Radio
 } from "lucide-react";
 import axios from "axios";
+import { useSimContext } from "@/context/SimContext";
 
 const SERVER = "http://localhost:3000";
 
@@ -170,9 +171,11 @@ export default function LiveMinerSimulation({
     const mapRef = useRef<HTMLDivElement>(null);
     const mapObjRef = useRef<any>(null);
     const markersRef = useRef<Map<string, any>>(new Map());
+    const droneMarkersOnSimRef = useRef<Map<string, any>>(new Map());
     const zonesRef = useRef<any[]>([]);
     const [mapReady, setMapReady] = useState(false);
     const prevAlertCountRef = useRef(simAlerts.length);
+    const { simDrones } = useSimContext();
 
     /* ─── Voice ─── */
     const speak = useCallback((text: string) => {
@@ -239,7 +242,14 @@ export default function LiveMinerSimulation({
         mapObjRef.current = map;
         setMapReady(true);
 
-        return () => { map.remove(); mapObjRef.current = null; setMapReady(false); };
+        return () => {
+            map.remove();
+            mapObjRef.current = null;
+            markersRef.current.clear();
+            droneMarkersOnSimRef.current.clear();
+            zonesRef.current = [];
+            setMapReady(false);
+        };
     }, []);
 
     /* ─── Update markers when miners change ─── */
@@ -306,6 +316,48 @@ export default function LiveMinerSimulation({
             }
         });
     }, [miners, mapReady]);
+
+    /* ─── Render drone markers from global context ─── */
+    useEffect(() => {
+        if (!mapReady) return;
+        const L = (window as any).L;
+        const map = mapObjRef.current;
+        if (!L || !map) return;
+
+        simDrones.forEach(drone => {
+            const existing = droneMarkersOnSimRef.current.get(drone.id);
+            const isEmergency = drone.status === "emergency";
+            const glowColor = isEmergency ? "rgba(255,51,51,0.6)" : `${drone.color}80`;
+            const html = `<div style="position:relative;display:flex;flex-direction:column;align-items:center;pointer-events:auto;cursor:pointer">
+  <div style="position:relative;width:32px;height:32px;display:flex;justify-content:center;align-items:center">
+    <div style="position:absolute;width:40px;height:40px;border-radius:50%;background:${glowColor};opacity:0.35;animation:danger-marker-pulse 1.5s ease-in-out infinite;top:-4px;left:-4px"></div>
+    <div style="width:32px;height:32px;background:${drone.color}25;border-radius:50%;border:2px solid ${isEmergency ? '#ff3333' : drone.color};box-shadow:0 0 14px ${glowColor};display:flex;align-items:center;justify-content:center;font-size:14px;position:relative;z-index:1">🛸</div>
+  </div>
+  <div style="margin-top:2px;background:rgba(0,0,0,0.82);border:1px solid ${drone.color}50;border-radius:4px;padding:1px 5px;white-space:nowrap;text-align:center">
+    <div style="font-size:8px;font-weight:700;color:${drone.color}">🛸 ${drone.name}</div>
+    <div style="font-size:7px;color:rgba(255,255,255,0.4)">${isEmergency ? '⚠ EMERGENCY' : drone.status.toUpperCase()}</div>
+  </div>
+</div>`;
+            const icon = L.divIcon({ html, className: "miner-marker-icon", iconSize: [100, 58], iconAnchor: [50, 16] });
+            if (existing) {
+                existing.setLatLng([drone.lat, drone.lng]);
+                existing.setIcon(icon);
+            } else {
+                const marker = L.marker([drone.lat, drone.lng], { icon, zIndexOffset: 1500 })
+                    .addTo(map)
+                    .bindPopup(`<div style="min-width:160px;background:#1a1a1a;color:#fff;padding:8px;border-radius:8px"><b style="color:${drone.color}">🛸 Drone ${drone.name}</b><br/><span style="color:#888;font-size:11px">Status: ${drone.status.toUpperCase()}</span></div>`);
+                droneMarkersOnSimRef.current.set(drone.id, marker);
+            }
+        });
+
+        // Remove drones that no longer exist in context
+        droneMarkersOnSimRef.current.forEach((marker, id) => {
+            if (!simDrones.find(d => d.id === id)) {
+                map.removeLayer(marker);
+                droneMarkersOnSimRef.current.delete(id);
+            }
+        });
+    }, [simDrones, mapReady]);
 
     /* ─── Watch for new alerts to show toasts + voice (only when component is mounted) ─── */
     useEffect(() => {

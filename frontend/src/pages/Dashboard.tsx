@@ -277,9 +277,23 @@ export default function Dashboard() {
                     </div>
                 </header>
 
-                <div className="p-5 max-w-[1400px] mx-auto">
+                <div className="p-5 max-w-[1400px] mx-auto relative">
+                    {/* Keep DronePatrol explicitly mounted in background to preserve simulation loop */}
+                    <div
+                        className="transition-opacity duration-300"
+                        style={{
+                            position: active === "drone" ? "relative" : "absolute",
+                            opacity: active === "drone" ? 1 : 0,
+                            pointerEvents: active === "drone" ? "auto" : "none",
+                            zIndex: active === "drone" ? 10 : -10,
+                            top: 20, left: 20, right: 20
+                        }}
+                    >
+                        <DroneSection />
+                    </div>
+
                     <AnimatePresence mode="wait">
-                        <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
+                        <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className={active === "drone" ? "hidden" : "block"}>
                             {active === "overview" && (
                                 <OverviewSection
                                     simMiners={simMiners} setSimMiners={setSimMiners}
@@ -298,7 +312,6 @@ export default function Dashboard() {
                             {active === "alerts" && <AlertsSection simAlerts={simAlerts} clearSimAlerts={() => setSimAlerts([])} />}
                             {active === "report" && <ReportSection simMiners={simMiners} simAlerts={simAlerts} simZones={simZones} />}
                             {active === "incidents" && <IncidentsSection />}
-                            {active === "drone" && <DroneSection />}
                             {active === "ai-terminal" && <AITerminalSection simMiners={simMiners} simAlerts={simAlerts} simZones={simZones} />}
                         </motion.div>
                     </AnimatePresence>
