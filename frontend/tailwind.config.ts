@@ -6,13 +6,13 @@ export default {
             fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
             colors: {
                 surface: {
-                    DEFAULT: "#382522",
-                    deep: "#1a1110",
-                    elevated: "#4d332f",
-                    50: "#4d332f",
-                    100: "#3d2925",
-                    200: "#382522",
-                    300: "#2d1e1c"
+                    DEFAULT: "#18181b",
+                    deep: "#09090b",
+                    elevated: "#27272a",
+                    50: "#27272a",
+                    100: "#27272a",
+                    200: "#18181b",
+                    300: "#121214"
                 },
                 accent: {
                     DEFAULT: "#EF8852",
