@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MineSafe-v2 | AI-Powered Mine Safety</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-surface-variant": "#e2bfb0",
+                "surface-container-highest": "#343537",
+                "on-tertiary-container": "#530073",
+                "on-background": "#e3e2e5",
+                "secondary-fixed": "#7df4ff",
+                "on-tertiary": "#520071",
+                "surface-dim": "#121315",
+                "on-surface": "#e3e2e5",
+                "surface-container-high": "#292a2c",
+                "on-primary-fixed": "#351000",
+                "on-primary-fixed-variant": "#7a3000",
+                "tertiary": "#ebb2ff",
+                "primary": "#ffb693",
+                "outline-variant": "#5a4136",
+                "on-tertiary-fixed-variant": "#74009f",
+                "on-secondary-fixed": "#002022",
+                "inverse-primary": "#a04100",
+                "surface-container-low": "#1b1c1e",
+                "on-tertiary-fixed": "#320047",
+                "primary-container": "#ff6b00",
+                "secondary": "#00eeec",
+                "on-primary-container": "#572000",
+                "surface-container-lowest": "#0d0e10",
+                "surface-tint": "#ffb693",
+                "inverse-on-surface": "#303033",
+                "surface-container": "#1f2022",
+                "background": "#121315",
+                "secondary-container": "#00eefc",
+                "on-error": "#690005",
+                "secondary-fixed-dim": "#00dbe9",
+                "surface": "#121315",
+                "surface-bright": "#38393b",
+                "on-error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#004f54",
+                "outline": "#a98a7d",
+                "error-container": "#93000a",
+                "tertiary-container": "#d36cff",
+                "primary-fixed": "#ffdbcc",
+                "tertiary-fixed": "#f8d8ff",
+                "tertiary-fixed-dim": "#ebb2ff",
+                "on-secondary-container": "#00686f",
+                "inverse-surface": "#e3e2e5",
+                "on-primary": "#561f00",
+                "error": "#ffb4ab",
+                "surface-variant": "#343537",
+                "primary-fixed-dim": "#ffb693",
+                "on-secondary": "#00363a"
+              },
+              fontFamily: {
+                "headline": ["Space Grotesk"],
+                "body": ["Manrope"],
+                "label": ["Space Grotesk"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #121315; color: #e3e2e5; overflow-x: hidden; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(52, 53, 55, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(90, 65, 54, 0.15); }
+        .glow-primary { box-shadow: 0 0 40px rgba(255, 107, 0, 0.08); }
+        .forged-gradient { background: linear-gradient(135deg, #ff6b00 0%, #ffb693 100%); }
+        .text-glow-cyan { text-shadow: 0 0 15px rgba(0, 238, 252, 0.4); }
+        .kinetic-border { position: relative; }
+        .kinetic-border::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: #ff6b00; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-variant/60 backdrop-blur-xl dark:bg-[#343537]/60 shadow-[0_0_40px_rgba(255,107,0,0.08)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#E3E2E5] uppercase font-headline">MineSafe-v2</div>
+<div class="hidden md:flex items-center gap-8 font-headline tracking-tight">
+<a class="text-[#FFB693] font-bold border-b-2 border-[#FF6B00] pb-1" href="#">Platform</a>
+<a class="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Solutions</a>
+<a class="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Network</a>
+<a class="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Company</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden lg:block text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors font-label font-medium uppercase text-xs tracking-widest">Login</button>
+<button class="forged-gradient text-on-primary px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-tight hover:scale-[1.02] active:scale-95 transition-all duration-300">Request Demo</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col justify-center pt-24 pb-16 px-8 max-w-[1440px] mx-auto">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="z-10 space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/20">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant">System Status: Active</span>
+</div>
+<h1 class="text-6xl md:text-7xl lg:text-8xl font-headline font-bold tracking-tighter leading-[0.9] text-on-surface">
+                    AI-Powered <br/>
+<span class="text-primary">Mine Safety</span> &amp; Monitoring
+                </h1>
+<p class="text-xl md:text-2xl text-on-surface-variant font-body max-w-xl leading-relaxed">
+                    Protect workers. Predict risks. Prevent disasters. The world's first industrial-grade kinetic safety intelligence platform.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="forged-gradient text-on-primary px-8 py-4 rounded-lg font-headline font-extrabold text-lg flex items-center gap-3 hover:shadow-[0_0_25px_rgba(255,107,0,0.3)] transition-all group">
+                        View Dashboard
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="bg-surface-container-high border border-outline-variant/30 text-secondary px-8 py-4 rounded-lg font-headline font-bold text-lg hover:bg-surface-bright transition-all">
+                        Request Demo
+                    </button>
+</div>
+</div>
+<!-- 3D Spline Placeholder Area -->
+<div class="relative h-[500px] lg:h-[700px] w-full rounded-xl overflow-hidden bg-surface-container-low border border-outline-variant/10 flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/10 via-transparent to-secondary-container/5"></div>
+<!-- Abstract UI lines simulation -->
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#5a4136 1px, transparent 1px); background-size: 40px 40px;"></div>
+<div class="z-10 text-center flex flex-col items-center gap-4">
+<div class="w-24 h-24 border-2 border-dashed border-outline-variant rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite]">
+<span class="material-symbols-outlined text-outline text-4xl">deployed_code</span>
+</div>
+<p class="font-headline text-on-surface-variant/50 uppercase tracking-[0.3em] text-sm">3D Model Here (Spline Embed)</p>
+</div>
+<!-- Floating Data Chips -->
+<div class="absolute top-10 right-10 glass-panel p-4 rounded-lg space-y-1 animate-bounce duration-[3000ms]">
+<div class="text-[10px] text-secondary font-bold uppercase">Gas Levels</div>
+<div class="text-2xl font-headline font-bold">0.02% <span class="text-xs text-on-surface-variant font-normal tracking-normal">CH4</span></div>
+</div>
+<div class="absolute bottom-20 left-10 glass-panel p-4 rounded-lg space-y-1 animate-bounce duration-[4000ms]">
+<div class="text-[10px] text-primary font-bold uppercase">Seismic Alert</div>
+<div class="text-2xl font-headline font-bold">0.4 <span class="text-xs text-on-surface-variant font-normal tracking-normal">MAG</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Key Features (3D Card Style) -->
+<section class="py-24 px-8 max-w-[1440px] mx-auto">
+<div class="mb-16">
+<h2 class="text-sm font-label uppercase tracking-[0.4em] text-primary mb-4">Capabilities</h2>
+<h3 class="text-5xl font-headline font-bold">The Kinetic Advantage</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-weight="fill">query_stats</span>
+</div>
+<div class="w-12 h-12 bg-primary-container/20 rounded-lg flex items-center justify-center mb-6 border border-primary/20">
+<span class="material-symbols-outlined text-primary">sensors</span>
+</div>
+<h4 class="text-2xl font-headline font-bold mb-4">Real-Time Monitoring</h4>
+<p class="text-on-surface-variant leading-relaxed mb-6">Continuous environmental scanning for temperature, humidity, and gas concentrations with sub-second latency.</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3 group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-weight="fill">psychology</span>
+</div>
+<div class="w-12 h-12 bg-secondary-container/20 rounded-lg flex items-center justify-center mb-6 border border-secondary/20">
+<span class="material-symbols-outlined text-secondary">model_training</span>
+</div>
+<h4 class="text-2xl font-headline font-bold mb-4">AI-Powered Safety</h4>
+<p class="text-on-surface-variant leading-relaxed mb-6">Neural networks trained on decades of industrial incident data predict potential hazards before they manifest.</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/2 group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-weight="fill">location_on</span>
+</div>
+<div class="w-12 h-12 bg-tertiary-container/20 rounded-lg flex items-center justify-center mb-6 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">badge</span>
+</div>
+<h4 class="text-2xl font-headline font-bold mb-4">Worker Tracking</h4>
+<p class="text-on-surface-variant leading-relaxed mb-6">Precise RFID and beacon-based localization ensures every worker is accounted for in the event of an emergency.</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-3/4 group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+<!-- Feature 4 -->
+<div class="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-weight="fill">notifications_active</span>
+</div>
+<div class="w-12 h-12 bg-error-container/20 rounded-lg flex items-center justify-center mb-6 border border-error/20">
+<span class="material-symbols-outlined text-error">emergency_share</span>
+</div>
+<h4 class="text-2xl font-headline font-bold mb-4">Emergency Response</h4>
+<p class="text-on-surface-variant leading-relaxed mb-6">Automated protocols that trigger site-wide evacuations and coordinate rescue teams within milliseconds.</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error w-1/3 group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+<!-- Feature 5 -->
+<div class="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-weight="fill">cell_tower</span>
+</div>
+<div class="w-12 h-12 bg-primary-container/20 rounded-lg flex items-center justify-center mb-6 border border-primary/20">
+<span class="material-symbols-outlined text-primary">sms_failed</span>
+</div>
+<h4 class="text-2xl font-headline font-bold mb-4">Instant Alerts</h4>
+<p class="text-on-surface-variant leading-relaxed mb-6">Multi-channel Twilio integration for push notifications, SMS, and emergency voice calls to all stakeholders.</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-4/5 group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+<!-- Feature 6 -->
+<div class="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" data-weight="fill">cloud_sync</span>
+</div>
+<div class="w-12 h-12 bg-secondary-container/20 rounded-lg flex items-center justify-center mb-6 border border-secondary/20">
+<span class="material-symbols-outlined text-secondary">cloud_done</span>
+</div>
+<h4 class="text-2xl font-headline font-bold mb-4">Satellite Sync</h4>
+<p class="text-on-surface-variant leading-relaxed mb-6">Global reach via LEO satellite constellations ensuring connectivity even in the most remote mining locations.</p>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-2/5 group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dashboard Preview (3D Panel Look) -->
+<section class="py-24 px-8 bg-surface-container-low overflow-hidden">
+<div class="max-w-[1440px] mx-auto">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1 relative group">
+<!-- Dashboard Panel Simulation -->
+<div class="relative transform perspective-1000 rotate-y-12 group-hover:rotate-y-0 transition-transform duration-1000">
+<div class="glass-panel rounded-2xl p-6 border-outline-variant/30 shadow-2xl relative overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<div class="flex gap-4">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+</div>
+<div class="text-xs font-label text-on-surface-variant/50 uppercase tracking-widest">Global Sector 07-B</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="bg-surface-container-high p-4 rounded-lg border border-outline-variant/10">
+<div class="text-[10px] uppercase text-on-surface-variant mb-1">Active Miners</div>
+<div class="text-3xl font-headline font-bold text-secondary">1,284</div>
+</div>
+<div class="bg-surface-container-high p-4 rounded-lg border border-outline-variant/10">
+<div class="text-[10px] uppercase text-on-surface-variant mb-1">Hazard Zones</div>
+<div class="text-3xl font-headline font-bold text-error">03</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest h-48 w-full rounded-lg border border-outline-variant/20 p-4 relative overflow-hidden">
+<div class="text-[10px] uppercase text-on-surface-variant mb-4">Risk Prediction Index</div>
+<!-- Pseudo-graph -->
+<svg class="w-full h-32" viewbox="0 0 100 50">
+<path d="M0 45 Q 20 40 30 20 T 60 25 T 100 10" fill="none" stroke="#ff6b00" stroke-width="2"></path>
+<path d="M0 45 Q 20 40 30 20 T 60 25 T 100 10 V 50 H 0 Z" fill="url(#grad)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#ff6b00;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#ff6b00;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-[8px] uppercase font-bold text-secondary">Analyzing...</span>
+</div>
+</div>
+</div>
+<!-- Floating Micro-panels -->
+<div class="absolute -top-10 -right-10 glass-panel p-4 rounded-xl border-secondary/20 shadow-xl hidden md:block animate-bounce duration-[5000ms]">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-secondary/10 rounded text-secondary">
+<span class="material-symbols-outlined text-sm">wifi_tethering</span>
+</div>
+<div>
+<div class="text-[10px] text-on-surface-variant uppercase">Network Latency</div>
+<div class="font-headline font-bold">14ms</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2 space-y-8">
+<h2 class="text-4xl md:text-5xl font-headline font-bold leading-tight">Unified Control for <span class="text-secondary text-glow-cyan">Complex Environments.</span></h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                        Our dashboard doesn't just display data; it tells a story of safety. With built-in AI heatmapping and worker trajectory analysis, management teams stay three steps ahead of the environment.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<div>
+<span class="font-bold text-on-surface block">Predictive Hazard Detection</span>
+<span class="text-on-surface-variant text-sm">Algorithms calculate cave-in probabilities and toxic gas build-up.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<div>
+<span class="font-bold text-on-surface block">Worker Vitals Tracking</span>
+<span class="text-on-surface-variant text-sm">Biometric integration for real-time health monitoring of field personnel.</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Step Flow) -->
+<section class="py-24 px-8 max-w-[1440px] mx-auto">
+<div class="text-center mb-20">
+<h2 class="text-4xl md:text-5xl font-headline font-bold">The Cycle of Prevention</h2>
+</div>
+<div class="relative grid md:grid-cols-4 gap-8">
+<!-- Connector Line (Desktop) -->
+<div class="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 text-center space-y-4 group">
+<div class="w-24 h-24 mx-auto forged-gradient rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-on-primary">settings_input_antenna</span>
+</div>
+<h4 class="text-xl font-headline font-bold pt-4">Data Collection</h4>
+<p class="text-sm text-on-surface-variant">Sensors &amp; Satellites harvest terabytes of environmental data.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 text-center space-y-4 group">
+<div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border-secondary shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-secondary">psychology_alt</span>
+</div>
+<h4 class="text-xl font-headline font-bold pt-4">AI Analysis</h4>
+<p class="text-sm text-on-surface-variant">UnderGrid AI processes patterns to identify risk vectors.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 text-center space-y-4 group">
+<div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border-tertiary shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-tertiary">report_problem</span>
+</div>
+<h4 class="text-xl font-headline font-bold pt-4">Risk Detection</h4>
+<p class="text-sm text-on-surface-variant">Potential hazards are flagged before they become critical.</p>
+</div>
+<!-- Step 4 -->
+<div class="relative z-10 text-center space-y-4 group">
+<div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border-error shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-error">campaign</span>
+</div>
+<h4 class="text-xl font-headline font-bold pt-4">Alert Trigger</h4>
+<p class="text-sm text-on-surface-variant">Instant multi-channel notifications and safety protocols.</p>
+</div>
+</div>
+</section>
+<!-- Tech Stack (Floating Badges) -->
+<section class="py-24 px-8 border-t border-outline-variant/10">
+<div class="max-w-[1440px] mx-auto text-center">
+<p class="text-sm font-label uppercase tracking-widest text-on-surface-variant/50 mb-12">Engineered with Precision</p>
+<div class="flex flex-wrap justify-center gap-4">
+<div class="px-6 py-3 rounded-full glass-panel border-secondary/20 flex items-center gap-3 animate-pulse">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-headline font-medium text-on-surface">React + Vite</span>
+</div>
+<div class="px-6 py-3 rounded-full glass-panel border-primary/20 flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-headline font-medium text-on-surface">Node.js</span>
+</div>
+<div class="px-6 py-3 rounded-full glass-panel border-tertiary/20 flex items-center gap-3 animate-pulse duration-[4000ms]">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-headline font-medium text-on-surface">Google Gemini AI</span>
+</div>
+<div class="px-6 py-3 rounded-full glass-panel border-secondary/20 flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-headline font-medium text-on-surface">Socket.io</span>
+</div>
+<div class="px-6 py-3 rounded-full glass-panel border-error/20 flex items-center gap-3 animate-pulse duration-[3000ms]">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-headline font-medium text-on-surface">Twilio</span>
+</div>
+<div class="px-6 py-3 rounded-full glass-panel border-outline-variant/40 flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-on-surface"></span>
+<span class="font-headline font-medium text-on-surface">MongoDB</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose MineSafe-v2 -->
+<section class="py-24 px-8 max-w-[1440px] mx-auto">
+<div class="grid lg:grid-cols-2 gap-24">
+<div>
+<h2 class="text-5xl font-headline font-bold mb-8">Built for the <br/><span class="text-primary">Impossible</span></h2>
+<div class="space-y-12">
+<div class="group">
+<div class="text-4xl font-headline font-bold text-secondary mb-2">99.8%</div>
+<div class="text-on-surface font-bold uppercase tracking-wider mb-2">System Uptime</div>
+<p class="text-on-surface-variant max-w-sm">Redundant satellite architecture ensures your safety net never fails, even in deep-earth operations.</p>
+</div>
+<div class="group">
+<div class="text-4xl font-headline font-bold text-primary mb-2">0.2s</div>
+<div class="text-on-surface font-bold uppercase tracking-wider mb-2">Response Latency</div>
+<p class="text-on-surface-variant max-w-sm">From hazard detection to worker alert in less time than a human eye can blink.</p>
+</div>
+</div>
+</div>
+<div class="grid gap-6">
+<div class="glass-panel p-8 rounded-xl border-l-4 border-l-primary">
+<span class="material-symbols-outlined text-primary mb-4">precision_manufacturing</span>
+<h5 class="text-xl font-headline font-bold mb-2">Industrial Hardened</h5>
+<p class="text-on-surface-variant text-sm">Designed to withstand the most extreme pressures, temperatures, and moisture levels known to mining.</p>
+</div>
+<div class="glass-panel p-8 rounded-xl border-l-4 border-l-secondary">
+<span class="material-symbols-outlined text-secondary mb-4">verified_user</span>
+<h5 class="text-xl font-headline font-bold mb-2">Enterprise Security</h5>
+<p class="text-on-surface-variant text-sm">End-to-end encryption for all worker vitals and operational data. UnderGrid secure vault protocol.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- High Impact CTA -->
+<section class="py-24 px-8 relative overflow-hidden">
+<div class="max-w-[1200px] mx-auto forged-gradient rounded-[2rem] p-12 md:p-24 text-center relative overflow-hidden shadow-[0_0_100px_rgba(255,107,0,0.2)]">
+<!-- Decorative Elements -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-black/20 rounded-full blur-3xl"></div>
+<div class="relative z-10 space-y-8">
+<h2 class="text-4xl md:text-6xl font-headline font-extrabold text-on-primary tracking-tighter">
+                    Start Protecting Your Workforce Today
+                </h2>
+<p class="text-on-primary-container text-xl max-w-2xl mx-auto font-medium">
+                    Deploy the future of mine safety in less than 48 hours. Scalable from small shafts to massive subterranean complexes.
+                </p>
+<div class="flex flex-wrap justify-center gap-6 pt-8">
+<button class="bg-on-primary text-primary px-10 py-5 rounded-lg font-headline font-extrabold text-xl hover:scale-105 active:scale-95 transition-all shadow-2xl">
+                        Get Started
+                    </button>
+<button class="bg-transparent border-2 border-on-primary/30 text-on-primary px-10 py-5 rounded-lg font-headline font-extrabold text-xl hover:bg-white/10 transition-all">
+                        Book Demo
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#121315] w-full border-t border-[#5a4136]/15 font-body">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-12 py-16 gap-8 max-w-[1440px] mx-auto">
+<div class="space-y-4 text-center md:text-left">
+<div class="font-headline text-lg font-bold text-[#E3E2E5] uppercase">MineSafe-v2</div>
+<p class="text-[#E3E2E5]/50 text-sm max-w-xs">UnderGrid AI. Building the cognitive backbone for industrial survival.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 font-label text-sm tracking-wide">
+<a class="text-[#E3E2E5]/50 hover:text-[#00EEFC] transition-colors duration-300" href="#">Documentation</a>
+<a class="text-[#E3E2E5]/50 hover:text-[#00EEFC] transition-colors duration-300" href="#">Privacy Policy</a>
+<a class="text-[#E3E2E5]/50 hover:text-[#00EEFC] transition-colors duration-300" href="#">Security</a>
+<a class="text-[#E3E2E5]/50 hover:text-[#00EEFC] transition-colors duration-300" href="#">Terms of Service</a>
+</div>
+<div class="text-[#E3E2E5]/50 text-xs text-center md:text-right">
+                © 2024 MineSafe-v2. Built under UnderGrid AI.
+            </div>
+</div>
+</footer>
+</body></html>

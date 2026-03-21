@@ -268,6 +268,38 @@ body {
     background: linear-gradient(to bottom, rgba(239, 136, 82, 0.3), transparent);
   }
 
+  .glass-panel {
+    background: rgba(52, 53, 55, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(90, 65, 54, 0.15);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 40px rgba(255, 107, 0, 0.08);
+  }
+
+  .forged-gradient {
+    background: linear-gradient(135deg, #ff6b00 0%, #ffb693 100%);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 15px rgba(0, 238, 252, 0.4);
+  }
+
+  .kinetic-border {
+    position: relative;
+  }
+
+  .kinetic-border::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #ff6b00;
+  }
+
   /* Leaflet overrides */
   .leaflet-container {
     background: #0a0a0a !important;

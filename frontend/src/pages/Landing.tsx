@@ -1,284 +1,256 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-    Shield, MapPin, Bell, Brain, Activity, ArrowRight,
-    Wifi, Satellite, HardHat, BarChart3, Github,
-    Lock, Zap, Globe, Cpu, ShieldCheck
-} from "lucide-react";
-
-const TRUCK_IMAGE = "/images/landing_truck.png";
-const MINER_IMAGE = "/images/landing_miner.png";
-
-const pillars = [
-    { title: "Revolutionize Your", desc: "Revolutionize your industrial mining processes with our advanced real-time AI and location heuristics." },
-    { title: "Uncompromising Safety", desc: "Implement zero-compromise safety protocols using IoT networks and multi-sensor fusion." },
-    { title: "Scaleable Intelligence", desc: "Manage massive underground operations through centralized AI command and automated alerts." },
-];
-
-const cards = [
-    { icon: Lock, title: "Secure Your Operations", desc: "Automated threat detection and instantaneous communication networks ensure total security." },
-    { icon: Zap, title: "Real-Time Precision", desc: "Sub-second latency in hazard detection ensures immediate response to imminent threats." },
-];
-
-const solutions = [
-    { icon: MapPin, title: "Real-Time Tracking", desc: "Live location tracking for every miner." },
-    { icon: Bell, title: "Instant Alerts", desc: "Emergency notifications to supervisors." },
-    { icon: Brain, title: "ML Heatmaps", desc: "AI-powered geological deformation analysis." },
-    { icon: BarChart3, title: "Predictive Analytics", desc: "Predict structural stress scenarios." },
-    { icon: Shield, title: "Hazard Detection", desc: "Monitors proximity to unstable zones." },
-    { icon: Activity, title: "System Observability", desc: "Complete production monitoring." },
-];
 
 export default function Landing() {
     return (
-        <div className="min-h-screen bg-surface-deep text-text-primary selection:bg-accent/30 overflow-x-hidden font-sans">
-            
-            {/* ─── Navbar ─── */}
-            <nav className="fixed top-0 w-full z-50 bg-surface-deep border-b border-accent/10">
-                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
-                            <HardHat className="w-5 h-5 text-surface-deep" />
-                        </div>
-                        <span className="text-xl font-black lowercase tracking-tight">undergrid.ai</span>
-                    </Link>
-                    <div className="hidden lg:flex items-center gap-8 text-[13px] font-bold text-text-secondary">
-                        <a href="#solutions" className="hover:text-amber-400 transition-colors">Solutions</a>
-                        <a href="#about" className="hover:text-amber-400 transition-colors">Technology</a>
-                        <a href="#pricing" className="hover:text-amber-400 transition-colors">About</a>
-                        <a href="https://github.com/RishitPradhan/UnderGrid" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Source</a>
+        <div className="selection:bg-primary-container selection:text-on-primary-container font-body bg-surface text-on-surface overflow-x-hidden">
+            {/* Top Navigation Bar */}
+            <nav className="fixed top-0 w-full z-50 bg-surface-variant/60 backdrop-blur-xl shadow-[0_0_40px_rgba(255,107,0,0.08)]">
+                <div className="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+                    <div className="text-2xl font-bold tracking-tighter text-[#E3E2E5] uppercase font-headline">MineSafe-v2</div>
+                    <div className="hidden md:flex items-center gap-8 font-headline tracking-tight">
+                        <a className="text-[#FFB693] font-bold border-b-2 border-[#FF6B00] pb-1" href="#">Platform</a>
+                        <a className="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Solutions</a>
+                        <a className="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Network</a>
+                        <a className="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Company</a>
                     </div>
-                    <Link to="/dashboard" className="px-6 py-2.5 rounded shadow-glow bg-accent text-surface-deep font-black text-[13px] hover:bg-amber-400 transition-colors">
-                        COMMAND CENTER
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <button className="hidden lg:block text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors font-label font-medium uppercase text-xs tracking-widest">Login</button>
+                        <button className="forged-gradient text-on-primary px-6 py-2.5 rounded-lg font-headline font-bold text-sm tracking-tight hover:scale-[1.02] active:scale-95 transition-all duration-300">Request Demo</button>
+                    </div>
                 </div>
             </nav>
 
-            {/* ─── Hero Section ─── */}
-            <section className="pt-32 pb-20 bg-surface-deep relative">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-                    <div className="max-w-xl">
-                        <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] mb-6 text-accent">
-                            Discover the
-                            <br />
-                            Future of
-                            <br />
-                            Mining Safety
+            {/* Hero Section */}
+            <section className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 px-8 max-w-[1440px] mx-auto">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="z-10 space-y-8"
+                    >
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/20">
+                            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant">System Status: Active</span>
+                        </div>
+                        <h1 className="text-6xl md:text-7xl lg:text-8xl font-headline font-bold tracking-tighter leading-[0.9] text-on-surface">
+                            AI-Powered <br />
+                            <span className="text-primary">Mine Safety</span> & Monitoring
                         </h1>
-                        <p className="text-lg text-text-secondary mb-8 font-medium">
-                            Harnessing real-time IoT networks and AI-powered heuristics to create the world's most advanced underground safety ecosystem.
+                        <p className="text-xl md:text-2xl text-on-surface-variant font-body max-w-xl leading-relaxed">
+                            Protect workers. Predict risks. Prevent disasters. The world's first industrial-grade kinetic safety intelligence platform.
                         </p>
-                        <Link to="/dashboard" className="inline-flex px-8 py-4 rounded bg-accent text-surface-deep shadow-glow font-black text-sm uppercase hover:bg-amber-400 transition-colors">
-                            LEARN MORE
-                        </Link>
-                    </div>
-                    <div className="relative">
-                        <img 
-                            src={TRUCK_IMAGE} 
-                            alt="Orange Mining Truck" 
-                            className="w-full h-auto object-contain rounded-xl"
-                            onError={(e) => {
-                                // Fallback if image not found
-                                e.currentTarget.style.display = 'none';
-                                e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-[400px] rounded-xl bg-surface-elevated border border-accent/20 flex items-center justify-center"><span class="text-accent/50 font-bold">Truck Asset Placeholder</span></div>';
-                            }}
-                        />
+                        <div className="flex flex-wrap gap-4 pt-4">
+                            <Link to="/dashboard" className="forged-gradient text-on-primary px-8 py-4 rounded-lg font-headline font-extrabold text-lg flex items-center gap-3 hover:shadow-[0_0_25px_rgba(255,107,0,0.3)] transition-all group">
+                                View Dashboard
+                                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </Link>
+                            <button className="bg-surface-container-high border border-outline-variant/30 text-secondary px-8 py-4 rounded-lg font-headline font-bold text-lg hover:bg-surface-bright transition-all">
+                                Request Demo
+                            </button>
+                        </div>
+                    </motion.div>
+
+                    {/* Visual Asset Area */}
+                    <div className="relative h-[500px] lg:h-[700px] w-full rounded-xl overflow-hidden bg-surface-container-low border border-outline-variant/10 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary-container/10 via-transparent to-secondary-container/5"></div>
+                        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#5a4136 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+                        <div className="z-10 text-center flex flex-col items-center gap-4">
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                className="w-24 h-24 border-2 border-dashed border-outline-variant rounded-full flex items-center justify-center"
+                            >
+                                <span className="material-symbols-outlined text-outline text-4xl">deployed_code</span>
+                            </motion.div>
+                            <p className="font-headline text-on-surface-variant/50 uppercase tracking-[0.3em] text-sm">3D Intelligence Mesh</p>
+                        </div>
+
+                        {/* Floating Data Chips */}
+                        <motion.div
+                            animate={{ y: [0, -10, 0] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute top-10 right-10 glass-panel p-4 rounded-lg space-y-1"
+                        >
+                            <div className="text-[10px] text-secondary font-bold uppercase">Gas Levels</div>
+                            <div className="text-2xl font-headline font-bold">0.02% <span className="text-xs text-on-surface-variant font-normal tracking-normal">CH4</span></div>
+                        </motion.div>
+                        <motion.div
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute bottom-20 left-10 glass-panel p-4 rounded-lg space-y-1"
+                        >
+                            <div className="text-[10px] text-primary font-bold uppercase">Seismic Alert</div>
+                            <div className="text-2xl font-headline font-bold">0.4 <span className="text-xs text-on-surface-variant font-normal tracking-normal">MAG</span></div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* ─── Pillars Section ─── */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 border-t border-gray-200 pt-16">
-                    {pillars.map((p, i) => (
-                        <div key={i} className="flex flex-col">
-                            <h3 className="text-xl font-black text-gray-900 mb-4">{p.title}</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">{p.desc}</p>
+            {/* Key Features */}
+            <section className="py-24 px-8 max-w-[1440px] mx-auto">
+                <div className="mb-16">
+                    <h2 className="text-sm font-label uppercase tracking-[0.4em] text-primary mb-4">Capabilities</h2>
+                    <h3 className="text-5xl font-headline font-bold">The Kinetic Advantage</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[
+                        { icon: "sensors", color: "primary", title: "Real-Time Monitoring", desc: "Continuous environmental scanning for temperature, humidity, and gas concentrations.", progress: "w-2/3", bg: "primary-container/20" },
+                        { icon: "model_training", color: "secondary", title: "AI-Powered Safety", desc: "Neural networks predict potential hazards before they manifest.", progress: "w-1/2", bg: "secondary-container/20" },
+                        { icon: "badge", color: "tertiary", title: "Worker Tracking", desc: "Precise RFID and beacon-based localization ensures every worker is accounted for.", progress: "w-3/4", bg: "tertiary-container/20" },
+                        { icon: "emergency_share", color: "error", title: "Emergency Response", desc: "Automated protocols coordinate rescue teams within milliseconds.", progress: "w-1/3", bg: "error-container/20" },
+                        { icon: "sms_failed", color: "primary", title: "Instant Alerts", desc: "Multi-channel integration for push notifications and emergency voice calls.", progress: "w-4/5", bg: "primary-container/20" },
+                        { icon: "cloud_done", color: "secondary", title: "Satellite Sync", desc: "Global reach via LEO satellite constellations ensuring connectivity anywhere.", progress: "w-2/5", bg: "secondary-container/20" }
+                    ].map((feature, idx) => (
+                        <div key={idx} className="glass-panel p-8 rounded-xl group hover:scale-[1.02] hover:bg-surface-bright transition-all duration-500 cursor-default relative overflow-hidden">
+                            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 border border-current opacity-80" style={{ color: `var(--${feature.color})`, backgroundColor: `rgba(var(--${feature.color}-rgb), 0.1)` }}>
+                                <span className={`material-symbols-outlined text-${feature.color}`}>{feature.icon}</span>
+                            </div>
+                            <h4 className="text-2xl font-headline font-bold mb-4">{feature.title}</h4>
+                            <p className="text-on-surface-variant leading-relaxed mb-6">{feature.desc}</p>
+                            <div className="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+                                <div className={`h-full bg-${feature.color} ${feature.progress} group-hover:w-full transition-all duration-700`}></div>
+                            </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* ─── Feature 1: Secure Your Mining ─── */}
-            <section className="py-24 bg-surface-deep relative">
-                {/* Visual split: Background behind miner is orange in the mock up. We'll simulate by wrapping the image */}
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-                    <div className="relative">
-                        <div className="absolute inset-0 bg-accent rounded-[3rem] -z-10 transform -rotate-3 blur-[2px]" />
-                        <img 
-                            src={MINER_IMAGE} 
-                            alt="Miner Character" 
-                            className="w-full h-auto max-w-md mx-auto object-contain drop-shadow-2xl"
-                            onError={(e) => {
-                                e.currentTarget.style.display = 'none';
-                                e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-[500px] rounded-[3rem] bg-accent border border-white/20 flex items-center justify-center"><span class="text-surface-deep font-bold">Miner Asset Placeholder</span></div>';
-                            }}
-                        />
-                    </div>
-
-                    <div className="flex flex-col relative z-20">
-                        <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
-                            Secure Your Mining
-                        </h2>
-                        <p className="text-text-secondary text-lg mb-10">
-                            Engineering zero-compromise safety protocols using real-time IoT networks, 
-                            ensuring total oversight over the deepest operations on earth.
-                        </p>
-                        
-                        <div className="flex items-center gap-6 mb-16">
-                            <Link to="/dashboard" className="px-8 py-3 rounded bg-accent text-surface-deep font-black text-sm uppercase shadow-glow hover:bg-amber-400 transition-colors">
-                                LEARN MORE
-                            </Link>
-                            <Link to="/about" className="text-white font-bold text-sm uppercase hover:text-accent transition-colors flex items-center gap-2">
-                                Read Docs <ArrowRight className="w-4 h-4" />
-                            </Link>
-                        </div>
-
-                        {/* Overlapping White Cards */}
-                        <div className="flex flex-col gap-6">
-                            {cards.map((card, i) => (
-                                <div key={i} className="bg-white p-6 md:p-8 rounded-xl shadow-2xl flex gap-6 items-start -ml-0 lg:-ml-24 hover:translate-x-4 transition-transform z-30 border border-gray-100">
-                                    <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                                        <card.icon className="w-6 h-6 text-accent" />
+            {/* Dashboard Preview */}
+            <section className="py-24 px-8 bg-surface-container-low overflow-hidden">
+                <div className="max-w-[1440px] mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="order-2 lg:order-1 relative group">
+                            <div className="relative transform perspective-1000 rotate-y-12 group-hover:rotate-y-0 transition-transform duration-1000">
+                                <div className="glass-panel rounded-2xl p-6 border-outline-variant/30 shadow-2xl relative overflow-hidden">
+                                    <div className="flex justify-between items-center mb-8">
+                                        <div className="flex gap-4">
+                                            <div className="w-3 h-3 rounded-full bg-error"></div>
+                                            <div className="w-3 h-3 rounded-full bg-primary"></div>
+                                            <div className="w-3 h-3 rounded-full bg-secondary"></div>
+                                        </div>
+                                        <div className="text-xs font-label text-on-surface-variant/50 uppercase tracking-widest">Global Sector 07-B</div>
                                     </div>
+                                    <div className="grid grid-cols-2 gap-4 mb-8">
+                                        <div className="bg-surface-container-high p-4 rounded-lg border border-outline-variant/10">
+                                            <div className="text-[10px] uppercase text-on-surface-variant mb-1">Active Miners</div>
+                                            <div className="text-3xl font-headline font-bold text-secondary">1,284</div>
+                                        </div>
+                                        <div className="bg-surface-container-high p-4 rounded-lg border border-outline-variant/10">
+                                            <div className="text-[10px] uppercase text-on-surface-variant mb-1">Hazard Zones</div>
+                                            <div className="text-3xl font-headline font-bold text-error">03</div>
+                                        </div>
+                                    </div>
+                                    <div className="bg-surface-container-lowest h-48 w-full rounded-lg border border-outline-variant/20 p-4 relative overflow-hidden">
+                                        <div className="text-[10px] uppercase text-on-surface-variant mb-4">Risk Prediction Index</div>
+                                        <svg className="w-full h-32" viewBox="0 0 100 50">
+                                            <path d="M0 45 Q 20 40 30 20 T 60 25 T 100 10" fill="none" stroke="#ff6b00" strokeWidth="2"></path>
+                                            <path d="M0 45 Q 20 40 30 20 T 60 25 T 100 10 V 50 H 0 Z" fill="url(#grad)" opacity="0.1"></path>
+                                            <defs>
+                                                <linearGradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+                                                    <stop offset="0%" style={{ stopColor: '#ff6b00', stopOpacity: 1 }}></stop>
+                                                    <stop offset="100%" style={{ stopColor: '#ff6b00', stopOpacity: 0 }}></stop>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <div className="absolute bottom-4 right-4 flex gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                                            <span className="text-[8px] uppercase font-bold text-secondary">Analyzing...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="order-1 lg:order-2 space-y-8 text-left">
+                            <h2 className="text-4xl md:text-5xl font-headline font-bold leading-tight">Unified Control for <span className="text-secondary text-glow-cyan">Complex Environments.</span></h2>
+                            <p className="text-on-surface-variant text-lg leading-relaxed">
+                                Our dashboard doesn't just display data; it tells a story of safety. With built-in AI heatmapping and worker trajectory analysis, management teams stay three steps ahead.
+                            </p>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-4">
+                                    <span className="material-symbols-outlined text-primary mt-1">check_circle</span>
                                     <div>
-                                        <h4 className="text-lg font-black text-gray-900 mb-2">{card.title}</h4>
-                                        <p className="text-gray-600 text-sm leading-relaxed">{card.desc}</p>
+                                        <span className="font-bold text-on-surface block">Predictive Hazard Detection</span>
+                                        <span className="text-on-surface-variant text-sm text-left block">Algorithms calculate cave-in probabilities and toxic gas build-up.</span>
                                     </div>
-                                </div>
-                            ))}
+                                </li>
+                                <li className="flex items-start gap-4">
+                                    <span className="material-symbols-outlined text-primary mt-1">check_circle</span>
+                                    <div>
+                                        <span className="font-bold text-on-surface block text-left">Worker Vitals Tracking</span>
+                                        <span className="text-on-surface-variant text-sm text-left block">Biometric integration for real-time health monitoring.</span>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ─── Feature 2: Revolutionize Your Mining ─── */}
-            <section className="py-32 bg-surface-deep border-y border-white/5 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-surface-elevated/20 skew-x-12" />
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
-                    <div>
-                        <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
-                            Revolutionize
-                            <br />
-                            Your Mining
-                        </h2>
-                        <p className="text-text-secondary text-lg mb-10">
-                            Automated heuristics and machine learning integrations identify geometric faults before they materialize into disasters.
-                        </p>
-                        <Link to="/dashboard" className="inline-flex px-8 py-3 rounded bg-accent text-surface-deep shadow-glow font-black text-sm uppercase hover:bg-amber-400 transition-colors">
-                            LEARN MORE
-                        </Link>
-                    </div>
-                    {/* Placeholder for Cave Asset since quota failed */}
-                    <div className="relative w-full h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-surface-elevated to-surface flex items-center justify-center border border-accent/10 shadow-2xl">
-                        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-                        <div className="text-center relative z-10 px-8">
-                            <ShieldCheck className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
-                            <span className="text-accent/60 font-bold uppercase tracking-widest text-sm block mb-2">3D Cave & Vehicles Asset</span>
-                            <span className="text-text-secondary text-xs">Waiting for generation quota</span>
-                        </div>
-                    </div>
+            {/* Cycle of Prevention */}
+            <section className="py-24 px-8 max-w-[1440px] mx-auto">
+                <div className="text-center mb-20">
+                    <h2 className="text-4xl md:text-5xl font-headline font-bold">The Cycle of Prevention</h2>
                 </div>
-            </section>
-
-            {/* ─── Feature 3: Unlock The Power ─── */}
-            <section className="py-32 bg-accent relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
-                    {/* Placeholder for Mech Asset */}
-                    <div className="relative w-full h-[500px] flex items-center justify-center">
-                        <div className="w-[80%] h-[90%] bg-surface-deep rounded-[3rem] shadow-2xl flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500 border border-white/10">
-                            <div className="text-center px-8">
-                                <Activity className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
-                                <span className="text-accent font-bold uppercase tracking-widest text-sm block mb-2">3D Mech Suit Asset</span>
-                                <span className="text-white/40 text-xs">Waiting for generation quota</span>
+                <div className="relative grid md:grid-cols-4 gap-8">
+                    <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent z-0"></div>
+                    {[
+                        { icon: "settings_input_antenna", title: "Data Collection", desc: "Sensors harvest terabytes of environmental data.", border: "primary" },
+                        { icon: "psychology_alt", title: "AI Analysis", desc: "UnderGrid AI processes patterns to identify risk vectors.", border: "secondary" },
+                        { icon: "report_problem", title: "Risk Detection", desc: "Potential hazards are flagged before they become critical.", border: "tertiary" },
+                        { icon: "campaign", title: "Alert Trigger", desc: "Instant multi-channel notifications and protocols.", border: "error" }
+                    ].map((step, idx) => (
+                        <div key={idx} className="relative z-10 text-center space-y-4 group">
+                            <div className={`w-24 h-24 mx-auto ${idx === 0 ? 'forged-gradient' : 'glass-panel'} rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform border border-transparent`}>
+                                <span className={`material-symbols-outlined text-4xl ${idx === 0 ? 'text-on-primary' : `text-${step.border}`}`}>{step.icon}</span>
                             </div>
+                            <h4 className="text-xl font-headline font-bold pt-4">{step.title}</h4>
+                            <p className="text-sm text-on-surface-variant">{step.desc}</p>
                         </div>
-                    </div>
-                    <div className="text-surface-deep">
-                        <h2 className="text-4xl lg:text-5xl font-black leading-tight mb-6">
-                            Unlock the <br /> Power of AI
+                    ))}
+                </div>
+            </section>
+
+            {/* High Impact CTA */}
+            <section className="py-24 px-8 relative overflow-hidden">
+                <div className="max-w-[1200px] mx-auto forged-gradient rounded-[2rem] p-12 md:p-24 text-center relative overflow-hidden shadow-[0_0_100px_rgba(255,107,0,0.2)]">
+                    <div className="absolute -top-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-black/20 rounded-full blur-3xl"></div>
+                    <div className="relative z-10 space-y-8">
+                        <h2 className="text-4xl md:text-6xl font-headline font-extrabold text-on-primary tracking-tighter">
+                            Start Protecting Your Workforce Today
                         </h2>
-                        <p className="text-surface-deep/80 text-lg mb-10 font-bold pr-12">
-                            Deploy tactical drones, automate emergency shutdown sequences, and harness generative AI models directly from your command terminal.
+                        <p className="text-on-primary-container text-xl max-w-2xl mx-auto font-medium">
+                            Deploy the future of mine safety in less than 48 hours. Scalable from small shafts to massive subterranean complexes.
                         </p>
-                        <div className="flex flex-col gap-4 max-w-xs">
-                            <Link to="/dashboard" className="px-8 py-4 rounded bg-surface-deep text-accent font-black text-sm uppercase text-center hover:bg-surface transition-colors shadow-lg">
-                                COMMAND HUB
+                        <div className="flex flex-wrap justify-center gap-6 pt-8">
+                            <Link to="/dashboard" className="bg-on-primary text-primary px-10 py-5 rounded-lg font-headline font-extrabold text-xl hover:scale-105 active:scale-95 transition-all shadow-2xl">
+                                Get Started
                             </Link>
-                            <Link to="/about" className="px-8 py-4 rounded bg-transparent border-2 border-surface-deep text-surface-deep font-black text-sm uppercase text-center hover:bg-surface-deep/10 transition-colors">
-                                LEARN MORE
-                            </Link>
+                            <button className="bg-transparent border-2 border-on-primary/30 text-on-primary px-10 py-5 rounded-lg font-headline font-extrabold text-xl hover:bg-white/10 transition-all">
+                                Book Demo
+                            </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ─── Solutions Grid ─── */}
-            <section id="solutions" className="py-32 bg-surface-deep relative">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-20">
-                        <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
-                            Empowering the Next Generation of Miners
-                        </h2>
+            {/* Footer */}
+            <footer className="bg-surface w-full border-t border-outline-variant/15">
+                <div className="flex flex-col md:flex-row justify-between items-center w-full px-12 py-16 gap-8 max-w-[1440px] mx-auto">
+                    <div className="space-y-4 text-center md:text-left">
+                        <div className="font-headline text-lg font-bold text-[#E3E2E5] uppercase">MineSafe-v2</div>
+                        <p className="text-[#E3E2E5]/50 text-sm max-w-xs text-left">UnderGrid AI. Building the cognitive backbone for industrial survival.</p>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {solutions.map((sol, i) => (
-                            <div key={i} className="bg-surface border border-white/5 p-8 rounded-2xl hover:bg-surface-elevated/40 transition-colors group relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <div className="w-12 h-12 rounded bg-surface-deep border border-accent/20 flex items-center justify-center mb-6">
-                                    <sol.icon className="w-5 h-5 text-accent" />
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-3">{sol.title}</h3>
-                                <p className="text-text-secondary text-sm leading-relaxed">{sol.desc}</p>
-                            </div>
-                        ))}
+                    <div className="flex flex-wrap justify-center gap-8 font-label text-sm tracking-wide">
+                        <a className="text-[#E3E2E5]/50 hover:text-secondary transition-colors duration-300" href="#">Documentation</a>
+                        <a className="text-[#E3E2E5]/50 hover:text-secondary transition-colors duration-300" href="#">Privacy Policy</a>
+                        <a className="text-[#E3E2E5]/50 hover:text-secondary transition-colors duration-300" href="#">Security</a>
+                        <a className="text-[#E3E2E5]/50 hover:text-secondary transition-colors duration-300" href="#">Terms of Service</a>
                     </div>
-                </div>
-            </section>
-
-            {/* ─── Footer ─── */}
-            <footer className="bg-surface py-20 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-12 text-sm">
-                    <div className="col-span-1 md:col-span-2">
-                        <Link to="/" className="flex items-center gap-3 mb-6">
-                            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
-                                <HardHat className="w-5 h-5 text-surface-deep" />
-                            </div>
-                            <span className="text-xl font-black lowercase tracking-tight text-white">undergrid.ai</span>
-                        </Link>
-                        <p className="text-text-secondary max-w-sm mb-6">
-                            Architecting the future of industrial safety through autonomous IoT networks.
-                        </p>
-                        <div className="text-white/30 text-xs text-text-secondary">© 2026 Undergrid Co. All rights reserved.</div>
-                    </div>
-                    
-                    <div>
-                        <h4 className="text-white font-bold mb-6">System</h4>
-                        <ul className="space-y-4 text-text-secondary">
-                            <li><Link to="/dashboard" className="hover:text-accent transition-colors">Command Center</Link></li>
-                            <li><a href="#" className="hover:text-accent transition-colors">Analytics</a></li>
-                            <li><a href="#" className="hover:text-accent transition-colors">Alerts</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 className="text-white font-bold mb-6">Company</h4>
-                        <ul className="space-y-4 text-text-secondary">
-                            <li><a href="#" className="hover:text-accent transition-colors">About Us</a></li>
-                            <li><a href="#" className="hover:text-accent transition-colors">Careers</a></li>
-                            <li><a href="#" className="hover:text-accent transition-colors">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 className="text-white font-bold mb-6">Connect</h4>
-                        <ul className="space-y-4 text-text-secondary">
-                            <li><a href="https://github.com/RishitPradhan/UnderGrid" className="hover:text-accent transition-colors flex items-center gap-2"><Github className="w-4 h-4"/> GitHub</a></li>
-                            <li><a href="#" className="hover:text-accent transition-colors">Twitter</a></li>
-                            <li><a href="#" className="hover:text-accent transition-colors">Contact</a></li>
-                        </ul>
+                    <div className="text-[#E3E2E5]/50 text-xs text-center md:text-right">
+                        © 2026 MineSafe-v2. Built under UnderGrid AI.
                     </div>
                 </div>
             </footer>
