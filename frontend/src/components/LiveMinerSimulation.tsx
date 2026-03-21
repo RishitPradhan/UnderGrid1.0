@@ -488,7 +488,7 @@ export default function LiveMinerSimulation({
                         <div>
                             <h2 className="text-lg font-bold flex items-center gap-2">
                                 Live Miner Simulation
-                                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest ${running ? "bg-accent-bright/10 text-accent-bright shadow-[0_0_10px_rgba(255,107,53,0.1)]" : "bg-white/5 text-white/40"}`}>
+                                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest ${running ? "bg-emerald-500/10 text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.1)] border border-emerald-500/20" : "bg-white/5 text-white/40"}`}>
                                     {running ? "● Active" : "○ Paused"}
                                 </span>
                             </h2>
@@ -499,7 +499,7 @@ export default function LiveMinerSimulation({
                         <button onClick={() => setRunning(!running)}
                             className={`px-4 py-2 rounded-xl text-xs font-bold tracking-wide flex items-center gap-2 transition-all duration-300 ${running
                                 ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
-                                : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 shadow-[0_0_15px_rgba(239,136,82,0.05)]"
+                                : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 shadow-[0_0_15px_rgba(52,211,153,0.05)]"
                                 }`}>
                             {running ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
                             {running ? "PAUSE" : "START"}
@@ -515,7 +515,7 @@ export default function LiveMinerSimulation({
 
                         <button onClick={() => setVoiceEnabled(!voiceEnabled)}
                             className={`px-3 py-2 rounded-xl text-xs flex items-center justify-center transition-all ${voiceEnabled
-                                ? "text-accent bg-accent/10 border border-accent/20 shadow-[0_0_10px_rgba(239,136,82,0.05)]"
+                                ? "text-white bg-white/10 border border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.05)]"
                                 : "text-text-secondary hover:bg-white/10 border border-transparent"
                                 }`}>
                             {voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}

@@ -138,8 +138,8 @@ export default function Landing() {
                         <div className="flex flex-col gap-6">
                             {cards.map((card, i) => (
                                 <div key={i} className="bg-surface-elevated p-6 md:p-8 rounded-xl shadow-2xl flex gap-6 items-start -ml-0 lg:-ml-24 hover:translate-x-4 transition-transform z-30 border border-white/5 hover:border-accent/20 group">
-                                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                                        <card.icon className="w-6 h-6 text-accent" />
+                                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
+                                        <card.icon className="w-6 h-6 text-white/80 group-hover:text-white transition-colors" />
                                     </div>
                                     <div>
                                         <h4 className="text-lg font-black text-white mb-2">{card.title}</h4>
@@ -173,8 +173,8 @@ export default function Landing() {
                     <div className="relative w-full h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-surface-elevated to-surface flex items-center justify-center border border-accent/10 shadow-2xl">
                         <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
                         <div className="text-center relative z-10 px-8">
-                            <ShieldCheck className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
-                            <span className="text-accent/60 font-bold uppercase tracking-widest text-sm block mb-2">3D Cave & Vehicles Asset</span>
+                            <ShieldCheck className="w-16 h-16 text-white/50 mx-auto mb-6 opacity-80" />
+                            <span className="text-white/60 font-bold uppercase tracking-widest text-sm block mb-2">3D Cave & Vehicles Asset</span>
                             <span className="text-text-secondary text-xs">Waiting for generation quota</span>
                         </div>
                     </div>
@@ -189,8 +189,8 @@ export default function Landing() {
                     <div className="relative w-full h-[500px] flex items-center justify-center">
                         <div className="w-[80%] h-[90%] bg-surface-elevated rounded-[3rem] shadow-[0_0_40px_rgba(239,136,82,0.05)] flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500 border border-accent/10">
                             <div className="text-center px-8">
-                                <Activity className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
-                                <span className="text-accent font-bold uppercase tracking-widest text-sm block mb-2">3D Mech Suit Asset</span>
+                                <Activity className="w-16 h-16 text-white/50 mx-auto mb-6 opacity-80" />
+                                <span className="text-white/60 font-bold uppercase tracking-widest text-sm block mb-2">3D Mech Suit Asset</span>
                                 <span className="text-white/40 text-xs">Waiting for generation quota</span>
                             </div>
                         </div>
@@ -226,9 +226,9 @@ export default function Landing() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {solutions.map((sol, i) => (
                             <div key={i} className="bg-surface border border-white/5 p-8 rounded-2xl hover:bg-surface-elevated/40 transition-colors group relative overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <div className="w-12 h-12 rounded bg-surface-deep border border-accent/20 flex items-center justify-center mb-6">
-                                    <sol.icon className="w-5 h-5 text-accent" />
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="w-12 h-12 rounded bg-surface-deep border border-white/10 flex items-center justify-center mb-6">
+                                    <sol.icon className="w-5 h-5 text-white/80" />
                                 </div>
                                 <h3 className="text-xl font-bold text-white mb-3">{sol.title}</h3>
                                 <p className="text-text-secondary text-sm leading-relaxed">{sol.desc}</p>

@@ -235,9 +235,9 @@ export default function Dashboard() {
             <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-surface border-r border-accent/10 flex flex-col overflow-hidden`}>
                 <div className="h-14 flex items-center px-4 border-b border-accent/10 gap-2.5 flex-shrink-0">
                     <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-bright to-accent-rust flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.1)]">
-                        <HardHat className="w-4 h-4 text-surface-deep" />
+                        <HardHat className="w-4 h-4 text-white" />
                     </div>
-                    {sidebarOpen && <span className="text-[14px] font-black tracking-tight whitespace-nowrap uppercase italic">undergrid<span className="text-accent">.ai</span></span>}
+                    {sidebarOpen && <span className="text-[14px] font-black tracking-tight whitespace-nowrap uppercase italic text-white">undergrid<span className="text-accent">.ai</span></span>}
                 </div>
 
                 <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
@@ -249,7 +249,7 @@ export default function Dashboard() {
                                 <span className="text-[13px] font-medium flex-1 text-left">{item.label}</span>
                             )}
                             {sidebarOpen && item.id === "alerts" && alertCount > 0 && (
-                                <span className="bg-accent/20 text-accent text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-[0_0_10px_rgba(239,136,82,0.05)]">
+                                <span className="bg-red-500/20 text-red-400 text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-[0_0_10px_rgba(248,113,113,0.1)] border border-red-500/20">
                                     {alertCount}
                                 </span>
                             )}
@@ -276,9 +276,9 @@ export default function Dashboard() {
                         <h1 className="text-[15px] font-black uppercase tracking-tight italic">{navItems.find(n => n.id === active)?.label}</h1>
                         <p className="text-[11px] text-accent-muted font-bold uppercase tracking-widest">Underground Command Hub</p>
                     </div>
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.03] text-[11px]">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        <span className="text-accent font-bold uppercase tracking-widest">Online</span>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.03] text-[11px] border border-white/5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_theme(colors.emerald.400)]" />
+                        <span className="text-emerald-400 font-bold uppercase tracking-widest">Online</span>
                     </div>
                 </header>
 
@@ -353,10 +353,10 @@ function OverviewSection({
     onSimReset: () => void;
 }) {
     const systemStatuses = [
-        { label: "InSAR Satellite", icon: Satellite, status: "Receiving", color: "#ff6b35" }, // Bright
-        { label: "AI Engine", icon: Brain, status: "Active", color: "#EF8852" },       // Default
-        { label: "RFID Grid", icon: Wifi, status: "Online", color: "#f59e0b" },        // Amber
-        { label: "Workers", icon: Users, status: `${simMiners.length} Tracked`, color: "#d9480f" }, // Rust
+        { label: "InSAR Satellite", icon: Satellite, status: "Receiving", color: "#38bdf8" }, // Sky Blue
+        { label: "AI Engine", icon: Brain, status: "Active", color: "#c084fc" },       // Purple
+        { label: "RFID Grid", icon: Wifi, status: "Online", color: "#34d399" },        // Emerald Green
+        { label: "Workers", icon: Users, status: `${simMiners.length} Tracked`, color: "#94a3b8" }, // Slate
     ];
 
     return (
