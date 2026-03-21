@@ -88,22 +88,22 @@ export default function RiskAlertsPanel() {
             <div className={`glass-card p-6 ${riskWorkers.length > 0 ? "danger-pulse" : ""}`} style={{ borderColor: "rgba(239,68,68,0.2)" }}>
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
                     <div>
-                        <h2 className="text-xl font-bold flex items-center gap-2 text-red-400">
+                        <h2 className="text-xl font-black uppercase tracking-tight italic flex items-center gap-2 text-accent">
                             <AlertTriangle className="w-5 h-5" /> HAZARD ZONE ALERTS
                         </h2>
-                        <p className="text-xs text-white/30 mt-1">Workers currently inside hazard zones</p>
+                        <p className="text-accent-muted font-bold uppercase tracking-widest text-[10px] mt-1">Workers currently inside hazard zones</p>
                     </div>
                     <div className="flex items-center gap-3 flex-wrap">
                         <div className="relative">
-                            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/30" />
+                            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-accent/50" />
                             <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search..."
-                                className="pl-8 h-8 w-40 rounded-xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400/30 text-white placeholder:text-white/30" />
+                                className="pl-8 h-8 w-40 rounded-xl bg-surface-deep/40 border border-accent/10 text-sm focus:outline-none focus:border-accent/40 text-white placeholder:text-accent/30" />
                         </div>
                         <button onClick={fetch_} disabled={loading} className="btn-ghost text-xs px-3 py-1.5">
                             <RefreshCw className={`w-3.5 h-3.5 inline mr-1.5 ${loading ? "animate-spin" : ""}`} /> Refresh
                         </button>
                         <button onClick={() => setVoiceEnabled(!voiceEnabled)}
-                            className={`btn-ghost text-xs px-3 py-1.5 flex items-center gap-1.5 ${voiceEnabled ? "text-cyan-400 border-cyan-400/20" : "text-white/30"}`}>
+                            className={`btn-ghost text-xs px-3 py-1.5 flex items-center gap-1.5 ${voiceEnabled ? "text-accent border-accent/20" : "text-white/30"}`}>
                             {voiceEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
                             {voiceEnabled ? "Voice On" : "Voice Off"}
                         </button>
@@ -112,27 +112,27 @@ export default function RiskAlertsPanel() {
 
                 {/* Summary */}
                 <div className="flex flex-wrap gap-4 mb-6">
-                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-red-400/10 border border-red-400/20">
-                        <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-                        <span className="text-sm font-semibold text-red-400">{riskWorkers.length} IN HAZARD ZONE</span>
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-accent/10 border border-accent/20">
+                        <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                        <span className="text-sm font-bold uppercase tracking-widest text-accent">{riskWorkers.length} IN HAZARD ZONE</span>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-green-400/10 border border-green-400/20">
-                        <div className="w-2 h-2 rounded-full bg-green-400" />
-                        <span className="text-sm text-green-400">{safeWorkers.length} Safe</span>
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-accent-muted/10 border border-accent-muted/20">
+                        <div className="w-2 h-2 rounded-full bg-accent-muted" />
+                        <span className="text-sm font-bold uppercase tracking-widest text-accent-muted">{safeWorkers.length} Safe</span>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-cyan-400/10 border border-cyan-400/20">
-                        <span className="text-sm text-cyan-400">{workers.length} Total</span>
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-accent/5 border border-accent/10">
+                        <span className="text-sm font-bold uppercase tracking-widest text-accent/60">{workers.length} Total</span>
                     </div>
                     {lastFetch && <span className="text-xs text-white/30 self-center">Updated: {lastFetch}</span>}
-                    {error && <span className="text-xs text-red-400 self-center">{error}</span>}
+                    {error && <span className="text-xs text-accent self-center"> {error} </span>}
                 </div>
 
                 {/* Risk Worker Cards */}
                 {loading && !riskWorkers.length && <div className="text-center py-8 text-white/30 text-sm">Loading risk data...</div>}
                 {!loading && !riskWorkers.length && !error && (
                     <div className="text-center py-8">
-                        <Shield className="w-10 h-10 mx-auto mb-3 text-green-400/50" />
-                        <p className="text-green-400 font-medium">All Clear</p>
+                        <Shield className="w-10 h-10 mx-auto mb-3 text-accent-muted/50" />
+                        <p className="text-accent-muted font-bold uppercase tracking-widest">All Clear</p>
                         <p className="text-xs text-white/30 mt-1">No workers in hazard zones</p>
                     </div>
                 )}
@@ -145,12 +145,12 @@ export default function RiskAlertsPanel() {
                                     <div className="flex items-start justify-between">
                                         <div className="flex items-center gap-3">
                                             <div className="w-11 h-11 rounded-xl bg-red-400/10 border border-red-400/20 flex items-center justify-center">
-                                                <HardHat className="w-5 h-5 text-red-400" />
+                                                <HardHat className="w-5 h-5 text-accent" />
                                             </div>
                                             <div>
                                                 <h3 className="font-semibold">{w.name || w.workerId}</h3>
                                                 {w.role && <p className="text-xs text-white/30">{w.role}</p>}
-                                                <div className="flex items-center gap-1 mt-0.5 text-xs text-red-400">
+                                                <div className="flex items-center gap-1 mt-0.5 text-xs text-accent font-black uppercase tracking-widest">
                                                     <AlertTriangle className="w-3 h-3" /> IN RISK ZONE
                                                 </div>
                                             </div>
@@ -173,13 +173,13 @@ export default function RiskAlertsPanel() {
                 {safeWorkers.length > 0 && (
                     <div className="mt-8">
                         <h4 className="text-sm font-semibold text-white/50 mb-3 flex items-center gap-2">
-                            <Shield className="w-4 h-4 text-green-400" /> Safe Workers
+                            <Shield className="w-4 h-4 text-accent-muted" /> Safe Workers
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                             {safeWorkers.slice(0, 18).map(w => (
                                 <div key={w._id} className="flex items-center justify-between px-3 py-2 rounded-xl bg-white/[0.02] border border-white/5 text-xs">
                                     <span className="text-white/60 truncate">{w.name || w.workerId}</span>
-                                    <span className="px-2 py-0.5 rounded-full bg-green-400/10 text-green-400 text-[11px]">Safe</span>
+                                    <span className="px-2 py-0.5 rounded-full bg-accent-muted/10 text-accent-muted text-[11px] font-bold uppercase">Safe</span>
                                 </div>
                             ))}
                         </div>
@@ -206,7 +206,7 @@ export default function RiskAlertsPanel() {
                         {crossLogs.map((log, i) => (
                             <div key={log.uid + i} className="p-3 rounded-xl bg-amber-400/5 border border-amber-400/10">
                                 <div className="flex items-center justify-between mb-1">
-                                    <span className="text-xs font-semibold text-amber-400 flex items-center gap-1">
+                                    <span className="text-xs font-black uppercase tracking-widest text-accent flex items-center gap-1">
                                         <AlertTriangle className="w-3 h-3" /> ENTERED HAZARD ZONE
                                     </span>
                                     <span className="text-[11px] text-white/30 font-mono">{new Date(log.time).toLocaleTimeString()}</span>

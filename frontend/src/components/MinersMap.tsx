@@ -8,9 +8,9 @@ interface Worker {
 }
 
 const roleColors: Record<string, string> = {
-    miner: "#00d4ff", engineer: "#3b82f6", "safety officer": "#00ff88",
-    electrician: "#eab308", welder: "#f97316", plumber: "#06b6d4",
-    operator: "#a855f7", technician: "#ec4899",
+    miner: "#EF8852", engineer: "#AB7E75", "safety officer": "#EF8852AA",
+    electrician: "#AB7E75CC", welder: "#EF885299", plumber: "#AB7E75AA",
+    operator: "#EF8852BB", technician: "#AB7E75BB",
 };
 
 export default function MinersMap({ workers, isOnline, lastUpdate, onRefresh }: {
@@ -41,8 +41,8 @@ export default function MinersMap({ workers, isOnline, lastUpdate, onRefresh }: 
         // Mining area
         L.polygon([
             [20.9345, 85.1595], [20.9345, 85.281], [20.9661, 85.281], [20.9661, 85.1595], [20.9345, 85.1595]
-        ], { color: "#00d4ff", weight: 1.5, opacity: 0.5, fillColor: "#00d4ff", fillOpacity: 0.03, dashArray: "6,4" })
-            .addTo(map).bindPopup("<b style='color:#00d4ff'>Talcher Mining Area</b>");
+        ], { color: "#EF8852", weight: 1.5, opacity: 0.5, fillColor: "#EF8852", fillOpacity: 0.03, dashArray: "6,4" })
+            .addTo(map).bindPopup("<b style='color:#EF8852'>Talcher Mining Area</b>");
 
         setMapObj(map); setLoaded(true);
         return () => { map.remove(); };
@@ -92,7 +92,9 @@ export default function MinersMap({ workers, isOnline, lastUpdate, onRefresh }: 
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold flex items-center gap-2"><MapPin className="w-5 h-5 text-cyan-400" /> Live Map</h3>
+                <h3 className="text-lg font-black uppercase tracking-tight italic flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-accent shadow-glow" /> Live Map
+                </h3>
                 <div className="flex gap-2">
                     {onRefresh && <button onClick={onRefresh} className="btn-ghost text-xs px-3 py-1.5"><RefreshCw className="w-3.5 h-3.5 mr-1 inline" />Refresh</button>}
                     <button onClick={toggle} className="btn-ghost text-xs px-3 py-1.5">{fullscreen ? <Minimize2 className="w-3.5 h-3.5 inline mr-1" /> : <Maximize2 className="w-3.5 h-3.5 inline mr-1" />}{fullscreen ? "Exit" : "Fullscreen"}</button>
@@ -101,21 +103,21 @@ export default function MinersMap({ workers, isOnline, lastUpdate, onRefresh }: 
 
             <div className={`glass-card overflow-hidden transition-all ${fullscreen ? "fixed inset-4 z-50" : "relative"}`}>
                 <div ref={mapRef} className={`w-full ${fullscreen ? "h-full" : "h-[500px]"}`} style={{ minHeight: 400 }} />
-                {!loaded && <div className="absolute inset-0 bg-black/80 flex items-center justify-center"><div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" /></div>}
+                {!loaded && <div className="absolute inset-0 bg-black/80 flex items-center justify-center"><div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin shadow-glow" /></div>}
                 {fullscreen && <button onClick={toggle} className="absolute top-4 right-4 z-20 btn-ghost text-xs px-3 py-1.5"><Minimize2 className="w-3.5 h-3.5 inline mr-1" />Close</button>}
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {[
-                    { icon: Users, label: "On Map", val: workers.length, c: "#00d4ff" },
-                    { icon: Activity, label: "Active", val: workers.filter(w => (Date.now() - Date.parse(w.lastUpdated)) < 300000).length, c: "#00ff88" },
-                    { icon: HardHat, label: "Roles", val: new Set(workers.map(w => w.role)).size, c: "#3b82f6" },
-                    { icon: MapPin, label: "Updated", val: lastUpdate || "—", c: "#ffaa00" },
+                    { icon: Users, label: "On Map", val: workers.length, c: "var(--accent-primary)" },
+                    { icon: Activity, label: "Active", val: workers.filter(w => (Date.now() - Date.parse(w.lastUpdated)) < 300000).length, c: "var(--accent-primary)" },
+                    { icon: HardHat, label: "Roles", val: new Set(workers.map(w => w.role)).size, c: "var(--accent-secondary)" },
+                    { icon: MapPin, label: "Updated", val: lastUpdate || "—", c: "var(--accent-primary)" },
                 ].map(s => (
-                    <div key={s.label} className="stat-card py-3 px-4">
-                        <div className="flex items-center gap-2 mb-1"><s.icon className="w-4 h-4" style={{ color: s.c }} /><span className="text-xs text-white/40">{s.label}</span></div>
-                        <div className="text-lg font-bold" style={{ color: typeof s.val === "number" ? s.c : "#ffaa00" }}>{s.val}</div>
+                    <div key={s.label} className="stat-card py-3 px-4 shadow-sm border border-accent/10">
+                        <div className="flex items-center gap-2 mb-1"><s.icon className="w-4 h-4" style={{ color: s.c }} /><span className="text-[10px] text-accent-muted font-black uppercase tracking-widest">{s.label}</span></div>
+                        <div className="text-xl font-black italic tracking-tight" style={{ color: s.c }}>{s.val}</div>
                     </div>
                 ))}
             </div>

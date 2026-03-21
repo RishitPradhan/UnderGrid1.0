@@ -34,9 +34,9 @@ const mockWorkers: Worker[] = [
 ];
 
 const roleColors: Record<string, string> = {
-    miner: "#00d4ff", engineer: "#3b82f6", "safety officer": "#00ff88",
-    electrician: "#eab308", welder: "#f97316", plumber: "#06b6d4",
-    operator: "#a855f7", technician: "#ec4899",
+    miner: "#EF8852", engineer: "#AB7E75", "safety officer": "#82463C",
+    electrician: "#f3a57b", welder: "#d97706", plumber: "#a78bfa",
+    operator: "#8b5cf6", technician: "#ec4899",
 };
 
 export default function LiveMinersData() {
@@ -68,9 +68,9 @@ export default function LiveMinersData() {
 
     const getStatus = (ts: string) => {
         const m = Math.floor((Date.now() - Date.parse(ts)) / 60000);
-        if (m < 5) return { label: "Active", color: "#00ff88" };
-        if (m < 30) return { label: "Recent", color: "#ffaa00" };
-        return { label: "Inactive", color: "#ff3333" };
+        if (m < 5) return { label: "Active", color: "#EF8852" };
+        if (m < 30) return { label: "Recent", color: "#AB7E75" };
+        return { label: "Inactive", color: "#82463C" };
     };
 
     const rc = (role: string) => roleColors[role.toLowerCase()] || "#6b7280";
@@ -81,29 +81,29 @@ export default function LiveMinersData() {
             <div className="glass-card-accent p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-400 to-green-400 flex items-center justify-center">
-                            <Users className="w-7 h-7 text-black" />
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-accent-muted flex items-center justify-center shadow-lg">
+                            <Users className="w-7 h-7 text-surface-deep" />
                         </div>
                         <div>
-                            <h2 className="text-2xl font-bold flex items-center gap-3">
+                            <h2 className="text-2xl font-black uppercase tracking-tight italic flex items-center gap-3">
                                 Worker Tracking
-                                <span className="text-sm bg-cyan-400/10 text-cyan-400 px-3 py-1 rounded-full">{workers.length} Active</span>
+                                <span className="text-sm bg-accent/10 text-accent px-3 py-1 rounded-full font-bold">{workers.length} Active</span>
                             </h2>
-                            <p className="text-white/40 text-sm">Real-time locations and status</p>
+                            <p className="text-accent-muted font-bold uppercase tracking-widest text-[10px] mt-1">Real-time locations and status</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1">
-                            <button onClick={() => setView("list")} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === "list" ? "bg-cyan-400/10 text-cyan-400" : "text-white/40 hover:text-white"}`}>
+                            <button onClick={() => setView("list")} className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all ${view === "list" ? "bg-accent/10 text-accent" : "text-white/40 hover:text-white"}`}>
                                 <List className="w-4 h-4 inline mr-1" /> List
                             </button>
-                            <button onClick={() => setView("map")} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === "map" ? "bg-cyan-400/10 text-cyan-400" : "text-white/40 hover:text-white"}`}>
+                            <button onClick={() => setView("map")} className={`px-3 py-1.5 rounded-md text-[11px] font-black uppercase tracking-widest transition-all ${view === "map" ? "bg-accent/10 text-accent shadow-[0_0_10px_rgba(239,136,82,0.1)]" : "text-white/35 hover:text-white/60"}`}>
                                 <Map className="w-4 h-4 inline mr-1" /> Map
                             </button>
                         </div>
-                        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 text-xs">
-                            {isOnline ? <Wifi className="w-3.5 h-3.5 text-green-400" /> : <WifiOff className="w-3.5 h-3.5 text-red-400" />}
-                            <span className={isOnline ? "text-green-400" : "text-red-400"}>{isOnline ? "Live" : "Demo"}</span>
+                        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-accent/5 border border-accent/10 text-[10px] font-black uppercase tracking-widest">
+                            {isOnline ? <Wifi className="w-3.5 h-3.5 text-accent" /> : <WifiOff className="w-3.5 h-3.5 text-accent-muted" />}
+                            <span className={isOnline ? "text-accent" : "text-accent-muted"}>{isOnline ? "Live" : "Demo"}</span>
                         </div>
                         <button onClick={fetchData} disabled={loading}
                             className="btn-ghost text-sm px-4 py-2 flex items-center gap-2 disabled:opacity-50">
@@ -116,10 +116,10 @@ export default function LiveMinersData() {
             {/* Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                    { label: "Total Workers", value: workers.length, color: "#00d4ff", icon: Users },
-                    { label: "Active Now", value: workers.filter(w => getStatus(w.lastUpdated).label === "Active").length, color: "#00ff88", icon: Activity },
-                    { label: "Job Roles", value: new Set(workers.map(w => w.role)).size, color: "#3b82f6", icon: HardHat },
-                    { label: "Safety Staff", value: workers.filter(w => w.role.toLowerCase().includes("safety")).length, color: "#ffaa00", icon: AlertTriangle },
+                    { label: "Total Workers", value: workers.length, color: "#EF8852", icon: Users },
+                    { label: "Active Now", value: workers.filter(w => getStatus(w.lastUpdated).label === "Active").length, color: "#EF8852", icon: Activity },
+                    { label: "Job Roles", value: new Set(workers.map(w => w.role)).size, color: "#AB7E75", icon: HardHat },
+                    { label: "Safety Staff", value: workers.filter(w => w.role.toLowerCase().includes("safety")).length, color: "#AB7E75", icon: AlertTriangle },
                 ].map(s => (
                     <div key={s.label} className="stat-card">
                         <div className="flex items-center justify-between">
@@ -177,7 +177,7 @@ export default function LiveMinersData() {
                                             {w.currentLocation?.coordinates && (
                                                 <div className="flex justify-between items-center">
                                                     <span className="text-white/30">Location</span>
-                                                    <span className="font-mono text-white/60 flex items-center gap-1">
+                                                    <span className="text-[11px] text-accent font-black uppercase tracking-widest flex items-center gap-1">
                                                         <MapPin className="w-3 h-3" />
                                                         {w.currentLocation.coordinates[1].toFixed(4)}°N, {w.currentLocation.coordinates[0].toFixed(4)}°E
                                                     </span>

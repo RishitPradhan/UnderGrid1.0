@@ -53,8 +53,8 @@ export default function HeatmapViewer() {
                 const risk = f.properties.risk;
                 const velocity = Math.abs(f.properties.velocity_mm_yr);
                 
-                // Color based on risk/velocity
-                const color = risk === "High" ? "#ff3333" : velocity > 25 ? "#ffaa00" : "#00d4ff";
+                // Color based on risk/velocity (Unifying to theme palette)
+                const color = risk === "High" ? "#EF8852" : velocity > 25 ? "#AB7E75" : "#EF885233";
                 const opacity = risk === "High" ? 0.8 : 0.4;
                 const radius = risk === "High" ? 4 : 2.5;
 
@@ -105,7 +105,9 @@ export default function HeatmapViewer() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h3 className="text-lg font-semibold flex items-center gap-2"><Globe className="w-5 h-5 text-cyan-400" /> Geological Heatmap (Odisha)</h3>
+                    <h3 className="text-lg font-black uppercase tracking-tight italic flex items-center gap-2">
+                        <Globe className="w-5 h-5 text-accent shadow-glow" /> Geological Heatmap (Odisha)
+                    </h3>
                     <p className="text-xs text-white/30 mt-1">ML-powered land deformation analysis • Talcher Region</p>
                 </div>
                 <div className="flex items-center gap-3 flex-wrap">
@@ -113,7 +115,7 @@ export default function HeatmapViewer() {
                     <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1">
                         {sources.map(s => (
                             <button key={s.id} onClick={() => setSrc(s.id)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${src === s.id ? "bg-cyan-400/10 text-cyan-400" : "text-white/40 hover:text-white"}`}>
+                                className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all flex items-center gap-1.5 ${src === s.id ? "bg-accent/10 text-accent" : "text-white/40 hover:text-white"}`}>
                                 <s.icon className="w-3.5 h-3.5" /> {s.label}
                             </button>
                         ))}
@@ -136,8 +138,8 @@ export default function HeatmapViewer() {
                 
                 {loading && (
                     <div className="absolute inset-0 z-[1000] bg-black/60 flex flex-col items-center justify-center gap-3 backdrop-blur-sm">
-                        <div className="w-10 h-10 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
-                        <p className="text-sm text-white/40 font-medium">Processing local geospatial data...</p>
+                        <div className="w-10 h-10 border-2 border-accent border-t-transparent rounded-full animate-spin shadow-glow" />
+                        <p className="text-[10px] text-accent font-black uppercase tracking-widest">Processing geospatial data...</p>
                     </div>
                 )}
                 
@@ -160,15 +162,15 @@ export default function HeatmapViewer() {
                 <div className="absolute bottom-4 right-4 z-[1000] p-3 rounded-xl bg-black/70 backdrop-blur-md border border-white/10 text-[10px]">
                     <div className="font-bold text-white/50 uppercase tracking-widest mb-2">Ground Deformation</div>
                     <div className="flex items-center gap-2 mb-1">
-                        <div className="w-2 h-2 rounded-full bg-[#ff3333]" />
+                        <div className="w-2 h-2 rounded-full bg-[#EF8852]" />
                         <span className="text-white/70">High Risk (&gt;50mm/yr)</span>
                     </div>
                     <div className="flex items-center gap-2 mb-1">
-                        <div className="w-2 h-2 rounded-full bg-[#ffaa00]" />
+                        <div className="w-2 h-2 rounded-full bg-[#AB7E75]" />
                         <span className="text-white/70">Moderate (&gt;25mm/yr)</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-[#00d4ff]" />
+                        <div className="w-2 h-2 rounded-full bg-[#EF885233]" />
                         <span className="text-white/70">Stable</span>
                     </div>
                 </div>
@@ -178,7 +180,7 @@ export default function HeatmapViewer() {
             <div className="flex items-center justify-between text-xs text-white/30">
                 <div className="flex items-center gap-2">
                     <Radio className="w-3.5 h-3.5" />
-                    Source: <span className="text-cyan-400">Local Backend (InSAR)</span> · Region: <span className="text-cyan-400">Talcher, Odisha</span>
+                    Source: <span className="text-accent uppercase font-bold">Local Backend (InSAR)</span> · Region: <span className="text-accent uppercase font-bold">Talcher, Odisha</span>
                 </div>
                 {lastRefresh && <div>Last sync: {lastRefresh}</div>}
             </div>

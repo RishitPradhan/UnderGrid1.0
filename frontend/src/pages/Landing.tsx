@@ -1,262 +1,288 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-    Shield, Radio, MapPin, Bell, Brain, Activity, ArrowRight,
-    Wifi, Satellite, HardHat, AlertTriangle, BarChart3, Github, ArrowUpRight,
-    Lock, Zap, Globe, Cpu, Users, Workflow
+    Shield, MapPin, Bell, Brain, Activity, ArrowRight,
+    Wifi, Satellite, HardHat, BarChart3, Github,
+    Lock, Zap, Globe, Cpu, ShieldCheck
 } from "lucide-react";
-import ExcavatorAnimation from "../components/ExcavatorAnimation";
 
-const HERO_IMAGE = "/C:/Users/prach/.gemini/antigravity/brain/e501e584-5f25-4286-835d-688044eedd21/mining_hero_background_1773642379866.png";
-
-const features = [
-    { icon: MapPin, title: "Real-Time Tracking", desc: "GPS + RFID powered live location tracking for every miner underground with sub-meter accuracy.", color: "#00d4ff" },
-    { icon: AlertTriangle, title: "Hazard Zone Detection", desc: "Haversine distance monitoring with 20m threshold alerts when workers approach unstable zones.", color: "#ef4444" },
-    { icon: Bell, title: "Instant SMS Alerts", desc: "Twilio-powered emergency notifications sent to supervisors when workers enter risk zones.", color: "#f59e0b" },
-    { icon: Brain, title: "ML Heatmaps", desc: "AI-powered geological deformation analysis with interactive heatmaps from satellite data.", color: "#a855f7" },
-    { icon: BarChart3, title: "Predictive Analytics", desc: "Machine learning models predict land displacement with actual vs predicted visualization.", color: "#34d399" },
-    { icon: Activity, title: "System Observability", desc: "Prometheus metrics + Winston-Loki logging for complete production monitoring.", color: "#ec4899" },
-];
+const TRUCK_IMAGE = "/images/landing_truck.png";
+const MINER_IMAGE = "/images/landing_miner.png";
 
 const pillars = [
-    { icon: Lock, title: "Uncompromising Safety", desc: "Engineering zero-compromise safety protocols using real-time IoT networks." },
-    { icon: Zap, title: "Real-Time Precision", desc: "Sub-second latency in hazard detection ensures immediate response to threats." },
-    { icon: Globe, title: "Scaleable Intelligence", desc: "Managing massive underground operations through centralized AI command." },
+    { title: "Revolutionize Your", desc: "Revolutionize your industrial mining processes with our advanced real-time AI and location heuristics." },
+    { title: "Uncompromising Safety", desc: "Implement zero-compromise safety protocols using IoT networks and multi-sensor fusion." },
+    { title: "Scaleable Intelligence", desc: "Manage massive underground operations through centralized AI command and automated alerts." },
 ];
 
-const stats = [
-    { label: "Personnel Tracked", value: "2,400+" },
-    { label: "Active Nodes", value: "15,000+" },
-    { label: "Safety Alerts", value: "99.9%" },
-    { label: "Response Time", value: "<1s" },
+const cards = [
+    { icon: Lock, title: "Secure Your Operations", desc: "Automated threat detection and instantaneous communication networks ensure total security." },
+    { icon: Zap, title: "Real-Time Precision", desc: "Sub-second latency in hazard detection ensures immediate response to imminent threats." },
+];
+
+const solutions = [
+    { icon: MapPin, title: "Real-Time Tracking", desc: "Live location tracking for every miner." },
+    { icon: Bell, title: "Instant Alerts", desc: "Emergency notifications to supervisors." },
+    { icon: Brain, title: "ML Heatmaps", desc: "AI-powered geological deformation analysis." },
+    { icon: BarChart3, title: "Predictive Analytics", desc: "Predict structural stress scenarios." },
+    { icon: Shield, title: "Hazard Detection", desc: "Monitors proximity to unstable zones." },
+    { icon: Activity, title: "System Observability", desc: "Complete production monitoring." },
 ];
 
 export default function Landing() {
     return (
-        <div className="min-h-screen bg-[#020408] text-white selection:bg-cyan-500/30">
+        <div className="min-h-screen bg-surface-deep text-text-primary selection:bg-accent/30 overflow-x-hidden font-sans">
+            
             {/* ─── Navbar ─── */}
-            <nav className="fixed top-0 w-full z-50 bg-[#020408]/80 backdrop-blur-xl border-b border-white/[0.05]">
+            <nav className="fixed top-0 w-full z-50 bg-surface-deep border-b border-accent/10">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-cyan-400 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.3)]">
-                            <HardHat className="w-5 h-5 text-black" />
+                        <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
+                            <HardHat className="w-5 h-5 text-surface-deep" />
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-[17px] font-bold tracking-tight leading-none uppercase">undergrid<span className="text-cyan-400">.ai</span></span>
-                            <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] mt-1 font-medium">Mine Intelligence</span>
-                        </div>
+                        <span className="text-xl font-black lowercase tracking-tight">undergrid.ai</span>
                     </Link>
-                    <div className="hidden lg:flex items-center gap-10 text-[13px] font-semibold uppercase tracking-widest text-white/50">
-                        <a href="#solutions" className="hover:text-cyan-400 transition-colors">Solutions</a>
-                        <a href="#technology" className="hover:text-cyan-400 transition-colors">Technology</a>
-                        <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-                        <a href="https://github.com/RishitPradhan/UnderGrid" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-white transition-colors">
-                            <Github className="w-4 h-4" /> Open Source
-                        </a>
+                    <div className="hidden lg:flex items-center gap-8 text-[13px] font-bold text-text-secondary">
+                        <a href="#solutions" className="hover:text-amber-400 transition-colors">Solutions</a>
+                        <a href="#about" className="hover:text-amber-400 transition-colors">Technology</a>
+                        <a href="#pricing" className="hover:text-amber-400 transition-colors">About</a>
+                        <a href="https://github.com/RishitPradhan/UnderGrid" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">Source</a>
                     </div>
-                    <Link to="/dashboard" className="group text-[12px] font-bold uppercase tracking-widest text-black bg-cyan-400 hover:bg-cyan-300 px-6 py-3 rounded-full transition-all shadow-lg hover:shadow-cyan-400/20 active:scale-95">
-                        Command Center
+                    <Link to="/dashboard" className="px-6 py-2.5 rounded shadow-glow bg-accent text-surface-deep font-black text-[13px] hover:bg-amber-400 transition-colors">
+                        COMMAND CENTER
                     </Link>
                 </div>
             </nav>
 
             {/* ─── Hero Section ─── */}
-            <section className="relative min-h-[90vh] flex items-center pt-28 pb-20 overflow-hidden">
-                {/* Background Image with Parallax-like effect */}
-                <div className="absolute inset-0 z-0">
-                    <img
-                        src={HERO_IMAGE}
-                        alt="Mining Facility"
-                        className="w-full h-full object-cover scale-105 opacity-40 mix-blend-luminosity grayscale"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#020408] via-[#020408]/80 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-[#020408]/60" />
-                </div>
-
-                <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-400 mb-8">
-                            <Shield className="w-3.5 h-3.5" /> Industrial Grade Security
-                        </div>
-                        <h1 className="text-5xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-8 uppercase italic">
-                            Redefining
+            <section className="pt-32 pb-20 bg-surface-deep relative">
+                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                    <div className="max-w-xl">
+                        <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] mb-6 text-accent">
+                            Discover the
                             <br />
-                            <span className="text-cyan-400 drop-shadow-[0_0_30px_rgba(34,211,238,0.3)]">Safety</span>
+                            Future of
                             <br />
-                            Underground
+                            Mining Safety
                         </h1>
-                        <p className="text-lg lg:text-xl text-white/40 max-w-lg mb-10 leading-relaxed font-medium">
-                            The industry standard for real-time personnel tracking and hazard prevention. 
-                            Engineered for high-stakes mining environments where every second counts.
+                        <p className="text-lg text-text-secondary mb-8 font-medium">
+                            Harnessing real-time IoT networks and AI-powered heuristics to create the world's most advanced underground safety ecosystem.
                         </p>
-                        <div className="flex flex-wrap items-center gap-5">
-                            <Link to="/dashboard" className="group bg-cyan-400 text-black px-10 py-5 rounded-full font-black uppercase tracking-widest text-sm flex items-center gap-3 hover:bg-white transition-all shadow-2xl shadow-cyan-400/10 active:scale-95">
-                                Enterprise Portal <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <a href="#solutions" className="px-10 py-5 rounded-full border border-white/10 font-black uppercase tracking-widest text-sm hover:bg-white/5 transition-all active:scale-95">
-                                View Solutions
-                            </a>
-                        </div>
-                    </motion.div>
-
-                    {/* Industrial Stats Column */}
-                    <div className="hidden lg:grid grid-cols-2 gap-4">
-                        {stats.map((s, i) => (
-                            <motion.div
-                                key={s.label}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
-                                className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05] backdrop-blur-md hover:border-cyan-400/30 transition-all cursor-default group"
-                            >
-                                <div className="text-3xl font-black text-cyan-400 mb-1 group-hover:scale-110 transition-transform origin-left">{s.value}</div>
-                                <div className="text-[11px] font-bold uppercase tracking-widest text-white/30">{s.label}</div>
-                            </motion.div>
-                        ))}
+                        <Link to="/dashboard" className="inline-flex px-8 py-4 rounded bg-accent text-surface-deep shadow-glow font-black text-sm uppercase hover:bg-amber-400 transition-colors">
+                            LEARN MORE
+                        </Link>
+                    </div>
+                    <div className="relative">
+                        <img 
+                            src={TRUCK_IMAGE} 
+                            alt="Orange Mining Truck" 
+                            className="w-full h-auto object-contain rounded-xl"
+                            onError={(e) => {
+                                // Fallback if image not found
+                                e.currentTarget.style.display = 'none';
+                                e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-[400px] rounded-xl bg-surface-elevated border border-accent/20 flex items-center justify-center"><span class="text-accent/50 font-bold">Truck Asset Placeholder</span></div>';
+                            }}
+                        />
                     </div>
                 </div>
             </section>
 
             {/* ─── Pillars Section ─── */}
-            <section className="py-32 relative overflow-hidden bg-white/[0.01]">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 relative z-10">
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 border-t border-gray-200 pt-16">
                     {pillars.map((p, i) => (
-                        <motion.div
-                            key={p.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="flex flex-col items-center text-center group"
-                        >
-                            <div className="w-16 h-16 rounded-2xl bg-[#12151c] border border-white/5 flex items-center justify-center mb-8 shadow-xl group-hover:border-cyan-400/50 transition-all group-hover:scale-110">
-                                <p.icon className="w-8 h-8 text-cyan-400" />
-                            </div>
-                            <h3 className="text-xl font-bold mb-4 uppercase tracking-tighter">{p.title}</h3>
-                            <p className="text-white/40 text-sm leading-relaxed max-w-xs">{p.desc}</p>
-                        </motion.div>
+                        <div key={i} className="flex flex-col">
+                            <h3 className="text-xl font-black text-gray-900 mb-4">{p.title}</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed">{p.desc}</p>
+                        </div>
                     ))}
                 </div>
             </section>
 
-            {/* ─── Solutions Grid ─── */}
-            <section id="solutions" className="py-32 relative">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="max-w-3xl mb-24">
-                        <div className="text-cyan-400 font-black uppercase tracking-[0.3em] text-[12px] mb-4">Enterprise Solutions</div>
-                        <h2 className="text-4xl lg:text-6xl font-black uppercase italic tracking-tighter mb-8 bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent">
-                            Integrated Mining
-                            <br />
-                            Intelligence
+            {/* ─── Feature 1: Secure Your Mining ─── */}
+            <section className="py-24 bg-surface-deep relative">
+                {/* Visual split: Background behind miner is orange in the mock up. We'll simulate by wrapping the image */}
+                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-accent rounded-[3rem] -z-10 transform -rotate-3 blur-[2px]" />
+                        <img 
+                            src={MINER_IMAGE} 
+                            alt="Miner Character" 
+                            className="w-full h-auto max-w-md mx-auto object-contain drop-shadow-2xl"
+                            onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                                e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-[500px] rounded-[3rem] bg-accent border border-white/20 flex items-center justify-center"><span class="text-surface-deep font-bold">Miner Asset Placeholder</span></div>';
+                            }}
+                        />
+                    </div>
+
+                    <div className="flex flex-col relative z-20">
+                        <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
+                            Secure Your Mining
                         </h2>
-                        <div className="w-20 h-2 bg-cyan-400 rounded-full" />
+                        <p className="text-text-secondary text-lg mb-10">
+                            Engineering zero-compromise safety protocols using real-time IoT networks, 
+                            ensuring total oversight over the deepest operations on earth.
+                        </p>
+                        
+                        <div className="flex items-center gap-6 mb-16">
+                            <Link to="/dashboard" className="px-8 py-3 rounded bg-accent text-surface-deep font-black text-sm uppercase shadow-glow hover:bg-amber-400 transition-colors">
+                                LEARN MORE
+                            </Link>
+                            <Link to="/about" className="text-white font-bold text-sm uppercase hover:text-accent transition-colors flex items-center gap-2">
+                                Read Docs <ArrowRight className="w-4 h-4" />
+                            </Link>
+                        </div>
+
+                        {/* Overlapping White Cards */}
+                        <div className="flex flex-col gap-6">
+                            {cards.map((card, i) => (
+                                <div key={i} className="bg-white p-6 md:p-8 rounded-xl shadow-2xl flex gap-6 items-start -ml-0 lg:-ml-24 hover:translate-x-4 transition-transform z-30 border border-gray-100">
+                                    <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                                        <card.icon className="w-6 h-6 text-accent" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-lg font-black text-gray-900 mb-2">{card.title}</h4>
+                                        <p className="text-gray-600 text-sm leading-relaxed">{card.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── Feature 2: Revolutionize Your Mining ─── */}
+            <section className="py-32 bg-surface-deep border-y border-white/5 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-surface-elevated/20 skew-x-12" />
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+                    <div>
+                        <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
+                            Revolutionize
+                            <br />
+                            Your Mining
+                        </h2>
+                        <p className="text-text-secondary text-lg mb-10">
+                            Automated heuristics and machine learning integrations identify geometric faults before they materialize into disasters.
+                        </p>
+                        <Link to="/dashboard" className="inline-flex px-8 py-3 rounded bg-accent text-surface-deep shadow-glow font-black text-sm uppercase hover:bg-amber-400 transition-colors">
+                            LEARN MORE
+                        </Link>
+                    </div>
+                    {/* Placeholder for Cave Asset since quota failed */}
+                    <div className="relative w-full h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-surface-elevated to-surface flex items-center justify-center border border-accent/10 shadow-2xl">
+                        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+                        <div className="text-center relative z-10 px-8">
+                            <ShieldCheck className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
+                            <span className="text-accent/60 font-bold uppercase tracking-widest text-sm block mb-2">3D Cave & Vehicles Asset</span>
+                            <span className="text-text-secondary text-xs">Waiting for generation quota</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── Feature 3: Unlock The Power ─── */}
+            <section className="py-32 bg-accent relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
+                    {/* Placeholder for Mech Asset */}
+                    <div className="relative w-full h-[500px] flex items-center justify-center">
+                        <div className="w-[80%] h-[90%] bg-surface-deep rounded-[3rem] shadow-2xl flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500 border border-white/10">
+                            <div className="text-center px-8">
+                                <Activity className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
+                                <span className="text-accent font-bold uppercase tracking-widest text-sm block mb-2">3D Mech Suit Asset</span>
+                                <span className="text-white/40 text-xs">Waiting for generation quota</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="text-surface-deep">
+                        <h2 className="text-4xl lg:text-5xl font-black leading-tight mb-6">
+                            Unlock the <br /> Power of AI
+                        </h2>
+                        <p className="text-surface-deep/80 text-lg mb-10 font-bold pr-12">
+                            Deploy tactical drones, automate emergency shutdown sequences, and harness generative AI models directly from your command terminal.
+                        </p>
+                        <div className="flex flex-col gap-4 max-w-xs">
+                            <Link to="/dashboard" className="px-8 py-4 rounded bg-surface-deep text-accent font-black text-sm uppercase text-center hover:bg-surface transition-colors shadow-lg">
+                                COMMAND HUB
+                            </Link>
+                            <Link to="/about" className="px-8 py-4 rounded bg-transparent border-2 border-surface-deep text-surface-deep font-black text-sm uppercase text-center hover:bg-surface-deep/10 transition-colors">
+                                LEARN MORE
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── Solutions Grid ─── */}
+            <section id="solutions" className="py-32 bg-surface-deep relative">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
+                            Empowering the Next Generation of Miners
+                        </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {features.map((f, i) => (
-                            <motion.div
-                                key={f.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.05 }}
-                                className="group p-10 rounded-[2.5rem] bg-[#12151c] border border-white/[0.03] hover:border-cyan-400/20 transition-all hover:translate-y-[-8px] relative overflow-hidden shadow-2xl"
-                            >
-                                <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-10 transition-opacity">
-                                    <f.icon className="w-24 h-24" style={{ color: f.color }} />
+                        {solutions.map((sol, i) => (
+                            <div key={i} className="bg-surface border border-white/5 p-8 rounded-2xl hover:bg-surface-elevated/40 transition-colors group relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="w-12 h-12 rounded bg-surface-deep border border-accent/20 flex items-center justify-center mb-6">
+                                    <sol.icon className="w-5 h-5 text-accent" />
                                 </div>
-                                
-                                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-10 shadow-inner"
-                                    style={{ background: `${f.color}15`, border: `1px solid ${f.color}25` }}>
-                                    <f.icon className="w-7 h-7" style={{ color: f.color }} />
-                                </div>
-                                <h3 className="text-[17px] font-black mb-4 uppercase italic tracking-tight">{f.title}</h3>
-                                <p className="text-[14px] text-white/30 font-medium leading-relaxed">{f.desc}</p>
-                                
-                                <div className="mt-10 flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-cyan-400 opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0">
-                                    Learn More <ArrowRight className="w-4 h-4" />
-                                </div>
-                            </motion.div>
+                                <h3 className="text-xl font-bold text-white mb-3">{sol.title}</h3>
+                                <p className="text-text-secondary text-sm leading-relaxed">{sol.desc}</p>
+                            </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ─── Technology Strip ─── */}
-            <section id="technology" className="py-24 border-y border-white/[0.05] bg-white/[0.01]">
-                <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-between items-center gap-12 opacity-40">
-                    {[
-                        { icon: Satellite, text: "InSAR Satellite Data" },
-                        { icon: Cpu, text: "LLM Edge Computing" },
-                        { icon: Wifi, text: "RFID Mesh Networks" },
-                        { icon: Lock, text: "Encrypted Comms" },
-                        { icon: Globe, text: "Geospatial GIS" }
-                    ].map((t) => (
-                        <div key={t.text} className="flex items-center gap-3 grayscale hover:grayscale-0 transition-all">
-                            <t.icon className="w-6 h-6" />
-                            <span className="text-[11px] font-black uppercase tracking-widest">{t.text}</span>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ─── Final CTA ─── */}
-            <section className="py-48 relative overflow-hidden">
-                <div className="absolute inset-0 bg-cyan-400/5 mix-blend-overlay" />
-                <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-                    <h2 className="text-5xl lg:text-9xl font-black uppercase italic tracking-tighter mb-12">
-                        Command the
-                        <br />
-                        <span className="text-cyan-400 tracking-[-0.05em] drop-shadow-[0_0_50px_rgba(34,211,238,0.2)] underline decoration-white/10 underline-offset-[20px]">UnderGrid</span>
-                    </h2>
-                    <p className="text-xl text-white/40 mb-12 max-w-2xl mx-auto font-medium">
-                        Deploy the world's most advanced mining safety platform in your facility today.
-                    </p>
-                    <Link to="/dashboard" className="px-16 py-8 rounded-full bg-white text-black font-black uppercase tracking-widest text-lg hover:bg-cyan-400 transition-all hover:scale-105 active:scale-95 shadow-2xl">
-                        Launch Enterprise Portal
-                    </Link>
-                </div>
-            </section>
-
-            {/* ─── Excavator Animation ─── */}
-            <ExcavatorAnimation />
-
             {/* ─── Footer ─── */}
-            <footer className="bg-[#0a0c10] py-24 border-t border-white/[0.05]">
-                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24">
-                    <div className="col-span-2">
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 rounded-xl bg-cyan-400 flex items-center justify-center">
-                                <HardHat className="w-6 h-6 text-black" />
+            <footer className="bg-surface py-20 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-12 text-sm">
+                    <div className="col-span-1 md:col-span-2">
+                        <Link to="/" className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
+                                <HardHat className="w-5 h-5 text-surface-deep" />
                             </div>
-                            <span className="text-2xl font-black uppercase italic tracking-tighter italic">undergrid<span className="text-cyan-400">.ai</span></span>
-                        </div>
-                        <p className="text-white/20 text-sm max-w-sm leading-relaxed font-medium">
-                            Propelling mining safety into the future through autonomous tracking, AI heuristics, and real-time geological analysis.
+                            <span className="text-xl font-black lowercase tracking-tight text-white">undergrid.ai</span>
+                        </Link>
+                        <p className="text-text-secondary max-w-sm mb-6">
+                            Architecting the future of industrial safety through autonomous IoT networks.
                         </p>
+                        <div className="text-white/30 text-xs text-text-secondary">© 2026 Undergrid Co. All rights reserved.</div>
                     </div>
+                    
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.2em] text-[11px] text-cyan-400 mb-8">Navigation</h4>
-                        <div className="flex flex-col gap-4 text-sm font-bold text-white/30">
-                            <a href="#solutions" className="hover:text-white transition-colors">Solutions</a>
-                            <a href="#technology" className="hover:text-white transition-colors">Technology</a>
-                            <Link to="/dashboard" className="hover:text-white transition-colors text-cyan-400">Dashboard</Link>
-                        </div>
+                        <h4 className="text-white font-bold mb-6">System</h4>
+                        <ul className="space-y-4 text-text-secondary">
+                            <li><Link to="/dashboard" className="hover:text-accent transition-colors">Command Center</Link></li>
+                            <li><a href="#" className="hover:text-accent transition-colors">Analytics</a></li>
+                            <li><a href="#" className="hover:text-accent transition-colors">Alerts</a></li>
+                        </ul>
                     </div>
+                    
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.2em] text-[11px] text-cyan-400 mb-8">Platform</h4>
-                        <div className="flex flex-col gap-4 text-sm font-bold text-white/30">
-                            <a href="https://github.com/RishitPradhan/UnderGrid" className="hover:text-white transition-colors">GitHub Repository</a>
-                            <span className="opacity-50">Hackathon v2.0</span>
-                            <span className="opacity-50">© 2026 UnderGrid</span>
-                        </div>
+                        <h4 className="text-white font-bold mb-6">Company</h4>
+                        <ul className="space-y-4 text-text-secondary">
+                            <li><a href="#" className="hover:text-accent transition-colors">About Us</a></li>
+                            <li><a href="#" className="hover:text-accent transition-colors">Careers</a></li>
+                            <li><a href="#" className="hover:text-accent transition-colors">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 className="text-white font-bold mb-6">Connect</h4>
+                        <ul className="space-y-4 text-text-secondary">
+                            <li><a href="https://github.com/RishitPradhan/UnderGrid" className="hover:text-accent transition-colors flex items-center gap-2"><Github className="w-4 h-4"/> GitHub</a></li>
+                            <li><a href="#" className="hover:text-accent transition-colors">Twitter</a></li>
+                            <li><a href="#" className="hover:text-accent transition-colors">Contact</a></li>
+                        </ul>
                     </div>
                 </div>
             </footer>
         </div>
     );
 }
+

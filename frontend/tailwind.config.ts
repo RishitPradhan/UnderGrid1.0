@@ -5,9 +5,27 @@ export default {
         extend: {
             fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
             colors: {
-                surface: { DEFAULT: "#0a0a0a", 50: "#111111", 100: "#1a1a1a", 200: "#222222", 300: "#2a2a2a" },
-                accent: { DEFAULT: "#00d4ff", dark: "#00a8cc", light: "#33ddff" },
-                neon: { green: "#00ff88", red: "#ff3333", amber: "#ffaa00" },
+                surface: {
+                    DEFAULT: "#382522",
+                    deep: "#1a1110",
+                    elevated: "#4d332f",
+                    50: "#4d332f",
+                    100: "#3d2925",
+                    200: "#382522",
+                    300: "#2d1e1c"
+                },
+                accent: {
+                    DEFAULT: "#EF8852",
+                    muted: "#AB7E75",
+                    deep: "#82463C",
+                    light: "#f3a57b"
+                },
+                warm: {
+                    peach: "#EF8852",
+                    taupe: "#AB7E75",
+                    sienna: "#82463C",
+                    chocolate: "#382522"
+                }
             },
             animation: {
                 "glow-pulse": "glow-pulse 2s ease-in-out infinite",

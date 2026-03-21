@@ -518,17 +518,17 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
             {/* ─── Header ─── */}
             <div className="glass-card-accent p-4 mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-400/20 flex items-center justify-center">
-                        <Terminal className="w-5 h-5 text-cyan-400" />
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent/20 to-accent-muted/20 border border-accent/20 flex items-center justify-center shadow-lg">
+                        <Terminal className="w-5 h-5 text-accent" />
                     </div>
                     <div>
-                        <h2 className="text-[15px] font-bold flex items-center gap-2">
+                        <h2 className="text-[15px] font-black uppercase tracking-tight italic flex items-center gap-2">
                             UnderGrid AI
-                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 font-mono">v2.0</span>
-                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 font-mono">STREAM</span>
-                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-400/10 text-amber-400 border border-amber-400/20 font-mono">ACTION</span>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-accent/10 text-accent border border-accent/20 font-bold">v2.0</span>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-accent-muted/10 text-accent-muted border border-accent-muted/20 font-bold uppercase tracking-widest">STREAM</span>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-accent/10 text-accent border border-accent/20 font-bold uppercase tracking-widest">ACTION</span>
                         </h2>
-                        <p className="text-[11px] text-white/30">Actionable Command Center • Trends • Voice • CLI</p>
+                        <p className="text-[11px] text-accent-muted font-bold uppercase tracking-widest text-[9px] mt-0.5">Actionable Command Center • Trends • Voice • CLI</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -541,8 +541,8 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
                     )}
                     <button onClick={toggleTTS}
                         className={`p-2 rounded-lg border transition-all ${ttsEnabled
-                            ? "bg-amber-400/10 border-amber-400/30 text-amber-400"
-                            : "bg-white/[0.03] border-white/[0.06] text-white/30 hover:text-amber-400 hover:border-amber-400/20"}`}
+                            ? "bg-accent/10 border-accent/30 text-accent"
+                            : "bg-white/[0.03] border-white/[0.06] text-white/30 hover:text-accent hover:border-accent/20"}`}
                         title={ttsEnabled ? "Disable voice output" : "Enable voice output"}>
                         {ttsEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
                     </button>
@@ -557,12 +557,12 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
                 onDrop={handleDrop}
-                style={dragOver ? { borderColor: "rgba(0, 212, 255, 0.4)", background: "rgba(0, 212, 255, 0.02)" } : {}}>
+                style={dragOver ? { borderColor: "rgba(var(--color-accent-rgb), 0.4)", background: "rgba(var(--color-accent-rgb), 0.02)" } : {}}>
                 {dragOver && (
-                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-xl pointer-events-none">
-                        <div className="flex flex-col items-center gap-2 text-cyan-400">
+                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-xl pointer-events-none">
+                        <div className="flex flex-col items-center gap-2 text-accent">
                             <Upload className="w-8 h-8" />
-                            <span className="text-sm font-medium">Drop image for analysis</span>
+                            <span className="text-sm font-black uppercase tracking-widest">Drop image for analysis</span>
                         </div>
                     </div>
                 )}
@@ -575,14 +575,14 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
 
                 {loading && !messages[messages.length - 1]?.streaming && (
                     <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 px-4 py-3">
-                        <div className="w-7 h-7 rounded-lg bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center">
-                            <Loader2 className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
+                        <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+                            <Loader2 className="w-3.5 h-3.5 text-accent animate-spin" />
                         </div>
                         <div className="flex items-center gap-1">
-                            <span className="text-[12px] text-white/30 font-mono">Connecting to AI engine</span>
+                            <span className="text-[10px] text-accent/60 font-black uppercase tracking-widest">Connecting to AI engine</span>
                             <span className="inline-flex gap-0.5">
                                 {[0, 1, 2].map((d) => (
-                                    <motion.span key={d} className="w-1 h-1 rounded-full bg-cyan-400/50"
+                                    <motion.span key={d} className="w-1 h-1 rounded-full bg-accent/50"
                                         animate={{ opacity: [0.3, 1, 0.3] }}
                                         transition={{ repeat: Infinity, duration: 1.2, delay: d * 0.2 }} />
                                 ))}
@@ -597,7 +597,7 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
             <div className="flex gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
                 {QUICK_COMMANDS.map((cmd) => (
                     <button key={cmd} onClick={() => sendMessage(cmd)} disabled={loading}
-                        className="flex-shrink-0 text-[11px] px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.06] text-white/40 hover:text-cyan-400 hover:border-cyan-400/20 hover:bg-cyan-400/5 transition-all disabled:opacity-30 font-mono">
+                        className="flex-shrink-0 text-[10px] px-3 py-1.5 rounded-lg bg-surface/40 border border-accent/10 text-accent/60 hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all disabled:opacity-30 font-black uppercase tracking-widest">
                         {cmd}
                     </button>
                 ))}
@@ -605,9 +605,9 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
 
             {/* ─── Pending Image ─── */}
             {pendingImage && (
-                <div className="mb-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-400/5 border border-purple-400/20">
-                    <ImageIcon className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                    <span className="text-[12px] text-purple-300 truncate flex-1">{pendingImageName}</span>
+                <div className="mb-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-accent/5 border border-accent/20">
+                    <ImageIcon className="w-4 h-4 text-accent flex-shrink-0" />
+                    <span className="text-[12px] text-accent-muted truncate flex-1">{pendingImageName}</span>
                     <button onClick={() => { setPendingImage(null); setPendingImageName(""); }} className="text-white/30 hover:text-red-400 transition-colors">
                         <XCircle className="w-4 h-4" />
                     </button>
@@ -617,7 +617,7 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
             {/* ─── Input ─── */}
             <div className="glass-card-accent p-3 flex items-end gap-2">
                 <button onClick={() => fileInputRef.current?.click()}
-                    className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-purple-400/30 hover:bg-purple-400/5 transition-all text-white/30 hover:text-purple-400 flex-shrink-0"
+                    className="p-2.5 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-accent/30 hover:bg-accent/5 transition-all text-white/30 hover:text-accent flex-shrink-0"
                     title="Upload tunnel image">
                     <Upload className="w-4 h-4" />
                 </button>
@@ -627,7 +627,7 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
                 <button onClick={toggleListening}
                     className={`p-2.5 rounded-lg border transition-all flex-shrink-0 ${isListening
                         ? "bg-red-400/10 border-red-400/30 text-red-400 animate-pulse"
-                        : "bg-white/[0.03] border-white/[0.06] text-white/30 hover:text-purple-400 hover:border-purple-400/30 hover:bg-purple-400/5"}`}
+                        : "bg-white/[0.03] border-white/[0.06] text-white/30 hover:text-accent hover:border-accent/30 hover:bg-accent/5"}`}
                     title={isListening ? "Stop listening" : "Voice input"}>
                     {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </button>
@@ -642,7 +642,7 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
 
                 <button onClick={() => sendMessage()}
                     disabled={loading || (!input.trim() && !pendingImage)}
-                    className="p-2.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 hover:bg-cyan-400/20 transition-all disabled:opacity-20 disabled:cursor-not-allowed flex-shrink-0">
+                    className="p-2.5 rounded-lg bg-accent/10 border border-accent/20 text-accent hover:bg-accent/20 transition-all disabled:opacity-20 disabled:cursor-not-allowed flex-shrink-0">
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 </button>
             </div>
@@ -653,10 +653,10 @@ export default function AITerminal({ simMiners, simAlerts, simZones }: AITermina
 /* ─── Status Badge ─── */
 function StatusBadge({ label, ready }: { label: string; ready: boolean }) {
     return (
-        <div className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono border ${ready
-            ? "bg-emerald-400/5 border-emerald-400/20 text-emerald-400/80"
-            : "bg-red-400/5 border-red-400/20 text-red-400/80"}`}>
-            <div className={`w-1.5 h-1.5 rounded-full ${ready ? "bg-emerald-400" : "bg-red-400"}`} />
+        <div className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest border ${ready
+            ? "bg-accent/5 border-accent/20 text-accent/80 shadow-[0_0_10px_rgba(239,136,82,0.1)]"
+            : "bg-surface/10 border-white/10 text-white/30"}`}>
+            <div className={`w-1.5 h-1.5 rounded-full ${ready ? "bg-accent animate-pulse" : "bg-white/20"}`} />
             {label}
         </div>
     );
@@ -675,17 +675,17 @@ function ActionConfirmCard({ action, index, msgIndex, onExecute }: {
         >
             <div className="bg-black/80 backdrop-blur-sm m-[2px] rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-2">
-                    <ShieldAlert className="w-4 h-4 text-amber-400" />
-                    <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">Action Requires Confirmation</span>
+                    <ShieldAlert className="w-4 h-4 text-accent" />
+                    <span className="text-[11px] font-black uppercase tracking-widest text-accent">Action Requires Confirmation</span>
                 </div>
-                <div className="text-[12px] text-white/60 mb-1 font-mono">
-                    <span className="text-amber-400/80">ACTION:</span> {action.action}
+                <div className="text-[12px] text-white/60 mb-1 font-bold">
+                    <span className="text-accent/60 uppercase text-[10px] tracking-widest mr-2">ACTION</span> {action.action}
                 </div>
-                <div className="text-[12px] text-white/60 mb-1 font-mono">
-                    <span className="text-amber-400/80">TARGET:</span> {action.target}
+                <div className="text-[12px] text-white/60 mb-1 font-bold">
+                    <span className="text-accent/60 uppercase text-[10px] tracking-widest mr-2">TARGET</span> {action.target}
                 </div>
-                <div className="text-[12px] text-white/60 mb-3 font-mono">
-                    <span className="text-amber-400/80">MSG:</span> {action.message}
+                <div className="text-[12px] text-white/60 mb-3 font-bold">
+                    <span className="text-accent/60 uppercase text-[10px] tracking-widest mr-2">MSG</span> {action.message}
                 </div>
 
                 {action.status === "pending" && (
@@ -706,9 +706,9 @@ function ActionConfirmCard({ action, index, msgIndex, onExecute }: {
                 )}
 
                 {action.status === "success" && (
-                    <div className="flex items-center gap-2 text-emerald-400 text-[12px]">
+                    <div className="flex items-center gap-2 text-accent text-[12px] font-black uppercase tracking-widest">
                         <CheckCircle className="w-3.5 h-3.5" />
-                        <span className="font-mono">{action.result || "Action executed successfully."}</span>
+                        <span>{action.result || "Action executed successfully."}</span>
                     </div>
                 )}
 
@@ -740,19 +740,19 @@ function MessageBubble({ message, msgIndex, onExecuteAction }: {
             className={`flex gap-3 ${isUser ? "flex-row-reverse" : ""}`}
         >
             <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${isSystem
-                ? "bg-amber-400/10 border border-amber-400/20"
+                ? "bg-accent/10 border border-accent/20"
                 : isUser ? "bg-white/[0.06] border border-white/[0.08]"
-                    : "bg-cyan-400/10 border border-cyan-400/20"}`}>
-                {isSystem ? <Sparkles className="w-3.5 h-3.5 text-amber-400" /> :
+                    : "bg-accent-muted/10 border border-accent-muted/20"}`}>
+                {isSystem ? <Sparkles className="w-3.5 h-3.5 text-accent" /> :
                     isUser ? <User className="w-3.5 h-3.5 text-white/50" /> :
-                        <Bot className="w-3.5 h-3.5 text-cyan-400" />}
+                        <Bot className="w-3.5 h-3.5 text-accent-muted" />}
             </div>
 
             <div className={`max-w-[80%] ${isUser ? "text-right" : ""}`}>
                 <div className={`inline-block px-4 py-3 rounded-xl text-[13px] leading-relaxed ${isSystem
-                    ? "bg-amber-400/5 border border-amber-400/10 text-amber-200/80"
+                    ? "bg-accent/5 border border-accent/10 text-accent/80"
                     : isUser ? "bg-white/[0.06] border border-white/[0.08] text-white/80"
-                        : "bg-cyan-400/[0.04] border border-cyan-400/[0.08] text-white/70"}`}>
+                        : "bg-surface-elevated/40 border border-accent-muted/10 text-white/70 shadow-sm"}`}>
                     {message.image && (
                         <div className="mb-2">
                             <img src={`data:image/jpeg;base64,${message.image}`} alt="Uploaded"
@@ -761,7 +761,7 @@ function MessageBubble({ message, msgIndex, onExecuteAction }: {
                     )}
                     <div className="ai-terminal-content">
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{displayContent}</ReactMarkdown>
-                        {message.streaming && <span className="inline-block w-2 h-4 bg-cyan-400/80 ml-0.5 animate-blink-cursor" />}
+                        {message.streaming && <span className="inline-block w-2 h-4 bg-accent/80 ml-0.5 animate-blink-cursor" />}
                     </div>
 
                     {/* ─── Action Confirm Cards ─── */}
@@ -777,10 +777,13 @@ function MessageBubble({ message, msgIndex, onExecuteAction }: {
                 </div>
 
                 <div className={`text-[10px] text-white/15 mt-1 font-mono ${isUser ? "text-right" : ""}`}>
-                    {message.streaming ? <span className="text-cyan-400/40">streaming...</span> :
+                    {message.streaming ? <span className="text-accent/40 uppercase tracking-widest text-[9px] font-black">streaming...</span> :
                         new Date(message.timestamp).toLocaleTimeString()}
                 </div>
             </div>
         </motion.div>
     );
 }
+
+
+

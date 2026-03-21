@@ -56,13 +56,13 @@ export default function GeoZoneChart() {
             {
                 label: "Actual Displacement",
                 data: data.actual,
-                borderColor: "#00d4ff", backgroundColor: "rgba(0,212,255,0.1)",
+                borderColor: "#EF8852", backgroundColor: "rgba(239,136,82,0.1)",
                 fill: false, tension: 0.4, pointRadius: 2, borderWidth: 2,
             },
             {
                 label: "Predicted",
                 data: data.predicted,
-                borderColor: "#00ff88", backgroundColor: "rgba(0,255,136,0.1)",
+                borderColor: "#AB7E75", backgroundColor: "rgba(171,126,117,0.1)",
                 fill: false, tension: 0.4, pointRadius: 2, borderWidth: 2, borderDash: [5, 5],
             },
             ...(data.upperBound ? [{
@@ -96,8 +96,8 @@ export default function GeoZoneChart() {
         <div className="glass-card p-6">
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                        <BarChart3 className="w-5 h-5 text-cyan-400" /> Geological Prediction
+                    <h3 className="text-lg font-bold flex items-center gap-2 uppercase tracking-tight italic">
+                        <BarChart3 className="w-5 h-5 text-accent" /> Geological Prediction
                     </h3>
                     <p className="text-xs text-white/30 mt-1">Actual vs predicted land displacement</p>
                 </div>
@@ -109,7 +109,7 @@ export default function GeoZoneChart() {
 
             {loading && !data && (
                 <div className="h-64 flex items-center justify-center">
-                    <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
                 </div>
             )}
 

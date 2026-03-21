@@ -268,24 +268,24 @@ export default function GlobalAIPopup() {
                         style={{
                             background: "rgba(10, 10, 10, 0.92)",
                             backdropFilter: "blur(24px)",
-                            border: "1px solid rgba(0, 212, 255, 0.12)",
-                            boxShadow: "0 0 40px rgba(0, 212, 255, 0.08), 0 24px 64px rgba(0, 0, 0, 0.7)",
+                            border: "1px solid rgba(239, 136, 82, 0.12)",
+                            boxShadow: "0 0 40px rgba(239, 136, 82, 0.08), 0 24px 64px rgba(0, 0, 0, 0.7)",
                             display: minimized ? "none" : undefined,
                         }}
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]"
-                            style={{ background: "rgba(0, 212, 255, 0.04)" }}>
+                            style={{ background: "rgba(239, 136, 82, 0.04)" }}>
                             <div className="flex items-center gap-2.5">
-                                <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-                                    style={{ background: "rgba(0, 212, 255, 0.12)", border: "1px solid rgba(0, 212, 255, 0.2)" }}>
-                                    <Bot className="w-3.5 h-3.5 text-cyan-400" />
+                                <div className="w-7 h-7 rounded-lg flex items-center justify-center shadow-sm"
+                                    style={{ background: "rgba(239, 136, 82, 0.12)", border: "1px solid rgba(239, 136, 82, 0.2)" }}>
+                                    <Bot className="w-3.5 h-3.5 text-accent" />
                                 </div>
                                 <div>
                                     <p className="text-[13px] font-semibold text-white/90">UnderGrid AI</p>
                                     <div className="flex items-center gap-1">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                                        <span className="text-[10px] text-emerald-400/70 font-mono">LIVE DATA CONNECTED</span>
+                                        <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                                        <span className="text-[9px] text-accent/70 font-black uppercase tracking-widest">LIVE DATA CONNECTED</span>
                                     </div>
                                 </div>
                             </div>
@@ -318,10 +318,10 @@ export default function GlobalAIPopup() {
 
                             {loading && !messages[messages.length - 1]?.streaming && (
                                 <div className="flex items-center gap-2 px-3 py-2">
-                                    <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "rgba(0,212,255,0.08)" }}>
-                                        <Loader2 className="w-3 h-3 text-cyan-400 animate-spin" />
+                                    <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "rgba(239,136,82,0.08)" }}>
+                                        <Loader2 className="w-3 h-3 text-accent animate-spin" />
                                     </div>
-                                    <span className="text-[11px] text-white/25 font-mono">Connecting to AI...</span>
+                                    <span className="text-[10px] text-accent/30 font-black uppercase tracking-widest">Connecting...</span>
                                 </div>
                             )}
                             <div ref={messagesEndRef} />
@@ -334,7 +334,7 @@ export default function GlobalAIPopup() {
                                 {["Who is in danger?", "Gas report", "Sensor trends"].map(cmd => (
                                     <button key={cmd} onClick={() => { setInput(cmd); setTimeout(sendMessage, 0); }}
                                         disabled={loading}
-                                        className="text-[10px] px-2.5 py-1 rounded-md font-mono border border-white/[0.07] bg-white/[0.03] text-white/35 hover:text-cyan-400 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] transition-all duration-150 disabled:opacity-30">
+                                        className="text-[9px] px-2.5 py-1 rounded-md font-black uppercase tracking-widest border border-white/[0.07] bg-white/[0.03] text-white/35 hover:text-accent hover:border-accent/25 hover:bg-accent/[0.05] transition-all duration-150 disabled:opacity-30">
                                         {cmd}
                                     </button>
                                 ))}
@@ -358,7 +358,7 @@ export default function GlobalAIPopup() {
                                 />
                                 <button onClick={sendMessage} disabled={loading || !input.trim()}
                                     className="w-7 h-7 rounded-lg flex items-center justify-center transition-all disabled:opacity-20"
-                                    style={{ background: "rgba(0,212,255,0.12)", border: "1px solid rgba(0,212,255,0.2)", color: "#22d3ee" }}>
+                                    style={{ background: "rgba(239,136,82,0.12)", border: "1px solid rgba(239,136,82,0.2)", color: "#EF8852" }}>
                                     {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
                                 </button>
                             </div>
@@ -377,17 +377,17 @@ export default function GlobalAIPopup() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 8, scale: 0.9 }}
                             onClick={() => setMinimized(false)}
-                            className="flex items-center gap-2 px-3 py-2 rounded-full text-[12px] font-mono font-medium text-white/70 transition-all"
+                            className="flex items-center gap-2 px-3 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.15em] text-white/70 transition-all shadow-lg"
                             style={{
                                 background: "rgba(10, 10, 10, 0.92)",
                                 backdropFilter: "blur(16px)",
-                                border: "1px solid rgba(0, 212, 255, 0.15)",
-                                boxShadow: "0 0 20px rgba(0,212,255,0.08)",
+                                border: "1px solid rgba(239, 136, 82, 0.15)",
+                                boxShadow: "0 0 20px rgba(239,136,82,0.08)",
                             }}
                         >
-                            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+                            <Terminal className="w-3.5 h-3.5 text-accent" />
                             UnderGrid AI
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                         </motion.button>
                     )}
                 </AnimatePresence>
@@ -397,24 +397,24 @@ export default function GlobalAIPopup() {
                     onClick={open && !minimized ? () => setMinimized(true) : handleOpen}
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
-                    className="relative w-14 h-14 rounded-2xl flex items-center justify-center transition-all"
+                    className="relative w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-xl"
                     style={{
-                        background: "linear-gradient(135deg, rgba(0,212,255,0.15), rgba(168,85,247,0.12))",
+                        background: "linear-gradient(135deg, rgba(239,136,82,0.15), rgba(171,126,117,0.12))",
                         backdropFilter: "blur(16px)",
-                        border: "1px solid rgba(0, 212, 255, 0.25)",
-                        boxShadow: "0 0 30px rgba(0, 212, 255, 0.2), 0 8px 32px rgba(0,0,0,0.5)",
+                        border: "1px solid rgba(239, 136, 82, 0.25)",
+                        boxShadow: "0 0 30px rgba(239, 136, 82, 0.2), 0 8px 32px rgba(0,0,0,0.5)",
                     }}
                 >
                     {/* Glow ring */}
                     <motion.div
                         className="absolute inset-0 rounded-2xl"
-                        style={{ border: "1px solid rgba(0,212,255,0.3)" }}
+                        style={{ border: "1px solid rgba(239,136,82,0.3)" }}
                         animate={{ opacity: [0.3, 0.7, 0.3] }}
                         transition={{ repeat: Infinity, duration: 2.5 }}
                     />
                     {open && !minimized
-                        ? <Minus className="w-5 h-5 text-cyan-400" />
-                        : <Bot className="w-5 h-5 text-cyan-400" />
+                        ? <Minus className="w-5 h-5 text-accent" />
+                        : <Bot className="w-5 h-5 text-accent" />
                     }
                     {/* Unread badge */}
                     <AnimatePresence>
@@ -443,11 +443,11 @@ function PopupActionCard({ action, index, msgIndex, onExecute }: {
             className="mt-2 rounded-lg overflow-hidden hazard-stripe">
             <div className="bg-black/80 backdrop-blur-sm m-[2px] rounded-lg p-2.5">
                 <div className="flex items-center gap-1.5 mb-1.5">
-                    <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Action Pending</span>
+                    <ShieldAlert className="w-3.5 h-3.5 text-accent" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-accent">Action Pending</span>
                 </div>
-                <p className="text-[10px] text-white/50 mb-1 font-mono">
-                    <span className="text-amber-400/70">→</span> {action.action} | <span className="text-amber-400/70">{action.target}</span>
+                <p className="text-[10px] text-white/50 mb-1 font-bold">
+                    <span className="text-accent/70">→</span> {action.action} | <span className="text-accent/70">{action.target}</span>
                 </p>
                 <p className="text-[10px] text-white/40 mb-2 font-mono truncate">{action.message}</p>
 
@@ -463,7 +463,7 @@ function PopupActionCard({ action, index, msgIndex, onExecute }: {
                     </div>
                 )}
                 {action.status === "success" && (
-                    <div className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-mono">
+                    <div className="flex items-center gap-1.5 text-accent text-[10px] font-black uppercase tracking-widest">
                         <CheckCircle className="w-3 h-3" /> {action.result || "Done."}
                     </div>
                 )}
@@ -490,31 +490,31 @@ function PopupMessageBubble({ message, msgIndex, onExecuteAction }: {
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.15 }}
             className={`flex gap-2 min-w-0 ${isUser ? "flex-row-reverse" : ""}`}>
             {/* Avatar */}
-            <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 ${isSystem ? "bg-amber-400/10 border border-amber-400/20"
+            <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 ${isSystem ? "bg-accent/10 border border-accent/20 shadow-sm"
                 : isUser ? "bg-white/[0.05] border border-white/[0.08]"
-                    : "bg-cyan-400/10 border border-cyan-400/20"}`}>
+                    : "bg-accent-muted/10 border border-accent-muted/20"}`}>
                 {isSystem
-                    ? <span className="text-[9px] text-amber-400">⚡</span>
+                    ? <span className="text-[9px] text-accent">⚡</span>
                     : isUser
                         ? <User className="w-3 h-3 text-white/40" />
-                        : <Bot className="w-3 h-3 text-cyan-400" />}
+                        : <Bot className="w-3 h-3 text-accent-muted" />}
             </div>
 
             {/* Bubble — flex-1 + min-w-0 so it never overflows the popup panel */}
             <div className={`flex-1 min-w-0 ${isUser ? "items-end" : "items-start"} flex flex-col`}>
                 <div className={`w-full px-3 py-2 rounded-xl text-[12px] leading-relaxed break-words ${isSystem
-                    ? "bg-amber-400/5 border border-amber-400/10 text-amber-200/70"
+                    ? "bg-accent/5 border border-accent/10 text-accent/80 shadow-sm"
                     : isUser
                         ? "bg-white/[0.05] border border-white/[0.07] text-white/75"
-                        : "bg-cyan-400/[0.04] border border-cyan-400/[0.07] text-white/65"}`}>
+                        : "bg-surface-elevated/40 border border-accent-muted/10 text-white/70 shadow-sm"}`}>
                     {/* Markdown content — tables use full width and wrap, text wraps naturally */}
                     <div className="prose prose-invert prose-sm max-w-none
                         [&>table]:text-[10px] [&>table]:border-collapse [&>table]:w-full
                         [&>table_td]:px-1.5 [&>table_td]:py-1 [&>table_td]:border [&>table_td]:border-white/10 [&>table_td]:align-top [&>table_td]:break-words
-                        [&>table_th]:px-1.5 [&>table_th]:py-1 [&>table_th]:border [&>table_th]:border-white/10 [&>table_th]:text-cyan-400/80 [&>table_th]:font-semibold
+                        [&>table_th]:px-1.5 [&>table_th]:py-1 [&>table_th]:border [&>table_th]:border-white/10 [&>table_th]:text-accent-muted/80 [&>table_th]:font-semibold
                         [&>p]:break-words [&>ul]:break-words [&>ol]:break-words [&>p]:text-[12px] [&>ul]:text-[12px]">
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{displayContent}</ReactMarkdown>
-                        {message.streaming && <span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-0.5 animate-blink-cursor" />}
+                        {message.streaming && <span className="inline-block w-1.5 h-3.5 bg-accent-muted/80 ml-0.5 animate-blink-cursor" />}
                     </div>
 
                     {/* Action cards */}
@@ -522,8 +522,8 @@ function PopupMessageBubble({ message, msgIndex, onExecuteAction }: {
                         <PopupActionCard key={idx} action={action} index={idx} msgIndex={msgIndex} onExecute={onExecuteAction} />
                     ))}
                 </div>
-                <span className="text-[9px] text-white/15 mt-0.5 font-mono px-1">
-                    {message.streaming ? <span className="text-cyan-400/30">streaming...</span>
+                <span className="text-[9px] text-white/15 mt-0.5 font-mono px-1 uppercase tracking-widest">
+                    {message.streaming ? <span className="text-accent/30 animate-pulse">streaming...</span>
                         : new Date(message.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                 </span>
             </div>

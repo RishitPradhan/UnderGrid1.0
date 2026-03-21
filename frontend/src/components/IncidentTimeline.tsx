@@ -68,8 +68,8 @@ export default function IncidentTimeline() {
             <div className="glass-card-accent p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                            <Clock className="w-6 h-6 text-amber-400" />
+                        <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+                            <Clock className="w-6 h-6 text-accent" />
                         </div>
                         <div>
                             <h2 className="text-xl font-bold">Incident History</h2>
@@ -82,7 +82,7 @@ export default function IncidentTimeline() {
                         <div className="flex items-center gap-1 bg-white/[0.04] rounded-lg p-0.5">
                             {(["all", "active", "resolved"] as const).map(f => (
                                 <button key={f} onClick={() => setFilter(f)}
-                                    className={`px-3 py-1.5 rounded-md text-[12px] font-medium transition-all capitalize ${filter === f ? "bg-cyan-400/10 text-cyan-400" : "text-white/35 hover:text-white/60"}`}>
+                                    className={`px-3 py-1.5 rounded-md text-[11px] font-black uppercase tracking-widest transition-all ${filter === f ? "bg-accent/10 text-accent shadow-[0_0_10px_rgba(239,136,82,0.1)]" : "text-white/35 hover:text-white/60"}`}>
                                     {f}
                                 </button>
                             ))}
@@ -121,7 +121,7 @@ export default function IncidentTimeline() {
                                 >
                                     {/* Dot */}
                                     <div className="flex-shrink-0 w-[46px] flex justify-center pt-4 z-10">
-                                        <div className={`w-3 h-3 rounded-full border-2 border-[#050505] ${inc.resolved ? "bg-emerald-400/60" : "bg-red-400"}`} />
+                                        <div className={`w-3 h-3 rounded-full border-2 border-[#050505] shadow-sm ${inc.resolved ? "bg-accent/80" : "bg-red-500"}`} />
                                     </div>
 
                                     {/* Card */}
@@ -137,12 +137,12 @@ export default function IncidentTimeline() {
                                             </div>
                                             <div className="flex items-center gap-2 flex-shrink-0">
                                                 {inc.resolved ? (
-                                                    <span className="text-[11px] text-emerald-400 flex items-center gap-1">
+                                                    <span className="text-[11px] text-accent font-black uppercase tracking-widest flex items-center gap-1">
                                                         <CheckCircle className="w-3 h-3" /> Resolved
                                                     </span>
                                                 ) : (
                                                     <button onClick={() => resolveIncident(inc._id)}
-                                                        className="text-[11px] text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors">
+                                                        className="text-[11px] text-accent-muted hover:text-accent flex items-center gap-1 transition-colors font-bold uppercase">
                                                         <CheckCircle className="w-3 h-3" /> Resolve
                                                     </button>
                                                 )}

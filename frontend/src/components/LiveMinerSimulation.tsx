@@ -47,9 +47,9 @@ export interface SimAlertEntry {
 
 /* ─── Constants (exported for reuse) ─── */
 const ROLE_COLORS: Record<string, string> = {
-    miner: "#00d4ff", engineer: "#3b82f6", "safety officer": "#00ff88",
-    electrician: "#eab308", welder: "#f97316", plumber: "#06b6d4",
-    operator: "#a855f7", technician: "#ec4899",
+    miner: "#EF8852", engineer: "#AB7E75", "safety officer": "#82463C",
+    electrician: "#f3a57b", welder: "#d97706", plumber: "#a78bfa",
+    operator: "#8b5cf6", technician: "#ec4899",
 };
 
 export const INITIAL_MINERS: Omit<SimMiner, "baseLat" | "baseLng" | "inDanger" | "dangerZone" | "state" | "ticksInDanger" | "ticksActive">[] = [
@@ -58,7 +58,7 @@ export const INITIAL_MINERS: Omit<SimMiner, "baseLat" | "baseLng" | "inDanger" |
     // Near Zone B edge (Unstable Roof) — will drift in occasionally
     { id: "m2", name: "Nirupon Pal", workerId: "W002", role: "Miner", lat: 20.9408, lng: 85.2088, color: ROLE_COLORS.miner },
     { id: "m3", name: "John Doe", workerId: "W003", role: "Engineer", lat: 20.9395, lng: 85.2060, color: ROLE_COLORS.engineer },
-    { id: "m4", name: "Priya Sharma", workerId: "W004", role: "Safety Officer", lat: 20.9500, lng: 85.2180, color: "#00ff88" },
+    { id: "m4", name: "Priya Sharma", workerId: "W004", role: "Safety Officer", lat: 20.9500, lng: 85.2180, color: ROLE_COLORS["safety officer"] },
     // Near Zone C edge (Flooding) — will drift in occasionally
     { id: "m5", name: "Amit Singh", workerId: "W005", role: "Electrician", lat: 20.9468, lng: 85.2096, color: ROLE_COLORS.electrician },
     { id: "m6", name: "Rajesh Patel", workerId: "W006", role: "Operator", lat: 20.9355, lng: 85.2140, color: ROLE_COLORS.operator },
@@ -203,8 +203,8 @@ export default function LiveMinerSimulation({
         // Mining area boundary
         L.polygon(
             [[20.9345, 85.1595], [20.9345, 85.281], [20.9661, 85.281], [20.9661, 85.1595]],
-            { color: "#00d4ff", weight: 1.5, opacity: 0.3, fillColor: "#00d4ff", fillOpacity: 0.02, dashArray: "8,4" }
-        ).addTo(map).bindPopup("<b style='color:#00d4ff'>Talcher Mining Area</b>");
+            { color: "#EF8852", weight: 1.5, opacity: 0.3, fillColor: "#EF8852", fillOpacity: 0.02, dashArray: "8,4" }
+        ).addTo(map).bindPopup("<b style='color:#EF8852'>Talcher Mining Area</b>");
 
         // Danger zones
         dangerZones.forEach(zone => {
@@ -362,8 +362,8 @@ export default function LiveMinerSimulation({
                         <div>
                             <h2 className="text-lg font-bold flex items-center gap-2">
                                 Live Miner Simulation
-                                <span className={`text-xs px-2 py-0.5 rounded-full ${running ? "bg-emerald-400/10 text-emerald-400" : "bg-white/5 text-white/40"}`}>
-                                    {running ? "● Running" : "○ Paused"}
+                                <span className={`text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-widest ${running ? "bg-accent/10 text-accent shadow-[0_0_10px_rgba(239,136,82,0.1)]" : "bg-white/5 text-white/40"}`}>
+                                    {running ? "● Active" : "○ Paused"}
                                 </span>
                             </h2>
                             <p className="text-white/40 text-xs">Real-time miner tracking with danger zone alerts</p>
@@ -373,7 +373,7 @@ export default function LiveMinerSimulation({
                         <button onClick={() => setRunning(!running)}
                             className={`px-4 py-2 rounded-xl text-xs font-bold tracking-wide flex items-center gap-2 transition-all duration-300 ${running
                                 ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
-                                : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+                                : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 shadow-[0_0_15px_rgba(239,136,82,0.1)]"
                                 }`}>
                             {running ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
                             {running ? "PAUSE" : "START"}
@@ -389,28 +389,28 @@ export default function LiveMinerSimulation({
 
                         <button onClick={() => setVoiceEnabled(!voiceEnabled)}
                             className={`px-3 py-2 rounded-xl text-xs flex items-center justify-center transition-all ${voiceEnabled
-                                ? "text-cyan-400 bg-cyan-400/10 border border-cyan-400/20 shadow-[0_0_10px_rgba(34,211,238,0.1)]"
-                                : "text-white/30 hover:bg-white/10 border border-transparent"
+                                ? "text-accent bg-accent/10 border border-accent/20 shadow-[0_0_10px_rgba(239,136,82,0.1)]"
+                                : "text-text-secondary hover:bg-white/10 border border-transparent"
                                 }`}>
                             {voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
                         </button>
 
                         <div className="w-px h-6 bg-white/10 mx-1" />
 
-                        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-black/50 border border-white/5" title="Simulation Speed">
-                            <Zap className={`w-3.5 h-3.5 ${speed > 1 ? 'text-amber-400 animate-pulse' : 'text-cyan-400'}`} />
+                        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-black/50 border border-accent/10" title="Simulation Speed">
+                            <Zap className={`w-3.5 h-3.5 ${speed > 1 ? 'text-accent animate-pulse' : 'text-accent/60'}`} />
                             <div className="relative flex items-center group w-20">
                                 <input type="range" min={0.5} max={3} step={0.5} value={speed}
                                     onChange={e => setSpeed(parseFloat(e.target.value))}
                                     className="absolute z-10 w-full h-full opacity-0 cursor-pointer" />
                                 <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden flex">
-                                    <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-300 pointer-events-none"
+                                    <div className="h-full bg-gradient-to-r from-accent to-accent-muted rounded-full transition-all duration-300 pointer-events-none"
                                         style={{ width: `${((speed - 0.5) / 2.5) * 100}%` }} />
                                 </div>
                                 <div className="absolute top-1/2 -mt-1.5 w-3 h-3 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] pointer-events-none transition-all duration-300"
                                     style={{ left: `calc(${((speed - 0.5) / 2.5) * 100}% - 6px)` }} />
                             </div>
-                            <span className={`font-mono text-[10px] font-bold w-6 text-right ${speed > 1 ? 'text-amber-400' : 'text-cyan-400'}`}>{speed}x</span>
+                            <span className={`font-mono text-[10px] font-bold w-6 text-right ${speed > 1 ? 'text-accent' : 'text-accent/60'}`}>{speed}x</span>
                         </div>
                     </div>
                 </div>
@@ -419,9 +419,9 @@ export default function LiveMinerSimulation({
             {/* Stats */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {[
-                    { icon: Users, label: "Total Miners", value: miners.length, color: "#00d4ff" },
-                    { icon: Shield, label: "Safe", value: safeCount, color: "#00ff88" },
-                    { icon: AlertTriangle, label: "In Danger", value: dangerCount, color: "#ff3333" },
+                    { icon: Users, label: "Total Miners", value: miners.length, color: "#EF8852" },
+                    { icon: Shield, label: "Safe", value: safeCount, color: "#AB7E75" },
+                    { icon: AlertTriangle, label: "In Danger", value: dangerCount, color: "#82463C" },
                     { icon: Clock, label: "Elapsed", value: fmtTime(elapsed), color: "#ffaa00" },
                 ].map(s => (
                     <div key={s.label} className={`stat-card ${s.label === "In Danger" && dangerCount > 0 ? "danger-pulse" : ""}`}>
@@ -456,8 +456,8 @@ export default function LiveMinerSimulation({
                                     className="p-3 rounded-xl border backdrop-blur-md"
                                     style={{ background: "rgba(255,51,51,0.15)", borderColor: "rgba(255,51,51,0.4)" }}>
                                     <div className="flex items-center gap-2 mb-1">
-                                        <AlertTriangle className="w-4 h-4 text-red-400" />
-                                        <span className="text-xs font-bold text-red-400 uppercase">Danger Alert</span>
+                                        <AlertTriangle className="w-4 h-4 text-accent" />
+                                        <span className="text-xs font-black uppercase tracking-widest text-accent">Danger Alert</span>
                                     </div>
                                     <div className="text-sm text-white font-semibold">{t.minerName}</div>
                                     <div className="text-xs text-white/60">entered {t.zoneName}</div>
@@ -489,7 +489,7 @@ export default function LiveMinerSimulation({
                         <h3 className="text-sm font-semibold flex items-center gap-2 text-red-400">
                             <Activity className="w-4 h-4" /> Alert Log
                             {simAlerts.length > 0 && (
-                                <span className="bg-red-400/10 text-red-400 text-[11px] px-2 py-0.5 rounded-full">{simAlerts.length}</span>
+                                <span className="bg-accent/10 text-accent text-[11px] px-2 py-0.5 rounded-full font-bold"> {simAlerts.length} </span>
                             )}
                         </h3>
                         {simAlerts.length > 0 && (
@@ -501,8 +501,8 @@ export default function LiveMinerSimulation({
 
                     {simAlerts.length === 0 ? (
                         <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
-                            <Shield className="w-10 h-10 text-emerald-400/30 mb-3" />
-                            <p className="text-sm text-emerald-400/60 font-medium">All Clear</p>
+                            <Shield className="w-10 h-10 text-accent-muted/30 mb-3" />
+                            <p className="text-sm text-accent-muted/70 font-black uppercase tracking-widest">All Clear</p>
                             <p className="text-[11px] text-white/20 mt-1">{running ? "Monitoring for danger zone entries..." : "Start simulation to monitor miners"}</p>
                         </div>
                     ) : (
@@ -512,7 +512,7 @@ export default function LiveMinerSimulation({
                                     <motion.div key={a.id} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
                                         className="p-3 rounded-xl bg-red-400/5 border border-red-400/10">
                                         <div className="flex items-center justify-between mb-1">
-                                            <span className="text-[11px] font-bold text-red-400 flex items-center gap-1">
+                                            <span className="text-[11px] font-black uppercase tracking-widest text-accent flex items-center gap-1">
                                                 <AlertTriangle className="w-3 h-3" /> {a.riskLevel.toUpperCase()}
                                             </span>
                                             <span className="text-[10px] text-white/25 font-mono">

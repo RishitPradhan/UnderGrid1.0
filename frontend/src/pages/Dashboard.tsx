@@ -225,14 +225,14 @@ export default function Dashboard() {
 
 
     return (
-        <div className="h-screen bg-[#050505] flex overflow-hidden">
+        <div className="h-screen bg-surface-deep flex overflow-hidden">
             {/* ─── Sidebar ─── */}
-            <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-[#0a0a0a] border-r border-white/[0.04] flex flex-col overflow-hidden`}>
-                <div className="h-14 flex items-center px-4 border-b border-white/[0.04] gap-2.5 flex-shrink-0">
-                    <div className="w-7 h-7 rounded-lg bg-cyan-400 flex items-center justify-center flex-shrink-0">
-                        <HardHat className="w-4 h-4 text-black" />
+            <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-surface border-r border-accent/10 flex flex-col overflow-hidden`}>
+                <div className="h-14 flex items-center px-4 border-b border-accent/10 gap-2.5 flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.3)]">
+                        <HardHat className="w-4 h-4 text-surface-deep" />
                     </div>
-                    {sidebarOpen && <span className="text-[14px] font-semibold whitespace-nowrap">undergrid<span className="text-cyan-400">.ai</span></span>}
+                    {sidebarOpen && <span className="text-[14px] font-black tracking-tight whitespace-nowrap uppercase italic">undergrid<span className="text-accent">.ai</span></span>}
                 </div>
 
                 <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
@@ -244,7 +244,7 @@ export default function Dashboard() {
                                 <span className="text-[13px] font-medium flex-1 text-left">{item.label}</span>
                             )}
                             {sidebarOpen && item.id === "alerts" && alertCount > 0 && (
-                                <span className="bg-red-400/20 text-red-400 text-[10px] px-1.5 py-0.5 rounded-full font-mono min-w-[20px] text-center">
+                                <span className="bg-accent/20 text-accent text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-[0_0_10px_rgba(239,136,82,0.2)]">
                                     {alertCount}
                                 </span>
                             )}
@@ -262,18 +262,18 @@ export default function Dashboard() {
 
             {/* ─── Main ─── */}
             <main className="flex-1 min-w-0 overflow-y-auto">
-                <header className="sticky top-0 z-30 h-14 bg-[#050505]/90 backdrop-blur-md border-b border-white/[0.04] flex items-center px-5 gap-3">
-                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-white/30 hover:text-white/60 transition-colors">
+                <header className="sticky top-0 z-30 h-14 bg-surface-deep/90 backdrop-blur-md border-b border-accent/10 flex items-center px-5 gap-3">
+                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-text-secondary hover:text-accent transition-colors">
                         {sidebarOpen ? <X className="w-4 h-4 lg:hidden" /> : <Menu className="w-4 h-4" />}
                         <span className="hidden lg:block">{sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <Menu className="w-4 h-4" />}</span>
                     </button>
                     <div className="flex-1">
-                        <h1 className="text-[15px] font-semibold">{navItems.find(n => n.id === active)?.label}</h1>
-                        <p className="text-[11px] text-white/25">Underground Command Center</p>
+                        <h1 className="text-[15px] font-black uppercase tracking-tight italic">{navItems.find(n => n.id === active)?.label}</h1>
+                        <p className="text-[11px] text-accent-muted font-bold uppercase tracking-widest">Underground Command Hub</p>
                     </div>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.03] text-[11px]">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        <span className="text-emerald-400/80 font-medium">Online</span>
+                        <span className="text-accent font-bold uppercase tracking-widest">Online</span>
                     </div>
                 </header>
 
@@ -333,10 +333,10 @@ function OverviewSection({
     onSimReset: () => void;
 }) {
     const systemStatuses = [
-        { label: "InSAR Satellite", icon: Satellite, status: "Receiving", color: "#34d399" },
-        { label: "AI Engine", icon: Brain, status: "Active", color: "#a855f7" },
-        { label: "RFID Grid", icon: Wifi, status: "Online", color: "#f59e0b" },
-        { label: "Workers", icon: Users, status: `${simMiners.length} Tracked`, color: "#00d4ff" },
+        { label: "InSAR Satellite", icon: Satellite, status: "Receiving", color: "#EF8852" },
+        { label: "AI Engine", icon: Brain, status: "Active", color: "#AB7E75" },
+        { label: "RFID Grid", icon: Wifi, status: "Online", color: "#82463C" },
+        { label: "Workers", icon: Users, status: `${simMiners.length} Tracked`, color: "#EF8852" },
     ];
 
     return (
@@ -346,8 +346,8 @@ function OverviewSection({
                 <h3 className="text-[11px] font-medium text-white/30 uppercase tracking-wider mb-3">System Status</h3>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     {systemStatuses.map((sys) => (
-                        <div key={sys.label} className="relative group overflow-hidden rounded-xl p-3 bg-black/40 border border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition-all hover:bg-white/[0.03] hover:border-white/10 text-left">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full opacity-30 pointer-events-none" style={{ background: `linear-gradient(to bottom left, ${sys.color}20, transparent)` }} />
+                        <div key={sys.label} className="relative group overflow-hidden rounded-xl p-3 bg-surface-elevated/20 border border-accent/5 shadow-2xl transition-all hover:bg-accent/5 hover:border-accent/20 text-left">
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full opacity-30 pointer-events-none" style={{ background: `linear-gradient(to bottom left, ${sys.color}20, transparent)` }} />
 
                             <div className="flex items-center gap-3 mb-3 relative z-10">
                                 <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shadow-inner"
@@ -376,21 +376,21 @@ function OverviewSection({
                     <button
                         onClick={() => setSimCommand({ type: 'recall' })}
                         className={`relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 ${simCommand.type === 'recall'
-                            ? 'bg-blue-500/10 border border-blue-400/40 shadow-[0_0_20px_rgba(96,165,250,0.15)]'
-                            : 'bg-black/40 border border-white/5 hover:bg-blue-500/5 hover:border-blue-400/20'
+                            ? 'bg-accent/10 border border-accent/40 shadow-[0_0_20px_rgba(239,136,82,0.15)]'
+                            : 'bg-surface-elevated/40 border border-accent/5 hover:bg-accent/5 hover:border-accent/20'
                             }`}
                     >
                         {simCommand.type === 'recall' && (
                             <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50" />
                         )}
                         <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${simCommand.type === 'recall' ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-blue-400/70 group-hover:text-blue-400 group-hover:bg-blue-500/10'
+                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${simCommand.type === 'recall' ? 'bg-accent/20 text-accent' : 'bg-accent/10 text-accent/70 group-hover:text-accent group-hover:bg-accent/20'
                                 }`}>
                                 <RotateCcw className={`w-5 h-5 ${simCommand.type === 'recall' ? 'animate-[spin_4s_linear_infinite]' : ''}`} />
                             </div>
                             <div>
-                                <div className="text-[13px] font-bold text-white/90 tracking-wide">Recall All</div>
-                                <div className="text-[10px] text-blue-400/60 font-mono mt-0.5">Return to Base</div>
+                                <div className="text-[13px] font-bold text-text-primary tracking-wide">Recall All</div>
+                                <div className="text-[10px] text-accent/60 font-mono mt-0.5">Return to Base</div>
                             </div>
                         </div>
                     </button>
@@ -410,13 +410,12 @@ function OverviewSection({
                                     <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-50" />
                                 )}
                                 <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${isEvacuating ? 'bg-red-500/20 text-red-400' : 'bg-white/5 text-red-400/70 group-hover:text-red-400 group-hover:bg-red-500/10'
-                                        }`}>
+                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${isEvacuating ? 'bg-accent/20 text-accent' : 'bg-white/5 text-accent/70 group-hover:text-accent group-hover:bg-accent/10'}`}>
                                         <AlertTriangle className={`w-5 h-5 ${isEvacuating ? 'animate-pulse' : ''}`} />
                                     </div>
                                     <div>
                                         <div className="text-[13px] font-bold text-white/90 tracking-wide">Evacuate</div>
-                                        <div className="text-[10px] text-red-400/60 font-mono mt-0.5 truncate max-w-[100px]">{zone.name.split('—')[1] || zone.name}</div>
+                                        <div className="text-[10px] text-accent/60 font-black uppercase tracking-widest mt-0.5 truncate max-w-[100px]">{zone.name.split('—')[1] || zone.name}</div>
                                     </div>
                                 </div>
                             </button>
@@ -426,7 +425,7 @@ function OverviewSection({
                     {simCommand.type !== 'none' && (
                         <button
                             onClick={() => setSimCommand({ type: 'none' })}
-                            className="relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20"
+                            className="relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 bg-surface-elevated/40 border border-accent/10 hover:bg-surface-elevated/60 hover:border-accent/20"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-black/40 text-white/40 group-hover:text-white/80 transition-colors">
@@ -477,9 +476,9 @@ function AlertsSection({ simAlerts, clearSimAlerts }: { simAlerts: SimAlertEntry
             {simAlerts.length > 0 && (
                 <div className="glass-card p-5 danger-pulse" style={{ borderColor: "rgba(255,51,51,0.25)" }}>
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm font-bold flex items-center gap-2 text-red-400">
+                        <h3 className="text-sm font-black uppercase tracking-tight italic flex items-center gap-2 text-accent">
                             <AlertTriangle className="w-4 h-4" /> Simulation Danger Alerts
-                            <span className="bg-red-400/10 text-red-400 text-[11px] px-2 py-0.5 rounded-full">{simAlerts.length}</span>
+                            <span className="bg-accent/10 text-accent text-[11px] px-2 py-0.5 rounded-full font-bold"> {simAlerts.length} </span>
                         </h3>
                         <button onClick={clearSimAlerts} className="text-[11px] text-white/30 hover:text-white/60 transition-colors">Clear</button>
                     </div>
@@ -490,7 +489,7 @@ function AlertsSection({ simAlerts, clearSimAlerts }: { simAlerts: SimAlertEntry
                                     className="p-3 rounded-xl bg-red-400/5 border border-red-400/10 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-lg bg-red-400/10 border border-red-400/20 flex items-center justify-center">
-                                            <AlertTriangle className="w-4 h-4 text-red-400" />
+                                            <AlertTriangle className="w-4 h-4 text-accent" />
                                         </div>
                                         <div>
                                             <div className="text-xs font-semibold text-white/80">{a.minerName} ({a.workerId})</div>

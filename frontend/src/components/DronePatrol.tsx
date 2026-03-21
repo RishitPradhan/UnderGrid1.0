@@ -48,27 +48,27 @@ export default function DronePatrol() {
         // Mining area polygon
         L.polygon([
             [20.9345, 85.1595], [20.9345, 85.281], [20.9661, 85.281], [20.9661, 85.1595]
-        ], { color: "#00d4ff", weight: 1.5, opacity: 0.3, fillColor: "#00d4ff", fillOpacity: 0.02, dashArray: "6,4" })
-            .addTo(map).bindPopup("<b style='color:#00d4ff'>Mining Area Boundary</b>");
+        ], { color: "#EF8852", weight: 1.5, opacity: 0.3, fillColor: "#EF8852", fillOpacity: 0.02, dashArray: "6,4" })
+            .addTo(map).bindPopup("<b style='color:#EF8852'>Mining Area Boundary</b>");
 
         // Patrol route line
         const routeLine = L.polyline(PATROL_ROUTE, {
-            color: "#a855f7", weight: 2, opacity: 0.3, dashArray: "8,6",
+            color: "#AB7E75", weight: 2, opacity: 0.3, dashArray: "8,6",
         }).addTo(map);
 
         // Drone marker
         const droneIcon = L.divIcon({
-            html: `<div style="width:28px;height:28px;background:#a855f7;border-radius:50%;border:3px solid #050505;box-shadow:0 0 16px rgba(168,85,247,0.5);display:flex;align-items:center;justify-content:center;font-size:14px;">🛸</div>`,
+            html: `<div style="width:28px;height:28px;background:#EF8852;border-radius:50%;border:3px solid #050505;box-shadow:0 0 16px rgba(239,136,82,0.5);display:flex;align-items:center;justify-content:center;font-size:14px;">🛸</div>`,
             className: "",
             iconSize: [28, 28],
             iconAnchor: [14, 14],
         });
 
         const droneMarker = L.marker(PATROL_ROUTE[0], { icon: droneIcon }).addTo(map);
-        droneMarker.bindPopup("<b style='color:#a855f7'>Patrol Drone</b><br/><span style='color:#888;font-size:11px'>Autonomous structural scan</span>");
+        droneMarker.bindPopup("<b style='color:#EF8852'>Patrol Drone</b><br/><span style='color:#888;font-size:11px'>Autonomous structural scan</span>");
 
         // Trail
-        const trail = L.polyline([], { color: "#a855f7", weight: 3, opacity: 0.6 }).addTo(map);
+        const trail = L.polyline([], { color: "#EF8852", weight: 3, opacity: 0.6 }).addTo(map);
 
         droneMarkerRef.current = droneMarker;
         trailRef.current = trail;
@@ -139,14 +139,14 @@ export default function DronePatrol() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                        <Crosshair className="w-5 h-5 text-purple-400" /> Drone Patrol Simulation
+                    <h3 className="text-lg font-black uppercase tracking-tight italic flex items-center gap-2">
+                        <Crosshair className="w-5 h-5 text-accent" /> Drone Patrol Simulation
                     </h3>
-                    <p className="text-[12px] text-white/25 mt-0.5">Autonomous structural scan path</p>
+                    <p className="text-[10px] text-accent-muted font-bold uppercase tracking-widest mt-0.5">Autonomous structural scan path</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button onClick={() => setPlaying(!playing)}
-                        className={`px-4 py-2 rounded-lg text-[12px] font-medium flex items-center gap-1.5 transition-all ${playing ? "bg-red-400/10 text-red-400 border border-red-400/20" : "bg-purple-400/10 text-purple-400 border border-purple-400/20"}`}>
+                        className={`px-4 py-2 rounded-lg text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-all ${playing ? "bg-accent/20 text-accent border border-accent/40" : "bg-accent/10 text-accent border border-accent/20"}`}>
                         {playing ? <><Pause className="w-3.5 h-3.5" /> Pause</> : <><Play className="w-3.5 h-3.5" /> Start Patrol</>}
                     </button>
                     <button onClick={reset} className="btn-ghost text-xs px-3 py-2 flex items-center gap-1.5">
@@ -164,7 +164,7 @@ export default function DronePatrol() {
                 <div ref={mapRef} className={`w-full ${fullscreen ? "h-full" : "h-[500px]"}`} style={{ minHeight: 400 }} />
                 {!loaded && (
                     <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
-                        <div className="w-8 h-8 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
                     </div>
                 )}
                 {fullscreen && (
@@ -177,16 +177,16 @@ export default function DronePatrol() {
             {/* Progress bar */}
             <div className="flex items-center gap-3">
                 <div className="flex-1 h-1.5 rounded-full bg-white/[0.04] overflow-hidden">
-                    <div className="h-full bg-purple-400/60 rounded-full transition-all" style={{ width: `${progress * 100}%` }} />
+                    <div className="h-full bg-accent/60 rounded-full transition-all" style={{ width: `${progress * 100}%` }} />
                 </div>
                 <span className="text-[11px] text-white/25 font-mono w-10 text-right">{Math.round(progress * 100)}%</span>
             </div>
 
             {/* Info */}
             <div className="flex items-center gap-4 text-[11px] text-white/25">
-                <span className="flex items-center gap-1"><Crosshair className="w-3 h-3 text-purple-400/60" /> {PATROL_ROUTE.length} waypoints</span>
+                <span className="flex items-center gap-1"><Crosshair className="w-3 h-3 text-accent" /> {PATROL_ROUTE.length} waypoints</span>
                 <span>Loop: {LOOP_DURATION / 1000}s</span>
-                <span className={playing ? "text-purple-400" : "text-white/25"}>
+                <span className={playing ? "text-accent font-bold" : "text-white/25"}>
                     {playing ? "● Patrolling" : "○ Idle"}
                 </span>
             </div>
