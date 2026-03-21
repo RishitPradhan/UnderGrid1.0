@@ -21,12 +21,15 @@ import LiveMinerSimulation, {
 } from "@/components/LiveMinerSimulation";
 import AITerminal from "@/components/AITerminal";
 import GlobalAIPopup from "@/components/GlobalAIPopup";
+import SeismicMonitor from "@/components/SeismicMonitor";
+import VentilationControl from "@/components/VentilationControl";
+import EvacuationRoutes from "@/components/EvacuationRoutes";
 import { useSimContext } from "@/context/SimContext";
 
 
 
 
-type Section = "overview" | "zones" | "miners" | "alerts" | "report" | "incidents" | "drone" | "ai-terminal";
+type Section = "overview" | "zones" | "miners" | "alerts" | "report" | "incidents" | "drone" | "ai-terminal" | "seismic" | "ventilation";
 
 const navItems: { id: Section; label: string; icon: any }[] = [
     { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -36,6 +39,8 @@ const navItems: { id: Section; label: string; icon: any }[] = [
     { id: "report", label: "AI Report", icon: FileText },
     { id: "incidents", label: "Incidents", icon: Clock },
     { id: "drone", label: "Drone", icon: Crosshair },
+    { id: "seismic", label: "Seismic", icon: Activity },
+    { id: "ventilation", label: "Ventilation", icon: HardHat },
     { id: "ai-terminal", label: "AI Terminal", icon: Terminal },
 ];
 
@@ -312,6 +317,8 @@ export default function Dashboard() {
                             {active === "alerts" && <AlertsSection simAlerts={simAlerts} clearSimAlerts={() => setSimAlerts([])} />}
                             {active === "report" && <ReportSection simMiners={simMiners} simAlerts={simAlerts} simZones={simZones} />}
                             {active === "incidents" && <IncidentsSection />}
+                            {active === "seismic" && <SeismicMonitor />}
+                            {active === "ventilation" && <VentilationControl />}
                             {active === "ai-terminal" && <AITerminalSection simMiners={simMiners} simAlerts={simAlerts} simZones={simZones} />}
                         </motion.div>
                     </AnimatePresence>
@@ -454,6 +461,9 @@ function OverviewSection({
                     )}
                 </div>
             </div>
+
+            {/* Evacuation Routing */}
+            <EvacuationRoutes />
 
             {/* Live Miner Simulation */}
             <LiveMinerSimulation

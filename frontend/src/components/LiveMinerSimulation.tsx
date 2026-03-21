@@ -6,6 +6,9 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { useSimContext } from "@/context/SimContext";
+import BiometricsPanel from "@/components/BiometricsPanel";
+import HazardHeatmap from "@/components/HazardHeatmap";
+import HelmetHUD from "@/components/HelmetHUD";
 
 const SERVER = "http://localhost:3000";
 
@@ -167,15 +170,19 @@ export default function LiveMinerSimulation({
 }: LiveMinerSimulationProps) {
     const [voiceEnabled, setVoiceEnabled] = useState(true);
     const [toasts, setToasts] = useState<SimAlertEntry[]>([]);
+    const [selectedMiner, setSelectedMiner] = useState<SimMiner | null>(null);
+    const [hudMiner, setHudMiner] = useState<SimMiner | null>(null);
 
     const mapRef = useRef<HTMLDivElement>(null);
     const mapObjRef = useRef<any>(null);
     const markersRef = useRef<Map<string, any>>(new Map());
     const droneMarkersOnSimRef = useRef<Map<string, any>>(new Map());
+    const seismicRipplesRef = useRef<any[]>([]);
+    const evacPolylinesRef = useRef<any[]>([]);
     const zonesRef = useRef<any[]>([]);
     const [mapReady, setMapReady] = useState(false);
     const prevAlertCountRef = useRef(simAlerts.length);
-    const { simDrones } = useSimContext();
+    const { simDrones, simSeismicEvents, simEvacRoutes } = useSimContext();
 
     /* ─── Voice ─── */
     const speak = useCallback((text: string) => {
@@ -312,6 +319,20 @@ export default function LiveMinerSimulation({
             } else {
                 const marker = L.marker([m.lat, m.lng], { icon, zIndexOffset: 1000 })
                     .addTo(map).bindPopup(popup, { maxWidth: 280 });
+
+                // Click: open biometrics panel
+                marker.on("click", () => {
+                    const currentMiner = miners.find(mi => mi.id === m.id) || m;
+                    setSelectedMiner(currentMiner);
+                });
+
+                // Double-click: open helmet HUD
+                marker.on("dblclick", (e: any) => {
+                    e.originalEvent?.preventDefault?.();
+                    const currentMiner = miners.find(mi => mi.id === m.id) || m;
+                    setHudMiner(currentMiner);
+                });
+
                 markersRef.current.set(m.id, marker);
             }
         });
@@ -358,6 +379,59 @@ export default function LiveMinerSimulation({
             }
         });
     }, [simDrones, mapReady]);
+
+    /* ─── Seismic ripple markers on map ─── */
+    useEffect(() => {
+        if (!mapReady) return;
+        const L = (window as any).L;
+        const map = mapObjRef.current;
+        if (!L || !map) return;
+
+        // Remove old ripples
+        seismicRipplesRef.current.forEach(layer => map.removeLayer(layer));
+        seismicRipplesRef.current = [];
+
+        // Show only the 3 most recent events
+        simSeismicEvents.slice(0, 3).forEach((ev, idx) => {
+            const opacity = 0.4 - idx * 0.12;
+            const circle = L.circle([ev.epicenter.lat, ev.epicenter.lng], {
+                radius: 80 + ev.magnitude * 50,
+                color: ev.magnitude > 2.5 ? "#ff3333" : "#f59e0b",
+                fillColor: ev.magnitude > 2.5 ? "#ff3333" : "#f59e0b",
+                fillOpacity: Math.max(0.05, opacity * 0.3),
+                weight: 1.5,
+                opacity: Math.max(0.1, opacity),
+                className: "seismic-ripple",
+            }).addTo(map);
+            circle.bindPopup(`<b>Seismic Event</b><br/>Magnitude: ${ev.magnitude}<br/>Type: ${ev.type}<br/>Depth: ${ev.depth}m`);
+            seismicRipplesRef.current.push(circle);
+        });
+    }, [simSeismicEvents, mapReady]);
+
+    /* ─── Evacuation route polylines on map ─── */
+    useEffect(() => {
+        if (!mapReady) return;
+        const L = (window as any).L;
+        const map = mapObjRef.current;
+        if (!L || !map) return;
+
+        // Remove old routes
+        evacPolylinesRef.current.forEach(layer => map.removeLayer(layer));
+        evacPolylinesRef.current = [];
+
+        simEvacRoutes.forEach(route => {
+            if (route.path.length < 2) return;
+            const line = L.polyline(route.path, {
+                color: "#00ff88",
+                weight: 3,
+                opacity: 0.7,
+                dashArray: "8, 12",
+                className: "evac-route-line",
+            }).addTo(map);
+            line.bindPopup(`<b>Evac Route</b><br/>${route.minerName}`);
+            evacPolylinesRef.current.push(line);
+        });
+    }, [simEvacRoutes, mapReady]);
 
     /* ─── Watch for new alerts to show toasts + voice (only when component is mounted) ─── */
     useEffect(() => {
@@ -495,6 +569,12 @@ export default function LiveMinerSimulation({
                 {/* Map */}
                 <div className="xl:col-span-2 glass-card overflow-hidden relative">
                     <div ref={mapRef} className="w-full h-[500px]" style={{ minHeight: 400 }} />
+
+                    {/* Biometrics Panel (click a miner marker) */}
+                    <BiometricsPanel miner={selectedMiner} onClose={() => setSelectedMiner(null)} />
+
+                    {/* Helmet AR HUD (double-click a miner) */}
+                    <HelmetHUD miner={hudMiner} onClose={() => setHudMiner(null)} />
 
                     {/* Toast Alerts */}
                     <div className="absolute top-3 right-3 z-[1000] space-y-2 w-72">
