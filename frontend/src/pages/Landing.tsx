@@ -88,12 +88,12 @@ export default function Landing() {
             </section>
 
             {/* ─── Pillars Section ─── */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 border-t border-gray-200 pt-16">
+            <section className="py-20 bg-surface border-y border-white/5">
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 pt-4">
                     {pillars.map((p, i) => (
                         <div key={i} className="flex flex-col">
-                            <h3 className="text-xl font-black text-gray-900 mb-4">{p.title}</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">{p.desc}</p>
+                            <h3 className="text-xl font-black text-white mb-4">{p.title}</h3>
+                            <p className="text-text-secondary text-sm leading-relaxed">{p.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -104,14 +104,14 @@ export default function Landing() {
                 {/* Visual split: Background behind miner is orange in the mock up. We'll simulate by wrapping the image */}
                 <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
                     <div className="relative">
-                        <div className="absolute inset-0 bg-accent rounded-[3rem] -z-10 transform -rotate-3 blur-[2px]" />
+                        <div className="absolute inset-0 bg-surface-elevated border border-accent/20 rounded-[3rem] -z-10 transform -rotate-3 blur-[1px] shadow-[0_0_30px_rgba(239,136,82,0.05)]" />
                         <img 
                             src={MINER_IMAGE} 
                             alt="Miner Character" 
                             className="w-full h-auto max-w-md mx-auto object-contain drop-shadow-2xl"
                             onError={(e) => {
                                 e.currentTarget.style.display = 'none';
-                                e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-[500px] rounded-[3rem] bg-accent border border-white/20 flex items-center justify-center"><span class="text-surface-deep font-bold">Miner Asset Placeholder</span></div>';
+                                e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-[500px] rounded-[3rem] bg-surface-elevated border border-accent/20 shadow-[0_0_20px_rgba(239,136,82,0.05)] flex items-center justify-center"><span class="text-accent/50 font-bold">Miner Asset Placeholder</span></div>';
                             }}
                         />
                     </div>
@@ -134,16 +134,16 @@ export default function Landing() {
                             </Link>
                         </div>
 
-                        {/* Overlapping White Cards */}
+                        {/* Overlapping Dark Cards */}
                         <div className="flex flex-col gap-6">
                             {cards.map((card, i) => (
-                                <div key={i} className="bg-white p-6 md:p-8 rounded-xl shadow-2xl flex gap-6 items-start -ml-0 lg:-ml-24 hover:translate-x-4 transition-transform z-30 border border-gray-100">
-                                    <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                                <div key={i} className="bg-surface-elevated p-6 md:p-8 rounded-xl shadow-2xl flex gap-6 items-start -ml-0 lg:-ml-24 hover:translate-x-4 transition-transform z-30 border border-white/5 hover:border-accent/20 group">
+                                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
                                         <card.icon className="w-6 h-6 text-accent" />
                                     </div>
                                     <div>
-                                        <h4 className="text-lg font-black text-gray-900 mb-2">{card.title}</h4>
-                                        <p className="text-gray-600 text-sm leading-relaxed">{card.desc}</p>
+                                        <h4 className="text-lg font-black text-white mb-2">{card.title}</h4>
+                                        <p className="text-text-secondary text-sm leading-relaxed">{card.desc}</p>
                                     </div>
                                 </div>
                             ))}
@@ -182,12 +182,12 @@ export default function Landing() {
             </section>
 
             {/* ─── Feature 3: Unlock The Power ─── */}
-            <section className="py-32 bg-accent relative overflow-hidden">
+            <section className="py-32 bg-surface-deep border-t border-white/5 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                 <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
                     {/* Placeholder for Mech Asset */}
                     <div className="relative w-full h-[500px] flex items-center justify-center">
-                        <div className="w-[80%] h-[90%] bg-surface-deep rounded-[3rem] shadow-2xl flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500 border border-white/10">
+                        <div className="w-[80%] h-[90%] bg-surface-elevated rounded-[3rem] shadow-[0_0_40px_rgba(239,136,82,0.05)] flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500 border border-accent/10">
                             <div className="text-center px-8">
                                 <Activity className="w-16 h-16 text-accent mx-auto mb-6 opacity-80" />
                                 <span className="text-accent font-bold uppercase tracking-widest text-sm block mb-2">3D Mech Suit Asset</span>
@@ -195,18 +195,18 @@ export default function Landing() {
                             </div>
                         </div>
                     </div>
-                    <div className="text-surface-deep">
+                    <div className="text-white">
                         <h2 className="text-4xl lg:text-5xl font-black leading-tight mb-6">
                             Unlock the <br /> Power of AI
                         </h2>
-                        <p className="text-surface-deep/80 text-lg mb-10 font-bold pr-12">
+                        <p className="text-text-secondary text-lg mb-10 pr-12">
                             Deploy tactical drones, automate emergency shutdown sequences, and harness generative AI models directly from your command terminal.
                         </p>
                         <div className="flex flex-col gap-4 max-w-xs">
-                            <Link to="/dashboard" className="px-8 py-4 rounded bg-surface-deep text-accent font-black text-sm uppercase text-center hover:bg-surface transition-colors shadow-lg">
+                            <Link to="/dashboard" className="px-8 py-4 rounded bg-accent text-surface-deep font-black text-sm uppercase text-center shadow-glow hover:bg-amber-400 transition-colors">
                                 COMMAND HUB
                             </Link>
-                            <Link to="/about" className="px-8 py-4 rounded bg-transparent border-2 border-surface-deep text-surface-deep font-black text-sm uppercase text-center hover:bg-surface-deep/10 transition-colors">
+                            <Link to="/about" className="px-8 py-4 rounded bg-transparent border-2 border-accent/30 text-white font-black text-sm uppercase text-center hover:bg-white/5 hover:border-accent transition-colors">
                                 LEARN MORE
                             </Link>
                         </div>

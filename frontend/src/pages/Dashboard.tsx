@@ -234,7 +234,7 @@ export default function Dashboard() {
             {/* ─── Sidebar ─── */}
             <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-surface border-r border-accent/10 flex flex-col overflow-hidden`}>
                 <div className="h-14 flex items-center px-4 border-b border-accent/10 gap-2.5 flex-shrink-0">
-                    <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.3)]">
+                    <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.1)]">
                         <HardHat className="w-4 h-4 text-surface-deep" />
                     </div>
                     {sidebarOpen && <span className="text-[14px] font-black tracking-tight whitespace-nowrap uppercase italic">undergrid<span className="text-accent">.ai</span></span>}
@@ -249,7 +249,7 @@ export default function Dashboard() {
                                 <span className="text-[13px] font-medium flex-1 text-left">{item.label}</span>
                             )}
                             {sidebarOpen && item.id === "alerts" && alertCount > 0 && (
-                                <span className="bg-accent/20 text-accent text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-[0_0_10px_rgba(239,136,82,0.2)]">
+                                <span className="bg-accent/20 text-accent text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-[0_0_10px_rgba(239,136,82,0.05)]">
                                     {alertCount}
                                 </span>
                             )}
@@ -396,7 +396,7 @@ function OverviewSection({
                     <button
                         onClick={() => setSimCommand({ type: 'recall' })}
                         className={`relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 ${simCommand.type === 'recall'
-                            ? 'bg-accent/10 border border-accent/40 shadow-[0_0_20px_rgba(239,136,82,0.15)]'
+                            ? 'bg-accent/10 border border-accent/40 shadow-[0_0_20px_rgba(239,136,82,0.05)]'
                             : 'bg-surface-elevated/40 border border-accent/5 hover:bg-accent/5 hover:border-accent/20'
                             }`}
                     >

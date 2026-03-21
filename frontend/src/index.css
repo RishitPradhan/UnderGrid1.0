@@ -7,19 +7,19 @@
    ═══════════════════════════════════════════ */
 
 :root {
-  --bg-primary: #1a1110;
-  --bg-surface: #382522;
-  --bg-card: #2d1e1c;
-  --bg-elevated: #4d332f;
-  --border-subtle: rgba(239, 136, 82, 0.05);
-  --border-default: rgba(239, 136, 82, 0.1);
-  --border-accent: rgba(239, 136, 82, 0.3);
+  --bg-primary: #09090b;   /* Deep neutral dark (zinc-950) */
+  --bg-surface: #18181b;   /* Surface neutral (zinc-900) */
+  --bg-card: #121214;      /* Card background */
+  --bg-elevated: #27272a;  /* Elevated elements (zinc-800) */
+  --border-subtle: rgba(239, 136, 82, 0.03);
+  --border-default: rgba(239, 136, 82, 0.08);
+  --border-accent: rgba(239, 136, 82, 0.15);
   --text-primary: #f5f0ee;
-  --text-secondary: #ab7e75;
-  --text-muted: #82463c;
+  --text-secondary: #a1a1aa; /* Neutral grey (zinc-400) */
+  --text-muted: #71717a;     /* Neutral grey (zinc-500) */
   --accent-primary: #ef8852;
-  --accent-muted: #ab7e75;
-  --accent-deep: #82463c;
+  --accent-muted: #c46a3a;
+  --accent-deep: #7a3c1c;
   --accent-orange: #ef8852;
   --accent-sienna: #82463c;
   --accent-taupe: #ab7e75;
@@ -27,7 +27,7 @@
   --radius-md: 12px;
   --radius-lg: 18px;
   --radius-xl: 24px;
-  --shadow-premium: 0 20px 50px -12px rgba(0, 0, 0, 0.7);
+  --shadow-premium: 0 20px 50px -12px rgba(0, 0, 0, 0.9);
 }
 
 * {
@@ -133,8 +133,8 @@ body {
   }
 
   .glass-card-accent:hover {
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 30px rgba(239, 136, 82, 0.15);
+    border-color: rgba(239, 136, 82, 0.4);
+    box-shadow: 0 0 20px rgba(239, 136, 82, 0.05);
   }
 
   .stat-card {
