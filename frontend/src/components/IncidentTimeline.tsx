@@ -42,8 +42,8 @@ export default function IncidentTimeline() {
             <div className="glass-card-accent p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                            <Clock className="w-6 h-6 text-accent" />
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                            <Clock className="w-6 h-6 text-white/70" />
                         </div>
                         <div>
                             <h2 className="text-xl font-bold">Incident History</h2>
@@ -56,7 +56,7 @@ export default function IncidentTimeline() {
                         <div className="flex items-center gap-1 bg-white/[0.04] rounded-lg p-0.5">
                             {(["all", "active", "resolved"] as Filter[]).map(f => (
                                 <button key={f} onClick={() => setFilter(f)}
-                                    className={`px-3 py-1.5 rounded-md text-[11px] font-black uppercase tracking-widest transition-all ${filter === f ? "bg-accent/10 text-accent shadow-[0_0_10px_rgba(239,136,82,0.1)]" : "text-white/35 hover:text-white/60"}`}>
+                                    className={`px-3 py-1.5 rounded-md text-[11px] font-black uppercase tracking-widest transition-all ${filter === f ? "bg-white/10 text-white shadow-[0_0_10px_rgba(255,255,255,0.05)]" : "text-white/35 hover:text-white/60"}`}>
                                     {f}
                                 </button>
                             ))}
