@@ -7,22 +7,29 @@
    ═══════════════════════════════════════════ */
 
 :root {
-  --bg-primary: #09090b;   /* Deep neutral dark (zinc-950) */
-  --bg-surface: #18181b;   /* Surface neutral (zinc-900) */
-  --bg-card: #121214;      /* Card background */
-  --bg-elevated: #27272a;  /* Elevated elements (zinc-800) */
-  --border-subtle: rgba(239, 136, 82, 0.03);
-  --border-default: rgba(239, 136, 82, 0.08);
-  --border-accent: rgba(239, 136, 82, 0.15);
-  --text-primary: #f5f0ee;
-  --text-secondary: #a1a1aa; /* Neutral grey (zinc-400) */
-  --text-muted: #71717a;     /* Neutral grey (zinc-500) */
+  --bg-primary: #000000;
+  /* Pure Black for deep backgrounds */
+  --bg-surface: #09090b;
+  /* Surface neutral (zinc-950) */
+  --bg-card: #0d0d0f;
+  /* Card background */
+  --bg-elevated: #18181b;
+  /* Elevated elements (zinc-900) */
+  --border-subtle: rgba(255, 255, 255, 0.03);
+  --border-default: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(255, 255, 255, 0.12);
+  --text-primary: #f4f4f5;
+  /* Zinc-100 */
+  --text-secondary: #a1a1aa;
+  /* Zinc-400 */
+  --text-muted: #71717a;
+  /* Zinc-500 */
   --accent-primary: #ef8852;
-  --accent-muted: #c46a3a;
-  --accent-deep: #7a3c1c;
+  --accent-muted: #3f3f46;
+  --accent-deep: #18181b;
   --accent-orange: #ef8852;
-  --accent-sienna: #82463c;
-  --accent-taupe: #ab7e75;
+  --accent-sienna: #3f3f46;
+  --accent-taupe: #52525b;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
@@ -280,9 +287,6 @@ body {
     background: linear-gradient(135deg, #ff6b00 0%, #ffb693 100%);
   }
 
-  .text-glow-cyan {
-    text-shadow: 0 0 15px rgba(0, 238, 252, 0.4);
-  }
 
   .kinetic-border {
     position: relative;

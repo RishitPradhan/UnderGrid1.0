@@ -24,6 +24,7 @@ import GlobalAIPopup from "@/components/GlobalAIPopup";
 import SeismicMonitor from "@/components/SeismicMonitor";
 import VentilationControl from "@/components/VentilationControl";
 import EvacuationRoutes from "@/components/EvacuationRoutes";
+import DroneDeploy from "@/components/DroneDeploy";
 import { useSimContext } from "@/context/SimContext";
 
 
@@ -47,6 +48,16 @@ const navItems: { id: Section; label: string; icon: any }[] = [
 export default function Dashboard() {
     const [active, setActive] = useState<Section>("overview");
     const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    // ─── Allow sub-components to navigate sections (e.g. DroneDeploy → "drone") ───
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const section = (e as CustomEvent).detail as Section;
+            if (section) setActive(section);
+        };
+        window.addEventListener("navigate_section", handler);
+        return () => window.removeEventListener("navigate_section", handler);
+    }, []);
 
     // ─── Simulation state (lifted here for persistence across tabs) ───
     const [simMiners, setSimMiners] = useState<SimMiner[]>(createInitialMiners);
@@ -249,7 +260,7 @@ export default function Dashboard() {
                                 <span className="text-[13px] font-medium flex-1 text-left">{item.label}</span>
                             )}
                             {sidebarOpen && item.id === "alerts" && alertCount > 0 && (
-                                <span className="bg-red-500/20 text-red-400 text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-[0_0_10px_rgba(248,113,113,0.1)] border border-red-500/20">
+                                <span className="bg-red-500/20 text-red-400 text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase min-w-[20px] text-center shadow-glow-red border border-red-500/20">
                                     {alertCount}
                                 </span>
                             )}
@@ -366,8 +377,8 @@ function OverviewSection({
                 <h3 className="text-[11px] font-medium text-white/30 uppercase tracking-wider mb-3">System Status</h3>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     {systemStatuses.map((sys) => (
-                        <div key={sys.label} className="relative group overflow-hidden rounded-xl p-3 bg-surface-elevated/20 border border-accent/5 shadow-2xl transition-all hover:bg-accent/5 hover:border-accent/20 text-left">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full opacity-30 pointer-events-none" style={{ background: `linear-gradient(to bottom left, ${sys.color}20, transparent)` }} />
+                        <div key={sys.label} className="relative group overflow-hidden rounded-xl p-3 bg-white/5 border border-white/5 shadow-2xl transition-all hover:bg-white/10 hover:border-white/10 text-left">
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full opacity-30 pointer-events-none" style={{ background: `linear-gradient(to bottom left, ${sys.color}10, transparent)` }} />
 
                             <div className="flex items-center gap-3 mb-3 relative z-10">
                                 <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shadow-inner"
@@ -394,10 +405,9 @@ function OverviewSection({
                 <h3 className="text-[11px] font-medium text-white/30 uppercase tracking-wider mb-3">Interactive Controls</h3>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     <button
-                        onClick={() => setSimCommand({ type: 'recall' })}
                         className={`relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 ${simCommand.type === 'recall'
-                            ? 'bg-accent-amber/10 border border-accent-amber/40 shadow-[0_0_20px_rgba(245,158,11,0.05)]'
-                            : 'bg-surface-elevated/40 border border-accent-amber/5 hover:bg-accent-amber/5 hover:border-accent-amber/20'
+                            ? 'bg-amber-500/10 border border-amber-400/40 shadow-glow-amber'
+                            : 'bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10'
                             }`}
                     >
                         {simCommand.type === 'recall' && (
@@ -422,7 +432,7 @@ function OverviewSection({
                                 key={zone.id}
                                 onClick={() => setSimCommand({ type: 'evacuate', zoneId: zone.id })}
                                 className={`relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 ${isEvacuating
-                                    ? 'bg-red-500/10 border border-red-400/40 shadow-[0_0_20px_rgba(248,113,113,0.15)]'
+                                    ? 'bg-red-500/10 border border-red-400/40 shadow-glow-red'
                                     : 'bg-black/40 border border-white/5 hover:bg-red-500/5 hover:border-red-400/20'
                                     }`}
                             >
@@ -461,6 +471,9 @@ function OverviewSection({
                 </div>
             </div>
 
+            {/* Drone Fleet Deploy */}
+            <DroneDeploy />
+
             {/* Evacuation Routing */}
             <EvacuationRoutes />
 
@@ -474,7 +487,7 @@ function OverviewSection({
                 simAlerts={simAlerts} setSimAlerts={setSimAlerts}
                 onReset={onSimReset}
             />
-        </div>
+        </div >
     );
 }
 

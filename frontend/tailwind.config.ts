@@ -5,87 +5,51 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Stitch Design Palette
-                "on-surface-variant": "#e2bfb0",
-                "surface-container-highest": "#343537",
-                "on-tertiary-container": "#530073",
-                "on-background": "#e3e2e5",
-                "secondary-fixed": "#7df4ff",
-                "on-tertiary": "#520071",
-                "surface-dim": "#121315",
-                "on-surface": "#e3e2e5",
-                "surface-container-high": "#292a2c",
-                "on-primary-fixed": "#351000",
-                "on-primary-fixed-variant": "#7a3000",
-                "tertiary": "#ebb2ff",
-                "primary": "#ffb693",
-                "outline-variant": "#5a4136",
-                "on-tertiary-fixed-variant": "#74009f",
-                "on-secondary-fixed": "#002022",
-                "inverse-primary": "#a04100",
-                "surface-container-low": "#1b1c1e",
-                "on-tertiary-fixed": "#320047",
-                "primary-container": "#ff6b00",
-                "secondary": "#00eeec",
-                "on-primary-container": "#572000",
-                "surface-container-lowest": "#0d0e10",
-                "surface-tint": "#ffb693",
-                "inverse-on-surface": "#303033",
-                "surface-container": "#1f2022",
-                "background": "#121315",
-                "secondary-container": "#00eefc",
-                "on-error": "#690005",
-                "secondary-fixed-dim": "#00dbe9",
-                "surface-bright": "#38393b",
-                "on-error-container": "#ffdad6",
-                "on-secondary-fixed-variant": "#004f54",
-                "outline": "#a98a7d",
-                "error-container": "#93000a",
-                "tertiary-container": "#d36cff",
-                "primary-fixed": "#ffdbcc",
-                "tertiary-fixed": "#f8d8ff",
-                "tertiary-fixed-dim": "#ebb2ff",
-                "on-secondary-container": "#00686f",
-                "inverse-surface": "#e3e2e5",
-                "on-primary": "#561f00",
-                "error": "#ffb4ab",
-                "surface-variant": "#343537",
-                "primary-fixed-dim": "#ffb693",
-                "on-secondary": "#00363a",
-
-                // Zinc-based Surface Palette (Remote branch contribution)
                 surface: {
-                    DEFAULT: "#18181b",
+                    DEFAULT: "#09090b", // Neutral Black (Zinc-950)
+                    dim: "#09090b",
+                    bright: "#18181b",  // Zinc-900
+                    lowest: "#000000",  // Pure Black
+                    low: "#09090b",
+                    container: "#121214",
+                    high: "#18181b",
+                    highest: "#27272a", // Zinc-800
+                    variant: "#27272a",
                     deep: "#09090b",
-                    elevated: "#27272a",
-                    50: "#27272a",
-                    100: "#27272a",
-                    200: "#18181b",
-                    300: "#121214"
+                    elevated: "#18181b",
+                    zinc: {
+                        DEFAULT: "#18181b",
+                        deep: "#09090b",
+                        elevated: "#27272a",
+                    }
                 },
-
-                // Backward Compatibility Palette (Restored)
-                "surface-deep": "#1a1110",
-                "surface-elevated": "#4d332f",
-                "accent-muted": "#AB7E75",
-                "text-primary": "#f5f0ee",
-                "text-secondary": "#ab7e75",
-
                 accent: {
-                    DEFAULT: "#EF8852",
-                    light: "#fdbba7",   // Light Peach
-                    bright: "#ff6b35",  // Bright Vibrant Orange
-                    amber: "#f59e0b",   // Amber/Yellow-Orange
-                    rust: "#d9480f",    // Deep Rust Orange
-                    muted: "#ab7e75",
-                    deep: "#82463c"
+                    DEFAULT: "#EF8852",  // Primary orange
+                    muted: "#3f3f46",    // Neutral Zinc-700
+                    deep: "#262626",     // Very dark gray
+                    light: "#f97316",    // Brighter orange for contrast
+                    bright: "#fb923c",
+                    amber: "#f59e0b",
+                    rust: "#ea580c",
+                    taupe: "#52525b",
+                    sienna: "#3f3f46",
+                    chocolate: "#171717"
                 },
-                warm: {
-                    peach: "#ef8852",
-                    taupe: "#ab7e75",
-                    sienna: "#82463c",
-                    chocolate: "#382522"
-                }
+                // Neutralized semantic keys
+                "on-surface-variant": "#a1a1aa", // zinc-400
+                "on-background": "#f4f4f5",      // zinc-100
+                "on-surface": "#f4f4f5",
+                "primary": "#EF8852",            // Use pure orange
+                "primary-container": "#7c2d12",  // Deep orange/rust
+                "on-primary": "#ffffff",
+                "on-primary-container": "#ffedd5",
+                "secondary": "#06b6d4",          // Cyan
+                "secondary-container": "#164e63",
+                "tertiary": "#d946ef",           // Fuchsia
+                "tertiary-container": "#701a75",
+                "error": "#ef4444",              // Standard Red
+                "outline": "#52525b",            // zinc-600
+                "outline-variant": "#3f3f46",    // zinc-700
             },
             fontFamily: {
                 "headline": ["Space Grotesk"],

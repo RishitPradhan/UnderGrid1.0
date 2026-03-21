@@ -59,6 +59,7 @@ interface SimContextValue {
     simEvacRoutes: EvacRoute[];
     simFans: FanState[];
     simPurgeActive: boolean;
+    simDronePlaying: boolean;
     setSimMiners: (m: SimMiner[]) => void;
     setSimAlerts: (a: SimAlertEntry[]) => void;
     setSimZones: (z: DangerZone[]) => void;
@@ -69,14 +70,16 @@ interface SimContextValue {
     setSimEvacRoutes: (r: EvacRoute[]) => void;
     setSimFans: (f: FanState[]) => void;
     setSimPurgeActive: (p: boolean) => void;
+    setSimDronePlaying: (v: boolean) => void;
 }
 
 const SimContext = createContext<SimContextValue>({
     simMiners: [], simAlerts: [], simZones: [], simDrones: [],
     simBiometrics: {}, simSeismicEvents: [], simHazardGrid: [], simEvacRoutes: [], simFans: [], simPurgeActive: false,
+    simDronePlaying: false,
     setSimMiners: () => { }, setSimAlerts: () => { }, setSimZones: () => { }, setSimDrones: () => { },
     setSimBiometrics: () => { }, setSimSeismicEvents: () => { }, setSimHazardGrid: () => { },
-    setSimEvacRoutes: () => { }, setSimFans: () => { }, setSimPurgeActive: () => { },
+    setSimEvacRoutes: () => { }, setSimFans: () => { }, setSimPurgeActive: () => { }, setSimDronePlaying: () => { },
 });
 
 export function SimProvider({ children }: { children: ReactNode }) {
@@ -90,13 +93,14 @@ export function SimProvider({ children }: { children: ReactNode }) {
     const [simEvacRoutes, setSimEvacRoutes] = useState<EvacRoute[]>([]);
     const [simFans, setSimFans] = useState<FanState[]>([]);
     const [simPurgeActive, setSimPurgeActive] = useState(false);
+    const [simDronePlaying, setSimDronePlaying] = useState(false);
 
     return (
         <SimContext.Provider value={{
             simMiners, simAlerts, simZones, simDrones,
-            simBiometrics, simSeismicEvents, simHazardGrid, simEvacRoutes, simFans, simPurgeActive,
+            simBiometrics, simSeismicEvents, simHazardGrid, simEvacRoutes, simFans, simPurgeActive, simDronePlaying,
             setSimMiners, setSimAlerts, setSimZones, setSimDrones,
-            setSimBiometrics, setSimSeismicEvents, setSimHazardGrid, setSimEvacRoutes, setSimFans, setSimPurgeActive,
+            setSimBiometrics, setSimSeismicEvents, setSimHazardGrid, setSimEvacRoutes, setSimFans, setSimPurgeActive, setSimDronePlaying,
         }}>
             {children}
         </SimContext.Provider>

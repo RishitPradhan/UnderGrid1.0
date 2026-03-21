@@ -19,9 +19,9 @@ export default function Landing() {
     return (
         <div className="selection:bg-primary-container selection:text-on-primary-container font-body bg-surface text-on-surface overflow-x-hidden">
             {/* Top Navigation Bar */}
-            <nav className="fixed top-0 w-full z-50 bg-surface-variant/60 backdrop-blur-xl shadow-[0_0_40px_rgba(255,107,0,0.08)]">
+            <nav className="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-xl border-b border-white/5 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
                 <div className="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
-                    <div className="text-2xl font-bold tracking-tighter text-[#E3E2E5] uppercase font-headline">MineSafe-v2</div>
+                    <div className="text-2xl font-bold tracking-tighter text-white uppercase font-headline">MineSafe-v2</div>
                     <div className="hidden md:flex items-center gap-8 font-headline tracking-tight">
                         <a className="text-[#FFB693] font-bold border-b-2 border-[#FF6B00] pb-1" href="#">Platform</a>
                         <a className="text-[#E3E2E5]/70 hover:text-[#E3E2E5] transition-colors" href="#">Solutions</a>
@@ -67,9 +67,9 @@ export default function Landing() {
                     </motion.div>
 
                     {/* Visual Asset Area */}
-                    <div className="relative h-[500px] lg:h-[700px] w-full rounded-xl overflow-hidden bg-surface-container-low border border-outline-variant/10 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary-container/10 via-transparent to-secondary-container/5"></div>
-                        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#5a4136 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+                    <div className="relative h-[500px] lg:h-[700px] w-full rounded-xl overflow-hidden bg-black border border-white/5 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-transparent"></div>
+                        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#27272a 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
                         <div className="z-10 text-center flex flex-col items-center gap-4">
                             <motion.div
                                 animate={{ rotate: 360 }}
@@ -132,7 +132,7 @@ export default function Landing() {
             </section>
 
             {/* Dashboard Preview */}
-            <section className="py-24 px-8 bg-surface-container-low overflow-hidden">
+            <section className="py-24 px-8 bg-black overflow-hidden border-y border-white/5">
                 <div className="max-w-[1440px] mx-auto">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="order-2 lg:order-1 relative group">

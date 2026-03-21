@@ -107,10 +107,10 @@ function createInitialDrones(): DroneState[] {
    Component
    ═══════════════════════════════════════════ */
 export default function DronePatrol() {
-    const { simMiners, simZones, setSimDrones } = useSimContext();
-
+    const { simMiners, simZones, setSimDrones, simDronePlaying, setSimDronePlaying } = useSimContext();
+    const playing = simDronePlaying;
+    const setPlaying = setSimDronePlaying;
     const [drones, setDrones] = useState<DroneState[]>(createInitialDrones);
-    const [playing, setPlaying] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const [selectedDrone, setSelectedDrone] = useState<string | null>("alpha");
 

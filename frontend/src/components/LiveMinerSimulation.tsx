@@ -56,34 +56,179 @@ const ROLE_COLORS: Record<string, string> = {
     operator: "#8b5cf6", technician: "#ec4899",
 };
 
-export const INITIAL_MINERS: Omit<SimMiner, "baseLat" | "baseLng" | "inDanger" | "dangerZone" | "state" | "ticksInDanger" | "ticksActive">[] = [
-    // Near Zone A edge (Gas Leak) — will drift in occasionally
-    { id: "m1", name: "Ravi Kumar", workerId: "W001", role: "Miner", lat: 20.9430, lng: 85.2118, color: ROLE_COLORS.miner },
-    // Near Zone B edge (Unstable Roof) — will drift in occasionally
-    { id: "m2", name: "Nirupon Pal", workerId: "W002", role: "Miner", lat: 20.9408, lng: 85.2088, color: ROLE_COLORS.miner },
-    { id: "m3", name: "John Doe", workerId: "W003", role: "Engineer", lat: 20.9395, lng: 85.2060, color: ROLE_COLORS.engineer },
-    { id: "m4", name: "Priya Sharma", workerId: "W004", role: "Safety Officer", lat: 20.9500, lng: 85.2180, color: ROLE_COLORS["safety officer"] },
-    // Near Zone C edge (Flooding) — will drift in occasionally
-    { id: "m5", name: "Amit Singh", workerId: "W005", role: "Electrician", lat: 20.9468, lng: 85.2096, color: ROLE_COLORS.electrician },
-    { id: "m6", name: "Rajesh Patel", workerId: "W006", role: "Operator", lat: 20.9355, lng: 85.2140, color: ROLE_COLORS.operator },
-    { id: "m7", name: "Sunita Devi", workerId: "W007", role: "Welder", lat: 20.9515, lng: 85.2050, color: ROLE_COLORS.welder },
-    { id: "m8", name: "Vikram Singh", workerId: "W008", role: "Technician", lat: 20.9420, lng: 85.2200, color: ROLE_COLORS.technician },
-    { id: "m9", name: "Anita Kumari", workerId: "W009", role: "Plumber", lat: 20.9465, lng: 85.2060, color: ROLE_COLORS.plumber },
+/*
+ * ══════════════════════════════════════════════════════════════════
+ *   TALCHER COALFIELDS — REALISTIC UNDERGROUND MINE LAYOUT
+ *   Location: Talcher, Angul District, Odisha, India
+ *   Type: Underground Board & Pillar Coal Mine
+ * ══════════════════════════════════════════════════════════════════
+ *
+ *   Layout Overview (North is Up):
+ *
+ *   [EXIT-1: Main Shaft]          [EXIT-4: Ventilation Shaft]
+ *         │                              │
+ *    ─────┼──────── Main Dip Haulage ────┼───────────
+ *         │        (North-South)         │
+ *    ─────┼──── 1st Level Cross-Cut ─────┼───────────
+ *         │    ╔══ Panel 1A ══╗          │
+ *    ─────┼──── 2nd Level Cross-Cut ─────┼───────────
+ *         │    ║  DANGER: CH₄ ║          │
+ *    ─────┼──── 3rd Level Cross-Cut ─────┼───────────
+ *         │    ╚══════════════╝   [DANGER: Roof Fall]
+ *    ─────┼──── 4th Level Cross-Cut ─────┼───────────
+ *         │                    [DANGER: Water]
+ *   [EXIT-2: Belt Conveyor]    [EXIT-3: Emergency Shaft]
+ *
+ * ══════════════════════════════════════════════════════════════════
+ */
+
+/** Center of the Talcher underground mine */
+export const MINE_CENTER: [number, number] = [20.9440, 85.2120];
+
+/** Mining lease boundary polygon (expanded) */
+export const MINE_BOUNDARY: [number, number][] = [
+    [20.9300, 85.1940], [20.9300, 85.2300],
+    [20.9600, 85.2320], [20.9620, 85.2160],
+    [20.9600, 85.1940],
 ];
 
+/** Exit points / Pit heads — positioned at network edges */
+export const EXIT_POINTS: { id: string; name: string; coords: [number, number] }[] = [
+    { id: "exit-1", name: "Main Shaft (Pit Head #1)", coords: [20.9580, 85.2000] },
+    { id: "exit-2", name: "Belt Conveyor Incline", coords: [20.9320, 85.2000] },
+    { id: "exit-3", name: "Emergency Escape Shaft (South)", coords: [20.9320, 85.2240] },
+    { id: "exit-4", name: "Ventilation Shaft #2 (NE)", coords: [20.9580, 85.2240] },
+];
+
+/** Miners positioned ON tunnel paths */
+export const INITIAL_MINERS: Omit<SimMiner, "baseLat" | "baseLng" | "inDanger" | "dangerZone" | "state" | "ticksInDanger" | "ticksActive">[] = [
+    // On Main Dip West, near 3rd Level
+    { id: "m1", name: "Ravi Kumar", workerId: "W001", role: "Miner", lat: 20.9460, lng: 85.2000, color: ROLE_COLORS.miner },
+    // On 3rd Level Cross-Cut, near Panel 2B
+    { id: "m2", name: "Nirupon Pal", workerId: "W002", role: "Miner", lat: 20.9460, lng: 85.2080, color: ROLE_COLORS.miner },
+    // On 2nd Level Cross-Cut
+    { id: "m3", name: "Suresh Behera", workerId: "W003", role: "Engineer", lat: 20.9500, lng: 85.2060, color: ROLE_COLORS.engineer },
+    // On Pillar Road East, patrolling
+    { id: "m4", name: "Priya Sharma", workerId: "W004", role: "Safety Officer", lat: 20.9540, lng: 85.2180, color: ROLE_COLORS["safety officer"] },
+    // On 4th Level Cross-Cut, near roof fall zone
+    { id: "m5", name: "Amit Singh", workerId: "W005", role: "Electrician", lat: 20.9420, lng: 85.2160, color: ROLE_COLORS.electrician },
+    // On Main Dip East, southern section
+    { id: "m6", name: "Rajesh Patel", workerId: "W006", role: "Operator", lat: 20.9360, lng: 85.2200, color: ROLE_COLORS.operator },
+    // On Panel 2B Heading (deep in mine)
+    { id: "m7", name: "Sunita Devi", workerId: "W007", role: "Welder", lat: 20.9440, lng: 85.2070, color: ROLE_COLORS.welder },
+    // On 5th Level Cross-Cut, near water ingress
+    { id: "m8", name: "Vikram Singh", workerId: "W008", role: "Technician", lat: 20.9380, lng: 85.2120, color: ROLE_COLORS.technician },
+    // On Main Dip East, near exit-4
+    { id: "m9", name: "Anita Kumari", workerId: "W009", role: "Plumber", lat: 20.9520, lng: 85.2240, color: ROLE_COLORS.plumber },
+];
+
+/** Danger zones overlapping tunnel segments */
 export const DANGER_ZONES: DangerZone[] = [
     {
-        id: "zone-a", name: "Zone A — Gas Leak", riskLevel: "critical", color: "#ff3333",
-        polygon: [[20.9435, 85.2125], [20.9435, 85.2155], [20.9455, 85.2155], [20.9455, 85.2125]],
+        id: "zone-a",
+        name: "Zone A — Gas Leak",
+        riskLevel: "critical",
+        color: "#ff3333",
+        // Overlaps 3rd Level Cross-Cut and Panel 2B Heading
+        polygon: [
+            [20.9448, 85.2040], [20.9448, 85.2100],
+            [20.9472, 85.2100], [20.9472, 85.2040],
+        ],
     },
     {
-        id: "zone-b", name: "Zone B — Unstable Roof", riskLevel: "high", color: "#ff6600",
-        polygon: [[20.9405, 85.2085], [20.9405, 85.2110], [20.9425, 85.2110], [20.9425, 85.2085]],
+        id: "zone-b",
+        name: "Zone B — Unstable Roof",
+        riskLevel: "high",
+        color: "#ff6600",
+        // Overlaps 4th Level Cross-Cut near eastern side
+        polygon: [
+            [20.9410, 85.2140], [20.9410, 85.2210],
+            [20.9436, 85.2210], [20.9436, 85.2140],
+        ],
     },
     {
-        id: "zone-c", name: "Zone C — Flooding Risk", riskLevel: "medium", color: "#ffaa00",
-        polygon: [[20.9465, 85.2090], [20.9465, 85.2120], [20.9485, 85.2120], [20.9485, 85.2090]],
+        id: "zone-c",
+        name: "Zone C — Flooding Risk",
+        riskLevel: "medium",
+        color: "#ffaa00",
+        // Overlaps 5th Level Cross-Cut and Old Workings Spur
+        polygon: [
+            [20.9360, 85.2050], [20.9360, 85.2120],
+            [20.9396, 85.2120], [20.9396, 85.2050],
+        ],
     },
+];
+
+/* ─── Tunnel Network — Dense Board & Pillar Layout (2x spread) ─── */
+export const TUNNEL_PATHS: [number, number][][] = [
+    // ══════ MAIN HAULAGE ROADS (N-S Arteries) ══════
+
+    // Main Dip West — Exit-1 (N) to Exit-2 (S)
+    [[20.9580, 85.2000], [20.9540, 85.2000], [20.9500, 85.2000], [20.9460, 85.2000], [20.9420, 85.2000], [20.9380, 85.2000], [20.9340, 85.2000], [20.9320, 85.2000]],
+
+    // Main Dip East — Exit-4 (N) to Exit-3 (S)
+    [[20.9580, 85.2240], [20.9540, 85.2240], [20.9500, 85.2240], [20.9460, 85.2240], [20.9420, 85.2240], [20.9380, 85.2240], [20.9340, 85.2240], [20.9320, 85.2240]],
+
+    // Central Haulage — N-S through mine center
+    [[20.9580, 85.2120], [20.9540, 85.2120], [20.9500, 85.2120], [20.9460, 85.2120], [20.9420, 85.2120], [20.9380, 85.2120], [20.9340, 85.2120], [20.9320, 85.2120]],
+
+    // ══════ CROSS-CUTS (E-W connections) ══════
+
+    // 1st Level Cross-Cut (Northernmost)
+    [[20.9540, 85.2000], [20.9540, 85.2060], [20.9540, 85.2120], [20.9540, 85.2180], [20.9540, 85.2240]],
+
+    // 2nd Level Cross-Cut
+    [[20.9500, 85.2000], [20.9500, 85.2060], [20.9500, 85.2120], [20.9500, 85.2180], [20.9500, 85.2240]],
+
+    // 3rd Level Cross-Cut
+    [[20.9460, 85.2000], [20.9460, 85.2060], [20.9460, 85.2120], [20.9460, 85.2180], [20.9460, 85.2240]],
+
+    // 4th Level Cross-Cut
+    [[20.9420, 85.2000], [20.9420, 85.2060], [20.9420, 85.2120], [20.9420, 85.2180], [20.9420, 85.2240]],
+
+    // 5th Level Cross-Cut (Southernmost)
+    [[20.9380, 85.2000], [20.9380, 85.2060], [20.9380, 85.2120], [20.9380, 85.2180], [20.9380, 85.2240]],
+
+    // ══════ INTERMEDIATE N-S PILLARS ══════
+
+    // Pillar Road West (between Main Dip West and Central)
+    [[20.9540, 85.2060], [20.9500, 85.2060], [20.9460, 85.2060], [20.9420, 85.2060], [20.9380, 85.2060]],
+
+    // Pillar Road East (between Central and Main Dip East)
+    [[20.9540, 85.2180], [20.9500, 85.2180], [20.9460, 85.2180], [20.9420, 85.2180], [20.9380, 85.2180]],
+
+    // ══════ DEVELOPMENT HEADINGS / PANELS ══════
+
+    // Panel 1A Heading — branches south off 2nd Level
+    [[20.9500, 85.2060], [20.9484, 85.2036], [20.9470, 85.2020]],
+
+    // Panel 2B Heading — branches into CH₄ zone
+    [[20.9460, 85.2060], [20.9450, 85.2080], [20.9440, 85.2070]],
+
+    // Panel 3C Heading — near old workings
+    [[20.9420, 85.2060], [20.9404, 85.2036], [20.9390, 85.2020]],
+
+    // Panel 4D Heading — branches east
+    [[20.9460, 85.2180], [20.9450, 85.2210], [20.9440, 85.2230]],
+
+    // ══════ VENTILATION DRIFTS ══════
+
+    // Return Airway (West)
+    [[20.9560, 85.2030], [20.9520, 85.2030], [20.9480, 85.2030], [20.9440, 85.2030], [20.9400, 85.2030], [20.9360, 85.2030]],
+
+    // Return Airway (East)
+    [[20.9560, 85.2210], [20.9520, 85.2210], [20.9480, 85.2210], [20.9440, 85.2210], [20.9400, 85.2210], [20.9360, 85.2210]],
+
+    // ══════ ACCESS SPURS ══════
+
+    // Vent spur west
+    [[20.9540, 85.2000], [20.9560, 85.2030]],
+
+    // Vent spur east
+    [[20.9540, 85.2240], [20.9560, 85.2210]],
+
+    // Old Workings Spur (southern dead-end)
+    [[20.9380, 85.2060], [20.9370, 85.2080], [20.9360, 85.2100]],
 ];
 
 /* ─── Point-in-Polygon Ray Casting ─── */
@@ -99,14 +244,7 @@ export function pointInPolygon(lat: number, lng: number, polygon: [number, numbe
     return inside;
 }
 
-/* ─── Tunnel Network (Lines) ─── */
-export const TUNNEL_PATHS: [number, number][][] = [
-    [[20.9380, 85.2050], [20.9520, 85.2200]], // Main Trunk
-    [[20.9380, 85.2150], [20.9480, 85.2050]], // Cross-cut A
-    [[20.9420, 85.2050], [20.9420, 85.2230]], // Section B North
-    [[20.9470, 85.2050], [20.9470, 85.2230]], // Section C South
-    [[20.9350, 85.2120], [20.9550, 85.2120]], // Central Access
-];
+
 
 /* ─── Project Point to segment ─── */
 export function projectToNearestTunnel(lat: number, lng: number): [number, number] {
@@ -200,7 +338,7 @@ export default function LiveMinerSimulation({
         if (!L) return;
 
         const map = L.map(mapRef.current, {
-            center: [20.9440, 85.2120],
+            center: MINE_CENTER,
             zoom: 15,
             zoomControl: true,
         });
@@ -210,11 +348,26 @@ export default function LiveMinerSimulation({
             maxZoom: 19,
         }).addTo(map);
 
-        // Mining area boundary
-        L.polygon(
-            [[20.9345, 85.1595], [20.9345, 85.281], [20.9661, 85.281], [20.9661, 85.1595]],
-            { color: "#EF8852", weight: 1.5, opacity: 0.3, fillColor: "#EF8852", fillOpacity: 0.02, dashArray: "8,4" }
-        ).addTo(map).bindPopup("<b style='color:#EF8852'>Talcher Mining Area</b>");
+        // Mining lease boundary
+        L.polygon(MINE_BOUNDARY, {
+            color: "#3b82f6", weight: 1.5, opacity: 0.4,
+            fillColor: "#3b82f6", fillOpacity: 0.03, dashArray: "10,6"
+        }).addTo(map).bindPopup("<b style='color:#3b82f6'>Talcher Coalfields — Mining Lease Boundary</b><br/><span style='color:#888;font-size:11px'>Angul District, Odisha</span>");
+
+        // Exit point markers (green pulsing beacons)
+        EXIT_POINTS.forEach(exit => {
+            const exitHtml = `<div style="display:flex;flex-direction:column;align-items:center">
+  <div style="width:22px;height:22px;background:#10b981;border-radius:50%;border:3px solid #065f46;box-shadow:0 0 16px rgba(16,185,129,0.6);animation:danger-marker-pulse 1.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:11px">🚪</div>
+  <div style="margin-top:2px;background:rgba(0,0,0,0.85);border:1px solid rgba(16,185,129,0.4);border-radius:5px;padding:2px 6px;white-space:nowrap;text-align:center">
+    <div style="font-size:9px;font-weight:700;color:#10b981">${exit.name}</div>
+    <div style="font-size:7px;color:rgba(255,255,255,0.4);font-family:monospace">EXIT POINT</div>
+  </div>
+</div>`;
+            L.marker(exit.coords, {
+                icon: L.divIcon({ html: exitHtml, className: "", iconSize: [140, 55], iconAnchor: [70, 11] }),
+                zIndexOffset: 800,
+            }).addTo(map);
+        });
 
         // Danger zones
         dangerZones.forEach(zone => {
@@ -231,20 +384,30 @@ export default function LiveMinerSimulation({
             L.marker(center, {
                 icon: L.divIcon({
                     html: `<div style="color:${zone.color};font-size:10px;font-weight:700;text-shadow:0 0 6px #000;white-space:nowrap;text-align:center">${zone.name}</div>`,
-                    className: "", iconSize: [120, 20], iconAnchor: [60, 10],
+                    className: "", iconSize: [200, 20], iconAnchor: [100, 10],
                 }),
             }).addTo(map);
         });
 
-        // Tunnels (Lines)
+        // Tunnel network rendering
         TUNNEL_PATHS.forEach((path, idx) => {
+            // Outer glow (wider, semi-transparent)
             L.polyline(path, {
-                color: "#444", weight: 8, opacity: 0.4, lineCap: "round", lineJoin: "round"
+                color: idx < 3 ? "#555" : "#333", // Main haulage roads are brighter
+                weight: idx < 3 ? 10 : 6,
+                opacity: idx < 3 ? 0.5 : 0.3,
+                lineCap: "round", lineJoin: "round"
             }).addTo(map);
+            // Inner line (thinner, dashed for texture)
             L.polyline(path, {
-                color: "#222", weight: 4, opacity: 0.8, lineCap: "round", lineJoin: "round", dashArray: "5, 10"
+                color: idx < 3 ? "#888" : "#555",
+                weight: idx < 3 ? 4 : 2,
+                opacity: 0.7,
+                lineCap: "round", lineJoin: "round",
+                dashArray: idx < 3 ? undefined : "5,8" // Cross-cuts are dashed
             }).addTo(map);
         });
+
 
         mapObjRef.current = map;
         setMapReady(true);
