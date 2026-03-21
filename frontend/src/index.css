@@ -229,23 +229,21 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 14px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    color: var(--text-muted);
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
     border: 1px solid transparent;
   }
 
   .sidebar-item:hover {
     background: rgba(255, 255, 255, 0.03);
-    color: var(--text-secondary);
+    color: white;
   }
 
   .sidebar-item.active {
     background: rgba(255, 255, 255, 0.05);
     color: white;
-    border-color: rgba(255, 255, 255, 0.1);
   }
 
   /* ─── Danger pulse ─── */

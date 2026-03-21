@@ -232,10 +232,10 @@ export default function Dashboard() {
     return (
         <div className="h-screen bg-surface-deep flex overflow-hidden">
             {/* ─── Sidebar ─── */}
-            <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-surface border-r border-accent/10 flex flex-col overflow-hidden`}>
-                <div className="h-14 flex items-center px-4 border-b border-accent/10 gap-2.5 flex-shrink-0">
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-bright to-accent-rust flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.1)]">
-                        <HardHat className="w-4 h-4 text-white" />
+            <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-surface-deep border-r border-white/5 flex flex-col overflow-hidden`}>
+                <div className="h-14 flex items-center px-4 border-b border-white/5 gap-2.5 flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-surface-elevated flex items-center justify-center flex-shrink-0 border border-white/10">
+                        <HardHat className="w-4 h-4 text-accent" />
                     </div>
                     {sidebarOpen && <span className="text-[14px] font-black tracking-tight whitespace-nowrap uppercase italic text-white">undergrid<span className="text-accent">.ai</span></span>}
                 </div>
@@ -267,8 +267,8 @@ export default function Dashboard() {
 
             {/* ─── Main ─── */}
             <main className="flex-1 min-w-0 overflow-y-auto">
-                <header className="sticky top-0 z-30 h-14 bg-surface-deep/90 backdrop-blur-md border-b border-accent/10 flex items-center px-5 gap-3">
-                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-text-secondary hover:text-accent transition-colors">
+                <header className="sticky top-0 z-30 h-14 bg-surface-deep/90 backdrop-blur-md border-b border-white/5 flex items-center px-5 gap-3">
+                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-text-secondary hover:text-white transition-colors">
                         {sidebarOpen ? <X className="w-4 h-4 lg:hidden" /> : <Menu className="w-4 h-4" />}
                         <span className="hidden lg:block">{sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <Menu className="w-4 h-4" />}</span>
                     </button>
