@@ -1,0 +1,436 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   undergrid.ai v2 — Design System
+   ═══════════════════════════════════════════ */
+
+:root {
+  --bg-primary: #020408;
+  --bg-surface: #0a0c10;
+  --bg-card: #12151c;
+  --bg-elevated: #1a1e26;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-accent: rgba(0, 212, 255, 0.2);
+  --text-primary: #f1f3f5;
+  --text-secondary: #adb5bd;
+  --text-muted: #6c757d;
+  --accent-cyan: #00d4ff;
+  --accent-blue: #007bff;
+  --accent-green: #2ecc71;
+  --accent-red: #e74c3c;
+  --accent-amber: #f39c12;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Keyframes ─── */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-border {
+
+  0%,
+  100% {
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+
+  50% {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+}
+
+@keyframes grid-fade {
+
+  0%,
+  100% {
+    opacity: 0.03;
+  }
+
+  50% {
+    opacity: 0.06;
+  }
+}
+
+@layer components {
+
+  /* ─── Cards ─── */
+  .glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: var(--border-default);
+  }
+
+  .glass-card-accent {
+    background: var(--bg-card);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.3s ease;
+  }
+
+  .glass-card-accent:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .stat-card:hover {
+    border-color: var(--border-default);
+    transform: translateY(-1px);
+  }
+
+  /* ─── Text ─── */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-accent {
+    color: var(--accent-cyan);
+  }
+
+  /* ─── Dot Grid Background ─── */
+  .dot-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    animation: grid-fade 8s ease-in-out infinite;
+  }
+
+  /* ─── Status Dots ─── */
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .status-dot-online {
+    background: var(--accent-green);
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+  }
+
+  .status-dot-warning {
+    background: var(--accent-amber);
+  }
+
+  .status-dot-danger {
+    background: var(--accent-red);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+  }
+
+  /* ─── Buttons ─── */
+  .btn-primary {
+    background: var(--accent-cyan);
+    color: #000;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+  }
+
+  /* ─── Sidebar ─── */
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+  }
+
+  .sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+  }
+
+  .sidebar-item.active {
+    background: rgba(0, 212, 255, 0.06);
+    color: var(--accent-cyan);
+    border-color: rgba(0, 212, 255, 0.12);
+  }
+
+  /* ─── Danger pulse ─── */
+  .danger-pulse {
+    animation: pulse-border 2s ease-in-out infinite;
+  }
+
+  /* ─── Floating orb ─── */
+  .float-orb {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* ─── Timeline ─── */
+  .timeline-line {
+    position: absolute;
+    left: 27px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(0, 212, 255, 0.2), transparent);
+  }
+
+  /* Leaflet overrides */
+  .leaflet-container {
+    background: #0a0a0a !important;
+    border-radius: 12px;
+  }
+
+  .leaflet-popup-content-wrapper {
+    background: #161616 !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px !important;
+  }
+
+  .leaflet-popup-tip {
+    background: #161616 !important;
+  }
+}
+
+/* ─── Danger marker pulse for live simulation ─── */
+@keyframes danger-marker-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255, 51, 51, 0.4);
+  }
+
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
+  }
+}
+
+/* Leaflet miner marker overrides */
+.miner-marker-icon {
+  background: none !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+/* ─── AI Terminal content ─── */
+.ai-terminal-content h1,
+.ai-terminal-content h2,
+.ai-terminal-content h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00d4ff;
+  margin-bottom: 6px;
+  margin-top: 8px;
+}
+
+.ai-terminal-content h3 {
+  font-size: 13px;
+}
+
+.ai-terminal-content p {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.ai-terminal-content ul,
+.ai-terminal-content ol {
+  padding-left: 16px;
+  margin-bottom: 6px;
+}
+
+.ai-terminal-content li {
+  margin-bottom: 3px;
+}
+
+.ai-terminal-content strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.ai-terminal-content code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  color: #a78bfa;
+}
+
+.ai-terminal-content pre {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+  overflow-x: auto;
+  font-size: 12px;
+}
+
+.ai-terminal-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.ai-terminal-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.ai-terminal-content th,
+.ai-terminal-content td {
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+}
+
+.ai-terminal-content th {
+  background: rgba(0, 212, 255, 0.05);
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─── AI Terminal streaming cursor ─── */
+@keyframes blink-cursor {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink-cursor {
+  animation: blink-cursor 0.8s ease-in-out infinite;
+}
+
+/* ─── Hazard stripe border for action confirm cards ─── */
+.hazard-stripe {
+  background: repeating-linear-gradient(-45deg,
+      rgba(251, 191, 36, 0.3),
+      rgba(251, 191, 36, 0.3) 4px,
+      rgba(0, 0, 0, 0.6) 4px,
+      rgba(0, 0, 0, 0.6) 8px);
+  border-radius: 0.5rem;
+}
+
+.action-confirm-btn {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.25));
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.action-confirm-btn:hover {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(245, 158, 11, 0.4));
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+}
