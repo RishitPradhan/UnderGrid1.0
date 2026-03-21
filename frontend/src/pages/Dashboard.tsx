@@ -234,7 +234,7 @@ export default function Dashboard() {
             {/* ─── Sidebar ─── */}
             <aside className={`fixed lg:relative z-40 h-screen transition-all duration-300 ${sidebarOpen ? "w-56" : "w-0 lg:w-16"} bg-surface border-r border-accent/10 flex flex-col overflow-hidden`}>
                 <div className="h-14 flex items-center px-4 border-b border-accent/10 gap-2.5 flex-shrink-0">
-                    <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.1)]">
+                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-bright to-accent-rust flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(239,136,82,0.1)]">
                         <HardHat className="w-4 h-4 text-surface-deep" />
                     </div>
                     {sidebarOpen && <span className="text-[14px] font-black tracking-tight whitespace-nowrap uppercase italic">undergrid<span className="text-accent">.ai</span></span>}
@@ -353,10 +353,10 @@ function OverviewSection({
     onSimReset: () => void;
 }) {
     const systemStatuses = [
-        { label: "InSAR Satellite", icon: Satellite, status: "Receiving", color: "#EF8852" },
-        { label: "AI Engine", icon: Brain, status: "Active", color: "#AB7E75" },
-        { label: "RFID Grid", icon: Wifi, status: "Online", color: "#82463C" },
-        { label: "Workers", icon: Users, status: `${simMiners.length} Tracked`, color: "#EF8852" },
+        { label: "InSAR Satellite", icon: Satellite, status: "Receiving", color: "#ff6b35" }, // Bright
+        { label: "AI Engine", icon: Brain, status: "Active", color: "#EF8852" },       // Default
+        { label: "RFID Grid", icon: Wifi, status: "Online", color: "#f59e0b" },        // Amber
+        { label: "Workers", icon: Users, status: `${simMiners.length} Tracked`, color: "#d9480f" }, // Rust
     ];
 
     return (
@@ -396,21 +396,21 @@ function OverviewSection({
                     <button
                         onClick={() => setSimCommand({ type: 'recall' })}
                         className={`relative group overflow-hidden rounded-xl p-3 text-left transition-all duration-300 ${simCommand.type === 'recall'
-                            ? 'bg-accent/10 border border-accent/40 shadow-[0_0_20px_rgba(239,136,82,0.05)]'
-                            : 'bg-surface-elevated/40 border border-accent/5 hover:bg-accent/5 hover:border-accent/20'
+                            ? 'bg-accent-amber/10 border border-accent-amber/40 shadow-[0_0_20px_rgba(245,158,11,0.05)]'
+                            : 'bg-surface-elevated/40 border border-accent-amber/5 hover:bg-accent-amber/5 hover:border-accent-amber/20'
                             }`}
                     >
                         {simCommand.type === 'recall' && (
-                            <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50" />
+                            <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-amber to-transparent opacity-50" />
                         )}
                         <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${simCommand.type === 'recall' ? 'bg-accent/20 text-accent' : 'bg-accent/10 text-accent/70 group-hover:text-accent group-hover:bg-accent/20'
+                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${simCommand.type === 'recall' ? 'bg-accent-amber/20 text-accent-amber' : 'bg-accent-amber/10 text-accent-amber/70 group-hover:text-accent-amber group-hover:bg-accent-amber/20'
                                 }`}>
                                 <RotateCcw className={`w-5 h-5 ${simCommand.type === 'recall' ? 'animate-[spin_4s_linear_infinite]' : ''}`} />
                             </div>
                             <div>
                                 <div className="text-[13px] font-bold text-text-primary tracking-wide">Recall All</div>
-                                <div className="text-[10px] text-accent/60 font-mono mt-0.5">Return to Base</div>
+                                <div className="text-[10px] text-accent-amber/60 font-mono mt-0.5">Return to Base</div>
                             </div>
                         </div>
                     </button>

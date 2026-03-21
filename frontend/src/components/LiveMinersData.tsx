@@ -84,7 +84,7 @@ export default function LiveMinersData() {
                         <div>
                             <h2 className="text-2xl font-black uppercase tracking-tight italic flex items-center gap-3">
                                 Worker Tracking
-                                <span className="text-sm bg-accent/10 text-accent px-3 py-1 rounded-full font-bold">{workers.length} Active</span>
+                                <span className="text-sm bg-accent-amber/10 text-accent-amber px-3 py-1 rounded-full font-bold">{workers.length} Active</span>
                             </h2>
                             <p className="text-accent-muted font-bold uppercase tracking-widest text-[10px] mt-1">Real-time locations and status</p>
                         </div>
@@ -94,7 +94,7 @@ export default function LiveMinersData() {
                             <button onClick={() => setView("list")} className={`px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all ${view === "list" ? "bg-accent/10 text-accent" : "text-white/40 hover:text-white"}`}>
                                 <List className="w-4 h-4 inline mr-1" /> List
                             </button>
-                            <button onClick={() => setView("map")} className={`px-3 py-1.5 rounded-md text-[11px] font-black uppercase tracking-widest transition-all ${view === "map" ? "bg-accent/10 text-accent shadow-[0_0_10px_rgba(239,136,82,0.1)]" : "text-white/35 hover:text-white/60"}`}>
+                            <button onClick={() => setView("map")} className={`px-3 py-1.5 rounded-md text-[11px] font-black uppercase tracking-widest transition-all ${view === "map" ? "bg-accent-amber/10 text-accent-amber shadow-[0_0_10px_rgba(245,158,11,0.1)]" : "text-white/35 hover:text-white/60"}`}>
                                 <Map className="w-4 h-4 inline mr-1" /> Map
                             </button>
                         </div>

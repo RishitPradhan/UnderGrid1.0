@@ -488,7 +488,7 @@ export default function LiveMinerSimulation({
                         <div>
                             <h2 className="text-lg font-bold flex items-center gap-2">
                                 Live Miner Simulation
-                                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest ${running ? "bg-accent/10 text-accent shadow-[0_0_10px_rgba(239,136,82,0.05)]" : "bg-white/5 text-white/40"}`}>
+                                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest ${running ? "bg-accent-bright/10 text-accent-bright shadow-[0_0_10px_rgba(255,107,53,0.1)]" : "bg-white/5 text-white/40"}`}>
                                     {running ? "● Active" : "○ Paused"}
                                 </span>
                             </h2>

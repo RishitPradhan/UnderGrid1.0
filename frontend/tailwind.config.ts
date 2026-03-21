@@ -16,14 +16,17 @@ export default {
                 },
                 accent: {
                     DEFAULT: "#EF8852",
-                    muted: "#AB7E75",
-                    deep: "#82463C",
-                    light: "#f3a57b"
+                    light: "#fdbba7",   // Light Peach
+                    bright: "#ff6b35",  // Bright Vibrant Orange
+                    amber: "#f59e0b",   // Amber/Yellow-Orange
+                    rust: "#d9480f",    // Deep Rust Orange
+                    muted: "#ab7e75",
+                    deep: "#82463c"
                 },
                 warm: {
-                    peach: "#EF8852",
-                    taupe: "#AB7E75",
-                    sienna: "#82463C",
+                    peach: "#ef8852",
+                    taupe: "#ab7e75",
+                    sienna: "#82463c",
                     chocolate: "#382522"
                 }
             },
