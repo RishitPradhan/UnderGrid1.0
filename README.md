@@ -48,7 +48,7 @@
 ## 📂 Project Structure
 
 ```text
-MineSafe-v2/
+Undergrid.AI/
 ├── backend/            # Express server, MongoDB models, Socket.io, AI services
 │   ├── routes/         # API endpoints (seismic, ventilation, biometrics, etc.)
 │   ├── controllers/    # Business logic for routes
